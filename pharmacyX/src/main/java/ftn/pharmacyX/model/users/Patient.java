@@ -2,9 +2,12 @@ package ftn.pharmacyX.model.users;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
@@ -23,11 +26,21 @@ public class Patient extends User {
 	
 	
 	@OneToMany
+	@JoinTable( 
+			  joinColumns = @JoinColumn(name = "patient_id"), 
+			  inverseJoinColumns = @JoinColumn(name = "appointment_id"))
 	private List<Appointment> appointmentHistory;
 	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable( 
+			  joinColumns = @JoinColumn(name = "patient_id"), 
+			  inverseJoinColumns = @JoinColumn(name = "drug_id"))
 	private List<Drug> drugHistory;
 	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable( 
+			  joinColumns = @JoinColumn(name = "patient_id"), 
+			  inverseJoinColumns = @JoinColumn(name = "drug_id"))
 	private List<Drug> allergies;
+	
 	
 	public Patient() {
 		

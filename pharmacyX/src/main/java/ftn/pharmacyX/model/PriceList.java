@@ -9,6 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.MapKeyJoinColumn;
 
 @Entity
 public class PriceList {
@@ -21,6 +24,10 @@ public class PriceList {
 	@Column
 	private LocalDate endDate;
 	@ElementCollection
+	@JoinTable(name = "pharmacy_pricelist_mapping", 
+				joinColumns = { @JoinColumn(name = "price_list_id", referencedColumnName = "id")})
+	@MapKeyJoinColumn(name = "drug_id")
+	@Column(name = "price")
 	private Map<Drug, Double> prices;
 	@Column
 	private boolean deleted = false;

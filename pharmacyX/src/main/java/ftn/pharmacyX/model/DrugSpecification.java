@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 import ftn.pharmacyX.enums.DrugForm;
@@ -38,6 +40,9 @@ public class DrugSpecification implements Serializable {
 	@Column
 	private String dailyRecommendation;
 	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable( 
+			  joinColumns = @JoinColumn(name = "drug_specification_id"), 
+			  inverseJoinColumns = @JoinColumn(name = "substitute_drug_id"))
 	private List<Drug> substitutes;
 	@Column
 	private String producer;

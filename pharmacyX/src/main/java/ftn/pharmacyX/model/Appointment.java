@@ -14,6 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -44,6 +46,9 @@ public abstract class Appointment implements Serializable{
 	@Column
 	private String therapyDescription;
 	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable( 
+			  joinColumns = @JoinColumn(name = "appointment_id"), 
+			  inverseJoinColumns = @JoinColumn(name = "therapy_drug_id"))
 	private List<Drug> therapyDrugs;
 	@Column
 	private double price;

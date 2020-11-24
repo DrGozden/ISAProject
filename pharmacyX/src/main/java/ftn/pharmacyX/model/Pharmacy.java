@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -11,7 +12,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.MapKeyColumn;
+import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
 
 import ftn.pharmacyX.model.users.Dermatologist;
@@ -33,14 +38,24 @@ public class Pharmacy implements Serializable {
 	@Column
 	private String description;
 	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable( 
+			  joinColumns = @JoinColumn(name = "pharmacy_id"), 
+			  inverseJoinColumns = @JoinColumn(name = "dermatologist_id"))
 	private List<Dermatologist> dermatologists;
 	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable( 
+			  joinColumns = @JoinColumn(name = "pharmacy_id"), 
+			  inverseJoinColumns = @JoinColumn(name = "pharmacist_id"))
 	private List<Pharmacist> pharmacists;
 	@ElementCollection
 	private List<Integer> ratings;
 	@OneToMany
 	private List<PriceList> priceList;
 	@ElementCollection
+	@CollectionTable(name = "pharmacy_stock_mapping", joinColumns = {
+			@JoinColumn(name = "pharmacy_id", referencedColumnName = "id")})
+	@MapKeyJoinColumn(name = "drug_id")
+	@Column(name = "quantity")
 	private Map<Drug, Integer> drugsInStock;
 	@Column
 	private boolean deleted = false;
