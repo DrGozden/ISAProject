@@ -1,6 +1,7 @@
 package ftn.pharmacyX.model.users;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -17,7 +18,6 @@ import javax.persistence.OneToOne;
 import ftn.pharmacyX.enums.UserRole;
 import ftn.pharmacyX.model.Address;
 
-
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
@@ -27,8 +27,7 @@ public abstract class User implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -48,14 +47,15 @@ public abstract class User implements Serializable {
 	private boolean deleted = false;
 	@Enumerated
 	private UserRole userRole;
-	
+	@Column
+	protected String uuid;
+
 	public User() {
-		
+
 	}
 
-	
 	public User(Long id, String firstName, String lastName, String email, String password, String phone,
-			Address address, boolean deleted, UserRole userRole) {
+			Address address, boolean deleted, UserRole userRole, String uuid) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -66,8 +66,9 @@ public abstract class User implements Serializable {
 		this.address = address;
 		this.deleted = deleted;
 		this.userRole = userRole;
+		//ZBOG AKTIVACIJE KORISNIKA
+		this.uuid = UUID.randomUUID().toString();
 	}
-
 
 	public Long getId() {
 		return id;
@@ -133,20 +134,20 @@ public abstract class User implements Serializable {
 		this.deleted = deleted;
 	}
 
-
 	public UserRole getUserRole() {
 		return userRole;
 	}
-
 
 	public void setUserRole(UserRole userRole) {
 		this.userRole = userRole;
 	}
 
+	public String getUuid() {
+		return uuid;
+	}
 
-	
-	
-	
-	
-	
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
 }

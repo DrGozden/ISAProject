@@ -24,27 +24,19 @@ public class Patient extends User {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	
+
 	@OneToMany
-	@JoinTable( 
-			  joinColumns = @JoinColumn(name = "patient_id"), 
-			  inverseJoinColumns = @JoinColumn(name = "appointment_id"))
+	@JoinTable(joinColumns = @JoinColumn(name = "patient_id"), inverseJoinColumns = @JoinColumn(name = "appointment_id"))
 	private List<Appointment> appointmentHistory;
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable( 
-			  joinColumns = @JoinColumn(name = "patient_id"), 
-			  inverseJoinColumns = @JoinColumn(name = "drug_id"))
+	@JoinTable(joinColumns = @JoinColumn(name = "patient_id"), inverseJoinColumns = @JoinColumn(name = "drug_id"))
 	private List<Drug> drugHistory;
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable( 
-			  joinColumns = @JoinColumn(name = "patient_id"), 
-			  inverseJoinColumns = @JoinColumn(name = "drug_id"))
+	@JoinTable(joinColumns = @JoinColumn(name = "patient_id"), inverseJoinColumns = @JoinColumn(name = "drug_id"))
 	private List<Drug> allergies;
-	
-	
+
 	public Patient() {
-		
+
 	}
 
 	public Patient(List<Appointment> appointmentHistory, List<Drug> drugHistory, List<Drug> allergies) {
@@ -54,12 +46,9 @@ public class Patient extends User {
 		this.allergies = allergies;
 	}
 
-	
-
-	
 	public Patient(Long id, String firstName, String lastName, String email, String password, String phone,
-			Address address, boolean deleted, UserRole userRole) {
-		super(id, firstName, lastName, email, password, phone, address, deleted, userRole);
+			Address address, boolean deleted, UserRole userRole, String uuid) {
+		super(id, firstName, lastName, email, password, phone, address, deleted, userRole, uuid);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -86,9 +75,5 @@ public class Patient extends User {
 	public void setAllergies(List<Drug> allergies) {
 		this.allergies = allergies;
 	}
-	
-	
-	
-	
-	
+
 }
