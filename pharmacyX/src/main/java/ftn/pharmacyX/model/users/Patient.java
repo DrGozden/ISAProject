@@ -11,6 +11,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import ftn.pharmacyX.enums.UserRole;
 import ftn.pharmacyX.model.Address;
 import ftn.pharmacyX.model.Appointment;
 import ftn.pharmacyX.model.Drug;
@@ -53,9 +54,12 @@ public class Patient extends User {
 		this.allergies = allergies;
 	}
 
+	
+
+	
 	public Patient(Long id, String firstName, String lastName, String email, String password, String phone,
-			Address address, boolean deleted) {
-		super(id, firstName, lastName, email, password, phone, address, deleted);
+			Address address, boolean deleted, UserRole userRole) {
+		super(id, firstName, lastName, email, password, phone, address, deleted, userRole);
 		// TODO Auto-generated constructor stub
 	}
 

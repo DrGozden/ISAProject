@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +14,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 
+import ftn.pharmacyX.enums.UserRole;
 import ftn.pharmacyX.model.Address;
 
 
@@ -44,13 +46,16 @@ public abstract class User implements Serializable {
 	private Address address;
 	@Column
 	private boolean deleted = false;
+	@Enumerated
+	private UserRole userRole;
 	
 	public User() {
 		
 	}
 
+	
 	public User(Long id, String firstName, String lastName, String email, String password, String phone,
-			Address address, boolean deleted) {
+			Address address, boolean deleted, UserRole userRole) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -60,7 +65,9 @@ public abstract class User implements Serializable {
 		this.phone = phone;
 		this.address = address;
 		this.deleted = deleted;
+		this.userRole = userRole;
 	}
+
 
 	public Long getId() {
 		return id;
@@ -125,6 +132,19 @@ public abstract class User implements Serializable {
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
 	}
+
+
+	public UserRole getUserRole() {
+		return userRole;
+	}
+
+
+	public void setUserRole(UserRole userRole) {
+		this.userRole = userRole;
+	}
+
+
+	
 	
 	
 	
