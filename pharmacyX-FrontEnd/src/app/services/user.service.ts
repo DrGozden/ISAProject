@@ -21,7 +21,7 @@ addUser(user) {
       addedUser => {
         this.users.push(addedUser);
         this.userSource.next(this.users);
-        alert("Succesfully added user " + user.email + ".");
+        alert("Succesfully registered user " + user.email + "." + "\n" + "Verification link sent to email!");
       }
     )
 }
