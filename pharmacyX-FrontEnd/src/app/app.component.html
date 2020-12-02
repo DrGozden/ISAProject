@@ -66,20 +66,103 @@
 
 
                 <!-- sidebar-header  -->
-                <div class="sidebar-menu" *ngIf="this.currentUser">
+                <div class="sidebar-menu" >
                     <ul>
-                        <li class="header-menu">
-                            <span>My Profile</span>
-                        </li>
+                        <li>
+                        <a routerLink="/my-profile">
+                            <i class="fa fa-user"></i>
+                            <span>My profile</span>
+                        </a>
+                         </li>>
+                         <li>
+                            <a routerLink="/my-allergies">
+                                <i class="fa fa-heartbeat"></i>
+                                <span>Allergies</span>
+                            </a>
+                        </li>>
+                        <li>
+                        <a routerLink="/dermatology-visit-history">
+                            <i class="fas fa-medkit"></i>
+                            <span>Dermatologist visit history</span>
+                        </a>
+                        </li>>
+                        <li>
+                            <a routerLink="/pharmacy-visit-history">
+                                <i class="fas fa-medkit"></i>
+                                <span>Pharmacy visit history</span>
+                            </a>
+                        </li>>
+                        <li>
+                            <a routerLink="/appointments">
+                                <i class="fa fa-calendar"></i>
+                                <span>Appointments</span>
+                            </a>
+                        </li>>
+                        <li>
+                            <a routerLink="/my-prescriptions">
+                                <i class="fa fa-book"></i>
+                                <span>My Prescriptions</span>
+                            </a>
+                        </li>>
+                        <li>
+                            <a routerLink="/my-reserved-pills">
+                                <i class="fa fa-heart"></i>
+                                <span>My reserved pills</span>
+                            </a>
+                        </li>>
+                        <li>
+                            <a routerLink="/my-penalties">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <span>My penalties</span>
+                            </a>
+                        </li>>
+                        <li>
+                            <a routerLink="/my-medicines-prescriptions">
+                                <i class="fa fa-circle"></i>
+                                <span>My medicines with prescription</span>
+                            </a>
+                        </li>>
+                        <li>
+                            <a routerLink="/my-medicines-take-over">
+                                <i class="fa fa-check-square"></i>
+                                <span>Medicine takeover</span>
+                            </a>
+                        </li>>
+                        <li>
+                            <a routerLink="/make-appointment-dermatologist">
+                                <i class="fa fa-plus-square"></i>
+                                <span>Make appointment dermatologist</span>
+                            </a>
+                        </li>>
+                        <li>
+                            <a routerLink="/make-appointment-pharmacist">
+                                <i class="fa fa-plus-square"></i>
+                                <span>Make appointment pharmacist</span>
+                            </a>
+                        </li>>
                     </ul>
                 </div>
                 <!-- sidebar-menu  -->
-                <div class="sidebar-menu" *ngIf="this.currentUser">
+                <div class="sidebar-menu">
                     <ul>
-                        <li class="header-menu">
-                            <span>Allergies</span>
-                        </li>
-                        
+                        <li>
+                        <a routerLink="/pharmacies">
+                            <i class="fas fa-hospital"></i>
+                            <span>Pharmacies</span>
+                        </a>
+                        </li>>
+                        <li>
+                            <a routerLink="/pharmacies-subscription">
+                                <i class="fas fa-hospital"></i>
+                                <span>Pharmacies subscription</span>
+                            </a>
+                        </li>>
+                        <li>
+                            <a routerLink="/pharmacies-subscription">
+                                <i class="fas fa-hospital"></i>
+                                <span>Appeal</span>
+                            </a>
+                        </li>>
                     </ul>
                 </div>
             </div>
