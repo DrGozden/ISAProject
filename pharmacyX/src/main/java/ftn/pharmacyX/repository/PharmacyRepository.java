@@ -1,11 +1,14 @@
 package ftn.pharmacyX.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import ftn.pharmacyX.model.Pharmacy;
 
 @Repository
-public interface PharmacyRepository extends CrudRepository<Pharmacy, Long> {
+public interface PharmacyRepository extends JpaRepository<Pharmacy, Long> {
 
+	public List<Pharmacy> findByDeleted(boolean deleted);
 }

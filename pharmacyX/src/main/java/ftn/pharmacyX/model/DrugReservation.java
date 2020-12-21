@@ -2,6 +2,7 @@ package ftn.pharmacyX.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,8 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 public class DrugReservation implements Serializable {
@@ -37,17 +36,17 @@ public class DrugReservation implements Serializable {
 	private boolean deleted = false;
 	
 	public DrugReservation() {
-		
+		this.code = UUID.randomUUID().toString();
 	}
 
-	public DrugReservation(Long id, Drug drug, Pharmacy pharmacy, LocalDateTime deadline, String code,
+	public DrugReservation(Long id, Drug drug, Pharmacy pharmacy, LocalDateTime deadline,
 			boolean deleted) {
 		super();
 		this.id = id;
 		this.drug = drug;
 		this.pharmacy = pharmacy;
 		this.deadline = deadline;
-		this.code = code;
+		this.code = UUID.randomUUID().toString();
 		this.deleted = deleted;
 	}
 

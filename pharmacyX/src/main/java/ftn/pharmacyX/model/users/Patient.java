@@ -75,5 +75,17 @@ public class Patient extends User {
 	public void setAllergies(List<Drug> allergies) {
 		this.allergies = allergies;
 	}
+	
+	public void addToAppointmentHistory(Appointment appointment) {
+		this.appointmentHistory.add(appointment);
+	}
+	
+	public void addAllergy(Drug drug) {
+		this.allergies.add(drug);
+	}
+	
+	public void addToDrugHistory(Drug drug) {
+		this.allergies.add(drug);
+	}
 
 }

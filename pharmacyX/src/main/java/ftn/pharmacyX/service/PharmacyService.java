@@ -15,15 +15,6 @@ public interface PharmacyService {
 	public List<Pharmacy> getAllPharmacies();
 	public Pharmacy getPharmacy(long id);
 	
-	public DermatologistExam scheduleExam(User patient, DermatologistExam exam);
-	public void cancelExam(DermatologistExam exam);
-	
-	
-	public PharmacistConsultation scheduleConsultation(User patient, PharmacistConsultation consultation);
-	public void cancelConsultation(PharmacistConsultation consultation);
-	
-	public DrugReservation reserveDrug(Drug drug);
-	public void cancelDrugReservation(Drug drug);
 	
 	public List<Pharmacy> search(String criteria);
 	public List<Pharmacy> filter(String filter);	
