@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Injectable({
   providedIn: 'root'
@@ -50,8 +51,8 @@ export class LoginService {
         }
         return userDTO;
       })).subscribe(
-        (data) => { alert("Successful!") },
-        error => { alert("Wrong username or password!") }
+        (data) => { Swal.fire({text: 'Hello!',icon: 'success'})},
+        error => {  Swal.fire('Oops...', 'Bad email/password!', 'error') }
       );
   }
 

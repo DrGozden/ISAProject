@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'pharmacyX-FrontEnd';//To-Do Current user logged in!
   public currentUser : User;
+  private currentUserEmail: string;
 
   constructor(
     private router: Router,
@@ -23,10 +24,10 @@ export class AppComponent {
   }
 
   getCurrentUser(){
-    debugger; 
     const currentUser = this.loginService.currentUserValue;
     this.currentUser = new User();
     this.currentUser = currentUser;
+    this.currentUserEmail = currentUser.email;
   }
 
 
