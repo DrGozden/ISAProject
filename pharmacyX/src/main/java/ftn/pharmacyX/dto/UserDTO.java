@@ -19,6 +19,15 @@ public class UserDTO {
 	private String JWTToken;
 	
 	public UserDTO(User user) {
+		this.id = user.getId();
+		this.firstName = user.getFirstName();
+		this.lastName = user.getLastName();
+		this.email = user.getEmail();
+		this.password = user.getPassword();
+		this.phone = user.getPhone();
+		this.address = user.getAddress();
+		this.deleted = user.isDeleted();
+		this.userRole = user.getUserRole();
 		
 	}
 	

@@ -10,7 +10,7 @@ export class User implements Deserializable {
     phone: string;
     address: Address;
     jwttoken : string;
-    idUser : number;
+    id : number;
     deleted : boolean;
     userRole: string;
 

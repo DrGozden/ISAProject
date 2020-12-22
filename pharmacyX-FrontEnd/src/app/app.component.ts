@@ -23,6 +23,7 @@ export class AppComponent {
   }
 
   getCurrentUser(){
+    debugger; 
     const currentUser = this.loginService.currentUserValue;
     this.currentUser = new User();
     this.currentUser = currentUser;

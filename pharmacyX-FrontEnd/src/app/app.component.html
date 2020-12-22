@@ -35,13 +35,13 @@
                 <div *ngIf="this.currentUser">
                     <div class="sidebar-header">
                         <div class="user-pic">
-                            <img class="img-responsive img-rounded" src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.winhelponline.com%2Fblog%2Freplace-default-user-account-picture-avatar-windows-10%2F&psig=AOvVaw24Nhz8GVOWubzT-HOsM_Tw&ust=1606420779807000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNjJvfK9nu0CFQAAAAAdAAAAABAD" alt="User picture">
+                            <img class="img-responsive img-rounded" src="https://cdn1.iconfinder.com/data/icons/avatars-1-5/136/51-512.png" alt="User picture">
                         </div>
                         <div class="user-info">
                             <span class="user-name">
-                                <strong> {{this.currentUser}}</strong>
+                                <strong> {{this.currentUser.email}}</strong>
                             </span>
-                            <span class="user-role">Member</span>
+                            <span class="user-role">Patient</span>
                             <span class="user-status">
                                 <i class="fa fa-circle"></i>
                                 <span>Online</span>
@@ -81,15 +81,15 @@
                             </a>
                         </li>>
                         <li>
-                        <a routerLink="/dermatology-visit-history">
+                        <a routerLink="/dermatology-exam-history">
                             <i class="fas fa-medkit"></i>
-                            <span>Dermatologist visit history</span>
+                            <span>Dermatologist exam history</span>
                         </a>
                         </li>>
                         <li>
-                            <a routerLink="/pharmacy-visit-history">
+                            <a routerLink="/consultation-history">
                                 <i class="fas fa-medkit"></i>
-                                <span>Pharmacy visit history</span>
+                                <span>Consultation history</span>
                             </a>
                         </li>>
                         <li>

@@ -30,7 +30,7 @@ export class LoginService {
     let user: User = new User();
     if (localStorage.getItem('currentUser')) {
       user.deserialize(JSON.parse(localStorage.getItem('currentUser')));
-      if (user.idUser != this.currentUserSubject.value.idUser) {
+      if (user.id != this.currentUserSubject.value.id) {
         this.currentUserSubject.next(user);
       }
     }

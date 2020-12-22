@@ -1,0 +1,50 @@
+
+    <section class="jumbotron" style="background:url('https://tereos.com/app/uploads/2018/06/cover-innovation-pharmacie.jpg')">
+        <div class="container" id="jumbotron1">
+            <h1 class="jumbotron-heading" style="color: rgba(200, 43, 43, 0.781);">Welcome to Pharmacy X.</h1>
+        </div>
+    </section>
+<body>
+    <div id="login">
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+                        <form id="login-form" class="form" action="" method="post">
+                            <div class="form-group">
+                                <input type="text" name="firstName" id="firstName" class="form-control" [(ngModel)]="this.user.firstName" placeholder="First name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="lastname" id="lastname" class="form-control" [(ngModel)]="this.user.lastName" placeholder="Last name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="email" id="email" class="form-control" [(ngModel)]="this.user.email" placeholder="Email" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="password" id="password" class="form-control" [(ngModel)]="this.user.password" placeholder="Password" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="number" id="number" class="form-control" [(ngModel)]="this.user.phone" placeholder="Phone number" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="city" id="city" class="form-control" [(ngModel)]="this.user.address.city" placeholder="City" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="street" id="street" class="form-control" [(ngModel)]="this.user.address.street" placeholder="Street" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="country" id="country" class="form-control" [(ngModel)]="this.user.address.country" placeholder="Country" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="postalCode" id="postalCode" class="form-control" [(ngModel)]="this.user.address.postalCode" placeholder="Postal" required>
+                            </div>
+                            <div class="form-group" id="button">
+                                <button (click)="addUser()" class="btn btn-danger btn-block">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
