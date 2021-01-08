@@ -1,7 +1,5 @@
 package ftn.pharmacyX.controller;
 
-import java.security.Principal;
-
 import javax.ws.rs.Produces;
 
 import org.springframework.beans.factory.annotation.Autowired;
