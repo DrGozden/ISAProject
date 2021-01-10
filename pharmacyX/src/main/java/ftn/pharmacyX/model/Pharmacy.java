@@ -15,9 +15,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import ftn.pharmacyX.model.users.Dermatologist;
 import ftn.pharmacyX.model.users.Pharmacist;
@@ -37,6 +37,8 @@ public class Pharmacy implements Serializable {
 	private String name;
 	@Column
 	private String description;
+	@OneToOne
+	private Address address;
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable( 
 			  joinColumns = @JoinColumn(name = "pharmacy_id"), 
@@ -64,7 +66,7 @@ public class Pharmacy implements Serializable {
 
 	}
 
-	public Pharmacy(Long id, String name, String description, List<Dermatologist> dermatologists,
+	public Pharmacy(Long id, String name, String description, Address address, List<Dermatologist> dermatologists,
 			List<Pharmacist> pharmacists, List<Integer> ratings, List<PriceList> priceList,
 			Map<Drug, Integer> drugsInStock, boolean deleted) {
 		super();
@@ -77,6 +79,7 @@ public class Pharmacy implements Serializable {
 		this.priceList = priceList;
 		this.drugsInStock = drugsInStock;
 		this.deleted = deleted;
+		this.address = address;
 	}
 
 	public Long getId() {
@@ -85,6 +88,14 @@ public class Pharmacy implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 	public String getName() {

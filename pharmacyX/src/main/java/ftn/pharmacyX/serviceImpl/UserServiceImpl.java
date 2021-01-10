@@ -6,7 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import ftn.pharmacyX.dto.EditPatientDTO;
-import ftn.pharmacyX.dto.UserDTO;
+import ftn.pharmacyX.enums.UserStatus;
 import ftn.pharmacyX.exceptions.EntityNotFoundException;
 import ftn.pharmacyX.model.Address;
 import ftn.pharmacyX.model.users.Patient;
@@ -14,6 +14,7 @@ import ftn.pharmacyX.model.users.User;
 import ftn.pharmacyX.repository.AddressRepository;
 import ftn.pharmacyX.repository.DrugRepository;
 import ftn.pharmacyX.repository.UserRepository;
+import ftn.pharmacyX.service.EmailService;
 import ftn.pharmacyX.service.UserService;
 
 @Service
@@ -28,11 +29,22 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private DrugRepository drugRepository;
 	
+	@Autowired
+	private EmailServiceImpl emailService;
+	
 
 	@Override
-	public User saveUser(UserDTO userDTO) {
-		// TODO Auto-generated method stub
-		return null;
+	public User saveUser(User user) {
+		user.setUserStatus(UserStatus.PENDING);
+		Address address = addressRepository.save(user.getAddress());
+		user.setAddress(address);
+		User saved = userRepository.save(user);
+		
+		emailService.sendMail(user, "Activation link", "Please follow the link below to activate your account \nhttp://localhost:9003/users/activate/"
+				+ user.getUuid());
+
+		return saved;
+		
 	}
 
 	@Override
