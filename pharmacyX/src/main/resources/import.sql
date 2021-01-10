@@ -45,4 +45,7 @@ insert into appointment (id, appointment_type, date_time, price, therapy_descrip
 insert into appointment (id, appointment_type, date_time, price, therapy_description, diagnosis, pharmacist_opinion, patient_id, pharmacy_id, dermatologist_id, pharmacist_id) values (763, 'pharmacist_appointment', '2021-01-03 16:00:00', 1500.00, 'Therapy description...', null, null, null, 717, null, 711);
 insert into appointment (id, appointment_type, date_time, price, therapy_description, diagnosis, pharmacist_opinion, patient_id, pharmacy_id, dermatologist_id, pharmacist_id) values (764, 'pharmacist_appointment', '2021-01-03 18:00:00', 1500.00, 'Therapy description2...', null, null, null, 717, null, 711);
 			
-					
+insert into user_allergies (patient_id, drug_id) values (713, 741)				
+insert into user_allergies (patient_id, drug_id) values (713, 742)
+insert into user_allergies (patient_id, drug_id) values (714, 743)
+
