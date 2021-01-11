@@ -1,0 +1,141 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+
+                <div class="card-body">
+                    <div class="card-title mb-4">
+                        <div class="d-flex justify-content-start">
+                            <div class="image-container">
+                                <img src="assets/resources/pharmacy.jpg" id="imgProfile" style="width: 150px; height: 150px" class="img-thumbnail" />
+                            </div>
+                            <div class="userData ml-3">
+                                <h2 class="d-block" style="font-size: 1.5rem; font-weight: bold">{{ pharmacy.name }}</h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a (click)="changeView('basic')" class="nav-link active" [class.active]="view==='basic'" id="basicInfo-tab" data-toggle="tab" role="tab" aria-controls="basicInfo" [class.aria-selected]="view==='basic'" >Basic Info</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a (click)="changeView('staff')" class="nav-link" [class.active]="view==='staff'" id="staff-tab" data-toggle="tab"  role="tab" aria-controls="staff" [class.aria-selected]="view==='staff'"  >Staff</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a (click)="changeView('drugs')" class="nav-link" [class.active]="view==='drugs'" id="drugs-tab" data-toggle="tab"  role="tab" aria-controls="drugs" [class.aria-selected]="view==='drugs'"  >Drugs</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a (click)="changeView('predefined')" class="nav-link" [class.active]="view==='predefined'" id="predefined-tab" data-toggle="tab"  role="tab" aria-controls="predefined" [class.aria-selected]="view==='predefined'"  >Predefined examinations</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content ml-1" id="myTabContent" >
+                                <div *ngIf="view==='basic'" class="tab-pane fade show active" id="basicInfo" role="tabpanel" aria-labelledby="basicInfo-tab">
+                                    <div class="row">
+                                        <div class="col-sm-3 col-md-2 col-5">
+                                            <label style="font-weight:bold;">Address</label>
+                                        </div>
+                                        <div class="col-md-8 col-6">
+                                            Ulica broj mesto
+                                            <!-- {{pharmacy.address.street}} {{pharmacy.address.number}}, {{pharmacy.address.city}} ({{pharmacy.address.country}}) -->
+                                        </div>
+                                    </div>
+                                    <hr />
+
+                                    <div class="row">
+                                        <div class="col-sm-3 col-md-2 col-5">
+                                            <label style="font-weight:bold;">Description</label>
+                                        </div>
+                                        <div class="col-md-8 col-6">
+                                            {{pharmacy.description}}
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-sm-3 col-md-2 col-5">
+                                            <label style="font-weight:bold;">Name</label>
+                                        </div>
+                                        <div class="col-md-8 col-6">
+                                            {{pharmacy.name}}
+                                        </div>
+                                    </div>
+                                    <hr />
+                                </div>
+                                
+
+                                <div *ngIf="view==='staff'" class="tab-pane fade show active" id="staff" role="tabpanel" aria-labelledby="staff-tab">
+                                    <div *ngFor="let der of pharmacy.dermatologists">
+                                        <div class="row" >
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;">Dermatologist: </label>
+                                            </div>
+                                            <div class="col-md-4 col-3">
+                                                {{der.firstName}} {{der.lastName}}
+                                            </div>
+                                            <div class="col-md-4 col-3">
+                                                <button>Rezervisi pregled</button>
+                                            </div> 
+                                        </div>
+                                        <hr />
+                                    </div>
+                                    <div *ngFor="let phar of pharmacy.pharmacists">
+                                        <div class="row" >
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;">Pharmacist: </label>
+                                            </div>
+                                            <div class="col-md-4 col-3">
+                                                {{phar.firstName}} {{phar.lastName}}
+                                            </div> 
+                                            <div class="col-md-4 col-3">
+                                                <button>Rezervisi pregled</button>
+                                            </div> 
+                                        </div>
+                                        <hr />
+                                    </div>
+                                </div>
+
+
+                                 <div *ngIf="view==='drugs'" class="tab-pane fade show active" id="drugs" role="tabpanel" aria-labelledby="drugs-tab">
+                                    <div *ngFor="let item of pharmacy.drugs">
+                                        <div class="row" >
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;">{{item.name}}</label>
+                                            </div>
+                                            <div class="col-md-8 col-6">
+                                                {{item.specification}}
+                                            </div> 
+                                            
+                                        </div>
+                                        <hr />
+                                    </div>
+                                </div>
+
+                                <div *ngIf="view==='predefined'" class="tab-pane fade show active" id="predefined" role="tabpanel" aria-labelledby="predefined-tab">
+                                    <div *ngFor="let pe of predefinedExaminations">
+                                        <div class="row" >
+                                            <ul>
+                                                <li>Datum: {{pe.date | date}}</li>
+                                                <li>Doctor: {{pe.doctorUsername}}</li>
+                                                <li>Type: {{pe.type}}</li>
+                                                <li>Duration: {{pe.duration}}</li>
+                                                <li>Price: {{pe.price}} rsd</li>
+                                                <li>Medical room: {{pe.medicalRoom}}</li>
+                                                <li><button class="btn btn-primary" (click)="reserve(pe.id )">Reserve</button></li>
+                                            </ul>
+                                        </div>
+                                        <hr />
+                                    </div>
+                                    
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

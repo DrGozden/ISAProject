@@ -1,0 +1,39 @@
+<div class="container">
+    <br>
+    <h4>List of available medicines: </h4>
+    <!-- <div class="dropdown">
+        Filter by location: <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{selectedLocation.locationName}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" (click)="refresh(0)">None</a>
+            <a class="dropdown-item" *ngFor="let loc of locations" (click)="refresh(loc.id)">{{loc.locationName}}</a>
+        </div>
+    </div> -->
+    <br>
+    <div class="row" id="ads" *ngIf="filteredMedicines">
+        <!-- Category Card -->
+        <div class="col-md-4" *ngFor="let fm of filteredMedicines">
+            <div class="card rounded">
+                <div class="card-image">
+                    <img class="img-fluid" src="assets/resources/medicine.jpeg" alt="Alternate Text" />
+                </div>
+                <div class="card-image-overlay m-auto">
+                    <span class="card-detail-badge">{{fm.code}}</span>
+                </div>
+
+                <div class="card-body text-center">
+                    <h5>{{fm.name}}</h5>
+                    <span class="card-detail-badge"><a class="moreLink" [routerLink]="['/drug', fm.code]">Click
+                            for more</a></span>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div *ngIf="!filteredMedicines">
+        <h2>No results found!</h2>
+    </div>
+</div>

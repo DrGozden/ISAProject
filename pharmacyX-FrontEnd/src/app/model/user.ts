@@ -1,5 +1,6 @@
 import { Deserializable } from './deserializable';
 import { Address } from './address';
+import { Drug } from './drug';
 
 export class User implements Deserializable {
     
@@ -13,6 +14,7 @@ export class User implements Deserializable {
     id : number;
     deleted : boolean;
     userRole: string;
+    allergies: Drug[] = []; 
 
     deserialize(input: any): this {
         Object.assign(this, input);

@@ -26,6 +26,8 @@ export class UserProfileComponent implements OnInit {
   ngOnInit() {
     if (localStorage.getItem('currentUser') != null) {
       this.user = this.loginService.currentUserValue;
+      console.log(this.user);
+      
     }
     else{
       this.return();
@@ -36,7 +38,7 @@ export class UserProfileComponent implements OnInit {
 
   editUser() {
     debugger
-    if (this.user.firstName !== '' && this.user.lastName !== '' && this.user.email !== '' && this.user.phone !== '' && this.user.address.city !==''
+    if (this.user.firstName !== '' && this.user.lastName !== ''  && this.user.phone !== '' && this.user.address.city !==''
                       && this.user.address.street !=='' && this.user.address.country !=='' && this.user.address.postalCode !=='' ) {
       this.userService.editUser(this.user);
       this.return();

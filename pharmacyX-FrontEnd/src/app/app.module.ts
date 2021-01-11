@@ -14,6 +14,9 @@ import { RegistrationComponent } from './registration/registration.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { AllergiesComponent } from './allergies/allergies.component';
+import { PharmaciesComponent } from './pharmacies/pharmacies.component';
+import { DrugSearchComponent } from './drug-search/drug-search.component';
+import { PharmacyComponent } from './pharmacy/pharmacy.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { AllergiesComponent } from './allergies/allergies.component';
     RegistrationComponent,
     HomepageComponent,
     UserProfileComponent,
-    AllergiesComponent
+    AllergiesComponent,
+    PharmaciesComponent,
+    DrugSearchComponent,
+    PharmacyComponent
   ],
   imports: [
     BrowserModule,
