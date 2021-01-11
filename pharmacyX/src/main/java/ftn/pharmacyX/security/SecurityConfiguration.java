@@ -60,13 +60,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 				.authorizeRequests().anyRequest().permitAll().and().httpBasic();
-		
-		httpSecurity
-		.csrf().disable()
-			.cors().and()
-		.authorizeRequests()
-			.antMatchers("/**").permitAll();
-		
+	
 		httpSecurity.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
 		//httpSecurity.addFilterBefore(myCorsFilteBean(), Filter.class);
 	}
