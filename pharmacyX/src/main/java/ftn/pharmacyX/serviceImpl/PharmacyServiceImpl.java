@@ -24,7 +24,8 @@ public class PharmacyServiceImpl implements PharmacyService {
 
 	@Override
 	public Pharmacy getPharmacy(long id) {
-		return pharmacyRepo.findById(id).orElse(null);
+		return pharmacyRepo.findByIdAndDeletedIsFalse(id);
+		
 	}
 
 

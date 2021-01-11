@@ -11,4 +11,7 @@ import ftn.pharmacyX.model.Pharmacy;
 public interface PharmacyRepository extends JpaRepository<Pharmacy, Long> {
 
 	public List<Pharmacy> findByDeleted(boolean deleted);
+	//Proveriti!
+	public Pharmacy findByIdAndDeletedIsFalse(Long id);
+	
 }

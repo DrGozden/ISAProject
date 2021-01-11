@@ -21,13 +21,12 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private AddressRepository addressRepository;
-	
+
 	@Autowired
 	private DrugRepository drugRepository;
-	
 
 	@Override
 	public User saveUser(UserDTO userDTO) {
@@ -69,30 +68,46 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Patient editPatient(EditPatientDTO editedPatient) {
 		Patient loggedPatient = (Patient) this.getLoggedUser();
-		
+
 		loggedPatient.setFirstName(editedPatient.getFirstName());
 		loggedPatient.setLastName(editedPatient.getLastName());
 		loggedPatient.setPhone(editedPatient.getPhone());
-		
+
 		Address address = loggedPatient.getAddress();
 		address.setCity(editedPatient.getCity());
 		address.setStreet(editedPatient.getStreet());
 		address.setCountry(editedPatient.getCountry());
 		address.setPostalCode(editedPatient.getPostalCode());
-		
+
 		// DA LI OVO TREBA UOPSTE ???
 		addressRepository.save(address);
-		
+
 		loggedPatient.getAllergies().clear();
-		
+
 		for (Long drugId : editedPatient.getAllergies()) {
 			loggedPatient.addAllergy(drugRepository.getOne(drugId));
 		}
-		
+
 		return userRepository.save(loggedPatient);
-		
+
 	}
 
+	@Override
+	public User editEmployee(User editedEmployee) {
+		User user = this.getLoggedUser();
 
+		user.setFirstName(editedEmployee.getFirstName());
+		user.setLastName(editedEmployee.getLastName());
+		user.setPhone(editedEmployee.getPhone());
+
+		user.getAddress().setCity(editedEmployee.getAddress().getCity());
+		user.getAddress().setCountry(editedEmployee.getAddress().getCountry());
+		user.getAddress().setStreet(editedEmployee.getAddress().getStreet());
+		user.getAddress().setPostalCode(editedEmployee.getAddress().getPostalCode());
+
+		userRepository.save(user);
+
+		return user;
+	}
 
 }
