@@ -27,17 +27,19 @@ insert into pharmacy_pharmacists (pharmacy_id, pharmacist_id) values (717, 712);
 insert into pharmacy_dermatologists (pharmacy_id, dermatologist_id) values (717, 715);
 insert into pharmacy_dermatologists (pharmacy_id, dermatologist_id) values (717, 716);
 
-insert into drug_specification (id, contraindications, daily_recommendation, description, drug_form, drug_type, prescription, producer, structure, deleted) values (730, 'Glavobolja', 'Preporuceno 1 tableta dnevno', 'Lek protiv mucnine', 1, 0, true, 'Convol', 'Sadrzi 450mg necega', false);
-insert into drug_specification (id, contraindications, daily_recommendation, description, drug_form, drug_type, prescription, producer, structure, deleted) values (731, 'Temperatura', '1 kesica dnevno', 'Lek protiv bola u misicima', 0, 3, true, 'Convol', 'Sadrzi 450mg necega', false);
-insert into drug_specification (id, contraindications, daily_recommendation, description, drug_form, drug_type, prescription, producer, structure, deleted) values (732, 'Povracanje', 'Preporuceno 1 kapsula dnevno', 'Lek protiv upale grla', 1, 1, true, 'Tantum', 'Sadrzi 450mg necega', false);
-insert into drug_specification (id, contraindications, daily_recommendation, description, drug_form, drug_type, prescription, producer, structure, deleted) values (733, 'Malaksalost, dijareja', 'Preporuceno 1 tableta na 4h', 'Brufen', 1, 1, true, 'Bayer', 'Sadrzi 200mg ibuprofena', false);
+insert into drug_specification (id, contraindications, daily_recommendation, description, drug_form, drug_type, prescription, producer, structure, deleted) values (731, 'Glavobolja', 'Preporuceno 1 tableta dnevno', 'Lek protiv mucnine', 1, 0, true, 'Convol', 'Sadrzi 450mg necega', false);
+insert into drug_specification (id, contraindications, daily_recommendation, description, drug_form, drug_type, prescription, producer, structure, deleted) values (732, 'Temperatura', '1 kesica dnevno', 'Lek protiv bola u misicima', 0, 3, true, 'Convol', 'Sadrzi 450mg necega', false);
+insert into drug_specification (id, contraindications, daily_recommendation, description, drug_form, drug_type, prescription, producer, structure, deleted) values (733, 'Povracanje', 'Preporuceno 1 kapsula dnevno', 'Lek protiv upale grla', 1, 1, true, 'Tantum', 'Sadrzi 450mg necega', false);
+insert into drug_specification (id, contraindications, daily_recommendation, description, drug_form, drug_type, prescription, producer, structure, deleted) values (734, 'Malaksalost, dijareja', 'Preporuceno 1 tableta na 4h', 'Brufen', 1, 1, true, 'Bayer', 'Sadrzi 200mg ibuprofena', false);
 				
 insert into drug (id, code, name, specification_id, deleted) values (741, 'SIFR111222333', 'Brufen 600mg', 733, false);
-insert into drug (id, code, name, specification_id, deleted) values (742, 'SIFR111222444', 'Rapidol 200mg', 731, false);
-insert into drug (id, code, name, specification_id, deleted) values (743, 'SIFR111222555', 'Enterofuril 200', 730, false);
-insert into drug (id, code, name, specification_id, deleted) values (744, 'SIFR111222666', 'Tantum Verde Kapsule', 732, false);
+insert into drug (id, code, name, specification_id, deleted) values (742, 'SIFR111222444', 'Rapidol 200mg', 732, false);
+insert into drug (id, code, name, specification_id, deleted) values (743, 'SIFR111222555', 'Enterofuril 200', 731, false);
+insert into drug (id, code, name, specification_id, deleted) values (744, 'SIFR111222666', 'Tantum Verde Kapsule', 734, false);
 				
-insert into drug_specification_substitutes (drug_specification_id, substitute_drug_id) values (731, 733);
+insert into drug_specification_substitutes (drug_specification_id, substitute_drug_id) values (732, 744);
+insert into drug_specification_substitutes (drug_specification_id, substitute_drug_id) values (734, 742);
+
 
 insert into appointment (id, appointment_type, date_time, price, therapy_description, diagnosis, pharmacist_opinion, patient_id, pharmacy_id, dermatologist_id, pharmacist_id, deleted) values (761, 'dermatologist_appointment', '2021-01-02 16:00:00', 1500.00, 'Therapy description...', 'Dermatologist diagnosis...', null, 713, 717, 715, null, false);
 insert into appointment (id, appointment_type, date_time, price, therapy_description, diagnosis, pharmacist_opinion, patient_id, pharmacy_id, dermatologist_id, pharmacist_id, deleted) values (762, 'dermatologist_appointment', '2021-01-02 18:00:00', 1500.00, 'Therapy description2...', 'Dermatologist diagnosis2...', null, 714, 717, 715, null, false);
@@ -45,7 +47,28 @@ insert into appointment (id, appointment_type, date_time, price, therapy_descrip
 insert into appointment (id, appointment_type, date_time, price, therapy_description, diagnosis, pharmacist_opinion, patient_id, pharmacy_id, dermatologist_id, pharmacist_id, deleted) values (763, 'pharmacist_appointment', '2021-01-03 16:00:00', 1500.00, 'Therapy description...', null, null, null, 717, null, 711, false);
 insert into appointment (id, appointment_type, date_time, price, therapy_description, diagnosis, pharmacist_opinion, patient_id, pharmacy_id, dermatologist_id, pharmacist_id, deleted) values (764, 'pharmacist_appointment', '2021-01-03 18:00:00', 1500.00, 'Therapy description2...', null, null, null, 717, null, 711, false);
 			
-insert into user_allergies (patient_id, drug_id) values (713, 741)				
-insert into user_allergies (patient_id, drug_id) values (713, 742)
-insert into user_allergies (patient_id, drug_id) values (714, 743)
+insert into user_allergies (patient_id, drug_id) values (713, 741);		
+insert into user_allergies (patient_id, drug_id) values (713, 742);
+insert into user_allergies (patient_id, drug_id) values (714, 743);
+
+insert into price_list (id, start_date, end_date, deleted) values (771, '2021-01-01', '2021-08-01', false);
+insert into price_list (id, start_date, end_date, deleted) values (772, '2021-08-02', '2022-01-01', false);
+
+insert into pharmacy_price_list (pharmacy_id, price_list_id) values (717, 771);
+insert into pharmacy_price_list (pharmacy_id, price_list_id) values (717, 772);
+
+insert into pharmacy_pricelist_mapping (price_list_id, price, drug_id) values (1, 250.0, 741);
+insert into pharmacy_pricelist_mapping (price_list_id, price, drug_id) values (1, 400.0, 742);
+insert into pharmacy_pricelist_mapping (price_list_id, price, drug_id) values (1, 970.0, 743);
+insert into pharmacy_pricelist_mapping (price_list_id, price, drug_id) values (1, 135.0, 744);
+
+insert into pharmacy_pricelist_mapping (price_list_id, price, drug_id) values (2, 300.0, 741);
+insert into pharmacy_pricelist_mapping (price_list_id, price, drug_id) values (2, 450.0, 742);
+insert into pharmacy_pricelist_mapping (price_list_id, price, drug_id) values (2, 1000.0, 743);
+insert into pharmacy_pricelist_mapping (price_list_id, price, drug_id) values (2, 200.0, 744);
+
+insert into pharmacy_stock_mapping (pharmacy_id, quantity, drug_id) values (717, 30, 741);
+insert into pharmacy_stock_mapping (pharmacy_id, quantity, drug_id) values (717, 52, 742);
+insert into pharmacy_stock_mapping (pharmacy_id, quantity, drug_id) values (717, 3, 743);
+insert into pharmacy_stock_mapping (pharmacy_id, quantity, drug_id) values (717, 20, 744);
 

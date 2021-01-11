@@ -2,16 +2,23 @@ package ftn.pharmacyX.helpers;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import ftn.pharmacyX.dto.DrugReservationDTO;
+import ftn.pharmacyX.dto.DrugsInStockDTO;
+import ftn.pharmacyX.dto.PharmacyDTO;
 import ftn.pharmacyX.dto.UserDTO;
 import ftn.pharmacyX.enums.UserRole;
 import ftn.pharmacyX.model.Address;
+import ftn.pharmacyX.model.Drug;
 import ftn.pharmacyX.model.DrugReservation;
+import ftn.pharmacyX.model.Pharmacy;
 import ftn.pharmacyX.model.users.Patient;
 import ftn.pharmacyX.repository.DrugRepository;
 import ftn.pharmacyX.repository.PharmacyRepository;
@@ -54,6 +61,36 @@ public class DTOConverter {
 		p.setPhone(dto.getPhone());
 		p.setUserRole(UserRole.PATIENT);
 		return p;
+	}
+	
+	public PharmacyDTO pharmacyToDTO(Pharmacy pharmacy) {
+		PharmacyDTO dto = new PharmacyDTO();
+		dto.setId(pharmacy.getId());
+		dto.setAddress(pharmacy.getAddress());
+		dto.setDermatologists(pharmacy.getDermatologists());
+		dto.setDescription(pharmacy.getDescription());
+		dto.setName(pharmacy.getName());
+		dto.setPharmacists(pharmacy.getPharmacists());
+		dto.setPriceList(pharmacy.getPriceList());
+		dto.setDrugsInStock(inStockToDTO(pharmacy.getDrugsInStock()));
+		return dto;
+	}
+	
+	public List<DrugsInStockDTO> inStockToDTO(Map<Drug, Integer> inStock) {
+		List<DrugsInStockDTO> retList = new ArrayList<DrugsInStockDTO>();
+		for (Drug d : inStock.keySet()) {
+			retList.add(new DrugsInStockDTO(d, inStock.get(d)));
+		}
+		return retList;
+	}
+	
+	public List<PharmacyDTO> pharmaciesToDTO(List<Pharmacy> pharmacies) {
+		List<PharmacyDTO> dtos = new ArrayList<PharmacyDTO>();
+		for (Pharmacy pharmacy : pharmacies) {
+			dtos.add(pharmacyToDTO(pharmacy));
+		}
+		
+		return dtos;
 	}
 	
 	

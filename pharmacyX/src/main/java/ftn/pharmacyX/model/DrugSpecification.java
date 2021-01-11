@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import ftn.pharmacyX.enums.DrugForm;
 import ftn.pharmacyX.enums.DrugType;
 
@@ -39,6 +41,7 @@ public class DrugSpecification implements Serializable {
 	private DrugForm drugForm;
 	@Column
 	private String dailyRecommendation;
+	@JsonBackReference
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable( 
 			  joinColumns = @JoinColumn(name = "drug_specification_id"), 
