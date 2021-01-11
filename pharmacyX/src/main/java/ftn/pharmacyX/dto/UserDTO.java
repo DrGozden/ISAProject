@@ -1,8 +1,12 @@
 package ftn.pharmacyX.dto;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ftn.pharmacyX.enums.UserRole;
 import ftn.pharmacyX.model.Address;
+import ftn.pharmacyX.model.Drug;
 import ftn.pharmacyX.model.users.User;
 
 public class UserDTO {
@@ -17,6 +21,7 @@ public class UserDTO {
 	private boolean deleted = false;
 	private UserRole userRole;
 	private String JWTToken;
+	private List<Drug> allergies = new ArrayList<Drug>();
 	
 	public UserDTO(User user) {
 		this.id = user.getId();
@@ -135,6 +140,20 @@ public class UserDTO {
 	public void setJWTToken(String jWTToken) {
 		JWTToken = jWTToken;
 	}
+
+
+
+	public List<Drug> getAllergies() {
+		return allergies;
+	}
+
+
+
+	public void setAllergies(List<Drug> allergies) {
+		this.allergies = allergies;
+	}
+	
+	
 	
 	
 
