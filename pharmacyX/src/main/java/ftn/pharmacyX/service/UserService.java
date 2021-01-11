@@ -18,6 +18,6 @@ public interface UserService {
 	
 	public Patient editPatient(EditPatientDTO editedPatient);
 
-	public User editEmployee(User editEmployee);
+	public UserDTO editUser(UserDTO editUser);
 
 }

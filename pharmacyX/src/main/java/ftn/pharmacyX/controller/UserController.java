@@ -8,14 +8,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ftn.pharmacyX.dto.EditPatientDTO;
 import ftn.pharmacyX.dto.UserDTO;
 import ftn.pharmacyX.enums.UserStatus;
 import ftn.pharmacyX.helpers.DTOConverter;
@@ -56,7 +53,7 @@ public class UserController {
 		return new ResponseEntity<String>("Bad activation link!", HttpStatus.BAD_REQUEST);
 	}
 
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<UserDTO> getUser() {
 		User user = userService.getLoggedUser();
 		if (user == null) {
@@ -86,13 +83,19 @@ public class UserController {
 		return new ResponseEntity<>(appts, HttpStatus.OK);
 	}
 	
+	@PutMapping(value = "/me", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<UserDTO> editUser(@RequestBody UserDTO userDTO){
+		return new ResponseEntity<>(userService.editUser(userDTO), HttpStatus.OK);
+	}
+	
+	/*
 	@PutMapping(value = "/patient/edit")
 	public ResponseEntity<Patient> editPatient(@RequestBody EditPatientDTO editedPatient) {
 		return new ResponseEntity<>(userService.editPatient(editedPatient), HttpStatus.OK);
 	}
-	
+	/*
 	@PutMapping(value = "/emloyee/edit")
-	public ResponseEntity<User> editEmployee(@RequestBody User editEmployee) {
+	public ResponseEntity<User> editEmployee(@RequestBody UserDTO editEmployee) {
 		return new ResponseEntity<>(userService.editEmployee(editEmployee), HttpStatus.OK);
 	}
 	
