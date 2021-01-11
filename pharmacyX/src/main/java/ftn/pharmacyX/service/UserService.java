@@ -8,7 +8,7 @@ import ftn.pharmacyX.model.users.User;
 public interface UserService {
 	
 
-	public User saveUser(UserDTO userDTO);
+	public User saveUser(User user);
 	
 	public User findByUuid(String uuid); 
 	
@@ -17,5 +17,7 @@ public interface UserService {
 	public User getLoggedUser();
 	
 	public Patient editPatient(EditPatientDTO editedPatient);
+
+	public UserDTO editUser(UserDTO editUser);
 
 }

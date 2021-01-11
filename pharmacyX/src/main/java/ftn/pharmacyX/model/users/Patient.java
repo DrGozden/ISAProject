@@ -2,7 +2,6 @@ package ftn.pharmacyX.model.users;
 
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -51,6 +50,7 @@ public class Patient extends User {
 		super(id, firstName, lastName, email, password, phone, address, deleted, userRole, uuid);
 		// TODO Auto-generated constructor stub
 	}
+	
 
 	public List<Appointment> getAppointmentHistory() {
 		return appointmentHistory;

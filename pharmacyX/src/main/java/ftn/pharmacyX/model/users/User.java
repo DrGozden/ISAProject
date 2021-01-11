@@ -16,6 +16,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 
 import ftn.pharmacyX.enums.UserRole;
+import ftn.pharmacyX.enums.UserStatus;
 import ftn.pharmacyX.model.Address;
 
 @Entity
@@ -49,9 +50,11 @@ public abstract class User implements Serializable {
 	private UserRole userRole;
 	@Column
 	protected String uuid;
+	@Enumerated
+	private UserStatus userStatus;
 
 	public User() {
-
+		this.uuid = UUID.randomUUID().toString();
 	}
 
 	public User(Long id, String firstName, String lastName, String email, String password, String phone,
@@ -144,6 +147,14 @@ public abstract class User implements Serializable {
 
 	public String getUuid() {
 		return uuid;
+	}
+
+	public UserStatus getUserStatus() {
+		return userStatus;
+	}
+
+	public void setUserStatus(UserStatus userStatus) {
+		this.userStatus = userStatus;
 	}
 
 	public void setUuid(String uuid) {

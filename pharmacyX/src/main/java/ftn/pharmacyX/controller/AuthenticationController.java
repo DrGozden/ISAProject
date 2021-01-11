@@ -43,15 +43,12 @@ public class AuthenticationController {
 	@PostMapping()
 	public ResponseEntity<?> login(@RequestBody()LoginDTO loginDTO){
 		try {
-        	// Perform the authentication
-			System.out.println("Pogodio kontroler" + loginDTO.getEmail() + loginDTO.getPassword());
         	UsernamePasswordAuthenticationToken token = 
         			new UsernamePasswordAuthenticationToken(
 					loginDTO.getEmail(), loginDTO.getPassword());
             Authentication authentication = authenticationManager.authenticate(token);            
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            // Reload user details so we can generate token
             UserDetails details = userDetailsService.
             		loadUserByUsername(loginDTO.getEmail());
             
