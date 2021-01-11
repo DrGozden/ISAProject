@@ -17,6 +17,9 @@ import { AllergiesComponent } from './allergies/allergies.component';
 import { PharmaciesComponent } from './pharmacies/pharmacies.component';
 import { DrugSearchComponent } from './drug-search/drug-search.component';
 import { PharmacyComponent } from './pharmacy/pharmacy.component';
+import { DrugReservationsComponent } from './drug-reservations/drug-reservations.component';
+import { ConsultingReservationsComponent } from './consulting-reservations/consulting-reservations.component';
+import { ExamReservationsComponent } from './exam-reservations/exam-reservations.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,10 @@ import { PharmacyComponent } from './pharmacy/pharmacy.component';
     AllergiesComponent,
     PharmaciesComponent,
     DrugSearchComponent,
-    PharmacyComponent
+    PharmacyComponent,
+    DrugReservationsComponent,
+    ConsultingReservationsComponent,
+    ExamReservationsComponent
   ],
   imports: [
     BrowserModule,
