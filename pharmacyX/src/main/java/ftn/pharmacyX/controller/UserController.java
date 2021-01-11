@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import ftn.pharmacyX.dto.UserDTO;
+import ftn.pharmacyX.enums.UserRole;
 import ftn.pharmacyX.enums.UserStatus;
 import ftn.pharmacyX.helpers.DTOConverter;
 import ftn.pharmacyX.model.Appointment;
@@ -60,6 +61,10 @@ public class UserController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		UserDTO userDTO = new UserDTO(user);
+		if (user.getUserRole() == UserRole.PATIENT) {
+			Patient p = (Patient) user;
+			userDTO.setAllergies(p.getAllergies());
+		}
 		return new ResponseEntity<>(userDTO, HttpStatus.OK);
 	}
 	
