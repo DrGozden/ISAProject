@@ -1,0 +1,46 @@
+<h2 style="margin-left: 50px; margin-top: 20px;">Medical examination history: </h2>
+			
+<div class="container">
+	<!-- <div class="form-group">
+		<label>Sort by</label>
+		<select (change)="onChange()" class="custom-select" name="type"  [(ngModel)]="sortType" >
+			<option  *ngFor="let st of sortTypes" >{{st}}</option>
+		</select>
+	</div> -->
+
+	<div class="row clearfix">
+		<div class="col-md-12 table-responsive">
+			<table class="table table-bordered table-sortable" id="tab_logic">
+				<thead>
+					<tr>
+						<th class="text-center">
+							Drug name
+						</th>
+						<th class="text-center">
+							Code
+						</th>
+						<th class="text-center">
+							Specification
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr id='addr0' data-id="0" class="hidden" *ngFor="let reservation of drugReservations">
+						<td data-name="name">
+							{{reservation.name}}
+						</td>
+						<td data-name="mail">
+							{{reservation.code}}
+						</td>
+						<td data-name="desc">
+							{{reservation.specification}}
+						</td>
+						<td>
+							<button  class="btn btn-primary" (click)="delete(reservation.id)">Cancel reservation</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
