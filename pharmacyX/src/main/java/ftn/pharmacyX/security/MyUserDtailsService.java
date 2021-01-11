@@ -13,6 +13,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import ftn.pharmacyX.enums.UserStatus;
+import ftn.pharmacyX.exceptions.UserNotActivatedException;
 import ftn.pharmacyX.model.users.User;
 import ftn.pharmacyX.serviceImpl.UserServiceImpl;
 
@@ -26,6 +28,10 @@ public class MyUserDtailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		final User user = service.findByEmail(email);
+		
+		if (user.getUserStatus() != UserStatus.ACTIVATED) {
+			throw new UserNotActivatedException("Please activate your account first!");
+		}
 
 		UserDetails details = new UserDetails() {
 			/**
