@@ -13,9 +13,15 @@ import ftn.pharmacyX.model.PharmacistConsultation;
 @Repository
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
 
-	@Query(value = "SELECT * FROM Appointment WHERE appointment_type = dermatologist_appointment and pharmacy_id = ?1", nativeQuery = true)
+	@Query(value = "SELECT * FROM Appointment WHERE appointment_type = 'dermatologist_appointment' and pharmacy_id = ?1", nativeQuery = true)
 	public List<DermatologistExam> findDermatologistExamsByPharmacyId(Long id);
 	
-	@Query(value = "SELECT * FROM Appointment WHERE appointment_type = pharmacist_appointment and pharmacy_id = ?1", nativeQuery = true)
+	@Query(value = "SELECT * FROM Appointment WHERE appointment_type = 'pharmacist_appointment' and pharmacy_id = ?1", nativeQuery = true)
 	public List<PharmacistConsultation> findConsultationsByPharmacyId(Long id); 
+	
+	@Query(value = "SELECT * FROM Appointment WHERE appointment_type = 'pharmacist_appointment' and patient_id = ?1", nativeQuery = true)
+	public List<PharmacistConsultation> findConsultationsByUserId(Long id);
+
+	@Query(value = "SELECT * FROM Appointment WHERE appointment_type = 'dermatologist_appointment' and patient_id = ?1", nativeQuery = true)
+	public List<DermatologistExam> findExamsByUserId(Long id); 
 }

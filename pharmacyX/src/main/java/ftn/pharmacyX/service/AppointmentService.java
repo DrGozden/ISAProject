@@ -4,6 +4,7 @@ import java.util.List;
 
 import ftn.pharmacyX.model.DermatologistExam;
 import ftn.pharmacyX.model.PharmacistConsultation;
+import ftn.pharmacyX.model.users.Patient;
 import ftn.pharmacyX.model.users.User;
 
 public interface AppointmentService {
@@ -16,5 +17,7 @@ public interface AppointmentService {
 	
 	public List<DermatologistExam> getDermatologistExamsForPharmacy(Long pharmacyId);
 	public List<PharmacistConsultation> getPharmacistConsutationsForPharmacy(Long pharmacyId);
+	public List<PharmacistConsultation> getPharmacistConsutationsForUser(Patient patient);
+	public List<DermatologistExam> getDermatologistExamsForUser(Patient patient);
 
 }

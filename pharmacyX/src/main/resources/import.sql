@@ -9,12 +9,12 @@ insert into address (id, city, country, deleted, postal_code, street) values (70
 insert into address (id, city, country, deleted, postal_code, street) values (709, 'Novi Sad', 'Serbia', false, '21000', 'Pupinova 29');
 insert into address (id, city, country, deleted, postal_code, street) values (710, 'Novi Sad', 'Serbia', false, '21000', 'Bulevar Oslobodjenja 12');
 
-insert into user (id, first_name, last_name, email, password, phone, user_type, address_id, user_role, deleted) values (711, 'Nikola', 'Nikolic', 'nikola@gmail.com', '$2a$10$Bhbe5Azsb1wOUnTXJMfnrO8Ou2kCrBDI4AQDwTOEm5MxG/0YtmtzG', '111-222', 'pharmacist_user', 701, 2, false);
-insert into user (id, first_name, last_name, email, password, phone, user_type, address_id, user_role, deleted) values (712, 'Nemanja', 'Nemanjic', 'nemanja@gmail.com', '$2a$10$Bhbe5Azsb1wOUnTXJMfnrO8Ou2kCrBDI4AQDwTOEm5MxG/0YtmtzG', '333-444', 'pharmacist_user', 702, 2, false);
-insert into user (id, first_name, last_name, email, password, phone, user_type, address_id, user_role, deleted) values (713, 'Ana', 'Anic', 'ana@gmail.com', '$2a$10$Bhbe5Azsb1wOUnTXJMfnrO8Ou2kCrBDI4AQDwTOEm5MxG/0YtmtzG', '333-222', 'patient_user', 703, 0, false);
-insert into user (id, first_name, last_name, email, password, phone, user_type, address_id, user_role, deleted) values (714, 'Mira', 'Miric', 'mira@gmail.com', '$2a$10$Bhbe5Azsb1wOUnTXJMfnrO8Ou2kCrBDI4AQDwTOEm5MxG/0YtmtzG', '111-555', 'patient_user', 704, 0, false);
-insert into user (id, first_name, last_name, email, password, phone, user_type, address_id, user_role, deleted) values (715, 'Pera', 'Peric', 'pera@gmail.com', '$2a$10$Bhbe5Azsb1wOUnTXJMfnrO8Ou2kCrBDI4AQDwTOEm5MxG/0YtmtzG', '111-333', 'dermatologist_user', 705, 1, false);
-insert into user (id, first_name, last_name, email, password, phone, user_type, address_id, user_role, deleted) values (716, 'Djura', 'Djuric', 'djura@gmail.com', '$2a$10$Bhbe5Azsb1wOUnTXJMfnrO8Ou2kCrBDI4AQDwTOEm5MxG/0YtmtzG', '111-444', 'dermatologist_user', 706, 1, false);
+insert into user (id, first_name, last_name, email, password, phone, user_type, address_id, user_role, deleted, user_status) values (711, 'Nikola', 'Nikolic', 'nikola@gmail.com', '$2a$10$Bhbe5Azsb1wOUnTXJMfnrO8Ou2kCrBDI4AQDwTOEm5MxG/0YtmtzG', '111-222', 'pharmacist_user', 701, 2, false, 0);
+insert into user (id, first_name, last_name, email, password, phone, user_type, address_id, user_role, deleted, user_status) values (712, 'Nemanja', 'Nemanjic', 'nemanja@gmail.com', '$2a$10$Bhbe5Azsb1wOUnTXJMfnrO8Ou2kCrBDI4AQDwTOEm5MxG/0YtmtzG', '333-444', 'pharmacist_user', 702, 2, false, 0);
+insert into user (id, first_name, last_name, email, password, phone, user_type, address_id, user_role, deleted, user_status) values (713, 'Ana', 'Anic', 'ana@gmail.com', '$2a$10$Bhbe5Azsb1wOUnTXJMfnrO8Ou2kCrBDI4AQDwTOEm5MxG/0YtmtzG', '333-222', 'patient_user', 703, 0, false, 0);
+insert into user (id, first_name, last_name, email, password, phone, user_type, address_id, user_role, deleted, user_status) values (714, 'Mira', 'Miric', 'mira@gmail.com', '$2a$10$Bhbe5Azsb1wOUnTXJMfnrO8Ou2kCrBDI4AQDwTOEm5MxG/0YtmtzG', '111-555', 'patient_user', 704, 0, false, 0);
+insert into user (id, first_name, last_name, email, password, phone, user_type, address_id, user_role, deleted, user_status) values (715, 'Pera', 'Peric', 'pera@gmail.com', '$2a$10$Bhbe5Azsb1wOUnTXJMfnrO8Ou2kCrBDI4AQDwTOEm5MxG/0YtmtzG', '111-333', 'dermatologist_user', 705, 1, false, 0);
+insert into user (id, first_name, last_name, email, password, phone, user_type, address_id, user_role, deleted, user_status) values (716, 'Djura', 'Djuric', 'djura@gmail.com', '$2a$10$Bhbe5Azsb1wOUnTXJMfnrO8Ou2kCrBDI4AQDwTOEm5MxG/0YtmtzG', '111-444', 'dermatologist_user', 706, 1, false, 0);
 				
 
 insert into pharmacy (id, name, description, address_id, deleted) values (717, 'Apoteka PharmacyX 1', 'Bulevar', 710, false);
@@ -39,11 +39,11 @@ insert into drug (id, code, name, specification_id, deleted) values (744, 'SIFR1
 				
 insert into drug_specification_substitutes (drug_specification_id, substitute_drug_id) values (731, 733);
 
-insert into appointment (id, appointment_type, date_time, price, therapy_description, diagnosis, pharmacist_opinion, patient_id, pharmacy_id, dermatologist_id, pharmacist_id) values (761, 'dermatologist_appointment', '2021-01-02 16:00:00', 1500.00, 'Therapy description...', 'Dermatologist diagnosis...', null, 713, 717, 715, null);
-insert into appointment (id, appointment_type, date_time, price, therapy_description, diagnosis, pharmacist_opinion, patient_id, pharmacy_id, dermatologist_id, pharmacist_id) values (762, 'dermatologist_appointment', '2021-01-02 18:00:00', 1500.00, 'Therapy description2...', 'Dermatologist diagnosis2...', null, 714, 717, 715, null);
+insert into appointment (id, appointment_type, date_time, price, therapy_description, diagnosis, pharmacist_opinion, patient_id, pharmacy_id, dermatologist_id, pharmacist_id, deleted) values (761, 'dermatologist_appointment', '2021-01-02 16:00:00', 1500.00, 'Therapy description...', 'Dermatologist diagnosis...', null, 713, 717, 715, null, false);
+insert into appointment (id, appointment_type, date_time, price, therapy_description, diagnosis, pharmacist_opinion, patient_id, pharmacy_id, dermatologist_id, pharmacist_id, deleted) values (762, 'dermatologist_appointment', '2021-01-02 18:00:00', 1500.00, 'Therapy description2...', 'Dermatologist diagnosis2...', null, 714, 717, 715, null, false);
 
-insert into appointment (id, appointment_type, date_time, price, therapy_description, diagnosis, pharmacist_opinion, patient_id, pharmacy_id, dermatologist_id, pharmacist_id) values (763, 'pharmacist_appointment', '2021-01-03 16:00:00', 1500.00, 'Therapy description...', null, null, null, 717, null, 711);
-insert into appointment (id, appointment_type, date_time, price, therapy_description, diagnosis, pharmacist_opinion, patient_id, pharmacy_id, dermatologist_id, pharmacist_id) values (764, 'pharmacist_appointment', '2021-01-03 18:00:00', 1500.00, 'Therapy description2...', null, null, null, 717, null, 711);
+insert into appointment (id, appointment_type, date_time, price, therapy_description, diagnosis, pharmacist_opinion, patient_id, pharmacy_id, dermatologist_id, pharmacist_id, deleted) values (763, 'pharmacist_appointment', '2021-01-03 16:00:00', 1500.00, 'Therapy description...', null, null, null, 717, null, 711, false);
+insert into appointment (id, appointment_type, date_time, price, therapy_description, diagnosis, pharmacist_opinion, patient_id, pharmacy_id, dermatologist_id, pharmacist_id, deleted) values (764, 'pharmacist_appointment', '2021-01-03 18:00:00', 1500.00, 'Therapy description2...', null, null, null, 717, null, 711, false);
 			
 insert into user_allergies (patient_id, drug_id) values (713, 741)				
 insert into user_allergies (patient_id, drug_id) values (713, 742)

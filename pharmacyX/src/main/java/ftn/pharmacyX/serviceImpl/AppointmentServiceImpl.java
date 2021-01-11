@@ -77,5 +77,17 @@ public class AppointmentServiceImpl implements AppointmentService {
 		return appointmentRepo.findConsultationsByPharmacyId(pharmacyId);
 	}
 
+	@Override
+	public List<PharmacistConsultation> getPharmacistConsutationsForUser(Patient patient) {
+		List<PharmacistConsultation> consultations = appointmentRepo.findConsultationsByUserId(patient.getId());
+		return consultations;
+	}
+
+	@Override
+	public List<DermatologistExam> getDermatologistExamsForUser(Patient patient) {
+		List<DermatologistExam> exams = appointmentRepo.findExamsByUserId(patient.getId());
+		return exams;
+	}
+
 
 }
