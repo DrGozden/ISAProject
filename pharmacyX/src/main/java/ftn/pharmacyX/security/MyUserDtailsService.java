@@ -25,7 +25,7 @@ public class MyUserDtailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		final User user = service.findByEmail(email); //USERA getujemo pomocu emaila
+		final User user = service.findByEmail(email);
 
 		UserDetails details = new UserDetails() {
 			/**
@@ -60,7 +60,7 @@ public class MyUserDtailsService implements UserDetailsService {
 			@Override
 			public String getUsername() {
 				// TODO Auto-generated method stub
-				return user.getEmail(); //Umesto username koristimo EMAIL
+				return user.getEmail(); 
 			}
 
 			@Override
