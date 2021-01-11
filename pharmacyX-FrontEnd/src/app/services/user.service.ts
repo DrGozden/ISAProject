@@ -10,7 +10,6 @@ import { User } from '../model/user';
 export class UserService {
 
 
-private userUrl = "http://localhost:9003/api/user";
 private userSource = new BehaviorSubject<User[]>([]);
 userObservable = this.userSource.asObservable();
 private users = [];
@@ -18,7 +17,7 @@ private users = [];
 constructor(private http: HttpClient) { }
 
 addUser(user) {
-  this.http.post<User>(this.userUrl, user)
+  this.http.post<User>("http://localhost:9003/register", user)
     .subscribe(
       addedUser => {
         this.users.push(addedUser);
@@ -29,7 +28,7 @@ addUser(user) {
 }
 
 getUser(email) {
-  return this.http.get<User>(this.userUrl + "/" + email)
+  return this.http.get<User>("http://localhost:9003/user" + "/" + email)
     .pipe(tap(
       user => {
         for (var i = 0; i < this.users.length; i++) {
@@ -44,7 +43,7 @@ getUser(email) {
 }
 
 editUser(user: User) {
-  this.http.put<User>(this.userUrl, user)
+  this.http.put<User>("http://localhost:9003/me", user)
     .subscribe(
       editedUser => {
         for (var i = 0; i < this.users.length; i++) {
