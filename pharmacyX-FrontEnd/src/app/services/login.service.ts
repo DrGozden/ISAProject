@@ -40,8 +40,6 @@ export class LoginService {
 
   
   login(loginDto: LoginDTO) {
-    console.log(loginDto);
-    
     return this.http.post<any>(`http://localhost:9003/login`, loginDto)
       .pipe(map(userDTO => {
         if (userDTO && userDTO.jwttoken) {
