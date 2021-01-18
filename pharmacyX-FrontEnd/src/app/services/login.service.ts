@@ -40,7 +40,8 @@ export class LoginService {
 
   
   login(loginDto: LoginDTO) {
-    debugger;
+    console.log(loginDto);
+    
     return this.http.post<any>(`http://localhost:9003/login`, loginDto)
       .pipe(map(userDTO => {
         if (userDTO && userDTO.jwttoken) {
@@ -55,6 +56,7 @@ export class LoginService {
         error => {  Swal.fire('Oops...', 'Bad email/password!', 'error') }
       );
   }
+  
 
   logout() {
     // remove user from local storage to log user out
