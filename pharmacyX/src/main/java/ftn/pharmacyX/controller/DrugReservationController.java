@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ftn.pharmacyX.dto.DrugReservationDTO;
 import ftn.pharmacyX.model.DrugReservation;
-import ftn.pharmacyX.model.users.Patient;
 import ftn.pharmacyX.service.DrugReservationService;
 import ftn.pharmacyX.service.UserService;
 

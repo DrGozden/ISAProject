@@ -18,8 +18,10 @@ import ftn.pharmacyX.enums.UserRole;
 import ftn.pharmacyX.enums.UserStatus;
 import ftn.pharmacyX.helpers.DTOConverter;
 import ftn.pharmacyX.model.Appointment;
+import ftn.pharmacyX.model.DrugReservation;
 import ftn.pharmacyX.model.users.Patient;
 import ftn.pharmacyX.model.users.User;
+import ftn.pharmacyX.service.DrugReservationService;
 import ftn.pharmacyX.service.UserService;
 
 @RestController
@@ -27,6 +29,9 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	DrugReservationService drugReservationService;
 	
 	@Autowired
 	private DTOConverter converter;
@@ -92,6 +97,14 @@ public class UserController {
 	public ResponseEntity<UserDTO> editUser(@RequestBody UserDTO userDTO){
 		userService.editUser(userDTO);
 		return new ResponseEntity<>(userDTO, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/me/history/drugreservations", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> getDrugReservations() {
+		User user = userService.getLoggedUser();
+		List<DrugReservation> reservations = drugReservationService.getDrugReservationsForUser(user);
+		
+		return new ResponseEntity<>(reservations, HttpStatus.OK);
 	}
 	
 	/*

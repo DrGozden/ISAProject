@@ -7,5 +7,5 @@ import ftn.pharmacyX.model.DrugReservation;
 
 @Repository
 public interface DrugReservationRepository extends JpaRepository<DrugReservation, Long> {
-
+	
 }
