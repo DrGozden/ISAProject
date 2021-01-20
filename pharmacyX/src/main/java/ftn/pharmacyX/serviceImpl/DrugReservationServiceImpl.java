@@ -20,7 +20,7 @@ public class DrugReservationServiceImpl implements DrugReservationService {
 	
 	@Override
 	public DrugReservation makeReservation(DrugReservationDTO reservationDTO) {
-		DrugReservation newReservation = converter.dtoToDrugReservation(reservationDTO);
+		DrugReservation newReservation = converter.dtoToDrugReservation(reservationDTO);	
 		return reservationRepo.save(newReservation);
 		
 	}

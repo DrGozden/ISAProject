@@ -11,6 +11,7 @@ import ftn.pharmacyX.enums.UserStatus;
 import ftn.pharmacyX.exceptions.EntityNotFoundException;
 import ftn.pharmacyX.model.Address;
 import ftn.pharmacyX.model.Drug;
+import ftn.pharmacyX.model.DrugReservation;
 import ftn.pharmacyX.model.users.Patient;
 import ftn.pharmacyX.model.users.User;
 import ftn.pharmacyX.repository.AddressRepository;
@@ -107,6 +108,14 @@ public class UserServiceImpl implements UserService {
 		}
 
 		return new UserDTO(user);
+	}
+
+	@Override
+	public User addDrugReservation(DrugReservation drugReservation) {
+		Patient patient = (Patient) getLoggedUser();
+		patient.getDrugReservations().add(drugReservation);
+		userRepository.save(patient);
+		return patient;
 	}
 
 }
