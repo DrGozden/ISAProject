@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import ftn.pharmacyX.dto.EditPatientDTO;
 import ftn.pharmacyX.dto.UserDTO;
 import ftn.pharmacyX.enums.UserRole;
 import ftn.pharmacyX.enums.UserStatus;
@@ -83,33 +84,6 @@ public class UserServiceImpl implements UserService {
 			e.printStackTrace();
 			throw e;
 		}
-	}
-
-	@Override
-	public Patient editPatient(EditPatientDTO editedPatient) {
-		Patient loggedPatient = (Patient) this.getLoggedUser();
-
-		loggedPatient.setFirstName(editedPatient.getFirstName());
-		loggedPatient.setLastName(editedPatient.getLastName());
-		loggedPatient.setPhone(editedPatient.getPhone());
-
-		Address address = loggedPatient.getAddress();
-		address.setCity(editedPatient.getCity());
-		address.setStreet(editedPatient.getStreet());
-		address.setCountry(editedPatient.getCountry());
-		address.setPostalCode(editedPatient.getPostalCode());
-
-		
-		addressRepository.save(address);
-
-		loggedPatient.getAllergies().clear();
-
-		for (Long drugId : editedPatient.getAllergies()) {
-			loggedPatient.addAllergy(drugRepository.getOne(drugId));
-		}
-
-		return userRepository.save(loggedPatient);
-
 	}
 
 	@Override
