@@ -5,11 +5,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import ftn.pharmacyX.dto.EditPatientDTO;
 import ftn.pharmacyX.dto.UserDTO;
+import ftn.pharmacyX.enums.UserRole;
 import ftn.pharmacyX.enums.UserStatus;
 import ftn.pharmacyX.exceptions.EntityNotFoundException;
 import ftn.pharmacyX.model.Address;
+import ftn.pharmacyX.model.Drug;
 import ftn.pharmacyX.model.users.Patient;
 import ftn.pharmacyX.model.users.User;
 import ftn.pharmacyX.repository.AddressRepository;
@@ -79,33 +80,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Patient editPatient(EditPatientDTO editedPatient) {
-		Patient loggedPatient = (Patient) this.getLoggedUser();
-
-		loggedPatient.setFirstName(editedPatient.getFirstName());
-		loggedPatient.setLastName(editedPatient.getLastName());
-		loggedPatient.setPhone(editedPatient.getPhone());
-
-		Address address = loggedPatient.getAddress();
-		address.setCity(editedPatient.getCity());
-		address.setStreet(editedPatient.getStreet());
-		address.setCountry(editedPatient.getCountry());
-		address.setPostalCode(editedPatient.getPostalCode());
-
-		// DA LI OVO TREBA UOPSTE ???
-		addressRepository.save(address);
-
-		loggedPatient.getAllergies().clear();
-
-		for (Long drugId : editedPatient.getAllergies()) {
-			loggedPatient.addAllergy(drugRepository.getOne(drugId));
-		}
-
-		return userRepository.save(loggedPatient);
-
-	}
-
-	@Override
 	public UserDTO editUser(UserDTO editedUser) {
 		User user = this.getLoggedUser();
 
@@ -118,7 +92,20 @@ public class UserServiceImpl implements UserService {
 		user.getAddress().setStreet(editedUser.getAddress().getStreet());
 		user.getAddress().setPostalCode(editedUser.getAddress().getPostalCode());
 
-		userRepository.save(user);
+		Patient patient;
+		if (user.getUserRole() == UserRole.PATIENT) {
+			patient = (Patient) user;
+			patient.getAllergies().clear();
+
+			for (Drug drug : editedUser.getAllergies()) {
+				patient.addAllergy(drug);
+			}
+
+			userRepository.save(patient);
+		} else {
+			userRepository.save(user);
+		}
+
 		return new UserDTO(user);
 	}
 

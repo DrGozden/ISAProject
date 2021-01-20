@@ -90,7 +90,8 @@ public class UserController {
 	
 	@PutMapping(value = "/me", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<UserDTO> editUser(@RequestBody UserDTO userDTO){
-		return new ResponseEntity<>(userService.editUser(userDTO), HttpStatus.OK);
+		userService.editUser(userDTO);
+		return new ResponseEntity<>(userDTO, HttpStatus.OK);
 	}
 	
 	/*

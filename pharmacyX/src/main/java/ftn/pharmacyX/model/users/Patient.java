@@ -14,6 +14,7 @@ import ftn.pharmacyX.enums.UserRole;
 import ftn.pharmacyX.model.Address;
 import ftn.pharmacyX.model.Appointment;
 import ftn.pharmacyX.model.Drug;
+import ftn.pharmacyX.model.DrugReservation;
 
 @Entity
 @DiscriminatorValue("patient_user")
@@ -33,16 +34,20 @@ public class Patient extends User {
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(joinColumns = @JoinColumn(name = "patient_id"), inverseJoinColumns = @JoinColumn(name = "drug_id"))
 	private List<Drug> allergies;
+	@OneToMany
+	@JoinTable(joinColumns = @JoinColumn(name = "patient_id"), inverseJoinColumns = @JoinColumn(name = "drug_reservation_id"))
+	private List<DrugReservation> drugReservations;
 
 	public Patient() {
 
 	}
 
-	public Patient(List<Appointment> appointmentHistory, List<Drug> drugHistory, List<Drug> allergies) {
+	public Patient(List<Appointment> appointmentHistory, List<Drug> drugHistory, List<Drug> allergies, List<DrugReservation> drugReservations) {
 		super();
 		this.appointmentHistory = appointmentHistory;
 		this.drugHistory = drugHistory;
 		this.allergies = allergies;
+		this.drugReservations = drugReservations;
 	}
 
 	public Patient(Long id, String firstName, String lastName, String email, String password, String phone,
@@ -87,5 +92,15 @@ public class Patient extends User {
 	public void addToDrugHistory(Drug drug) {
 		this.allergies.add(drug);
 	}
+
+	public List<DrugReservation> getDrugReservations() {
+		return drugReservations;
+	}
+
+	public void setDrugReservations(List<DrugReservation> drugReservations) {
+		this.drugReservations = drugReservations;
+	}
+	
+	
 
 }
