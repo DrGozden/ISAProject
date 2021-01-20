@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Drug } from '../model/drug';
 import { Pharmacy } from '../model/pharmacy';
+import { DrugsService } from '../services/drugs.service';
 
 @Component({
   selector: 'app-drug-search',
@@ -13,18 +14,17 @@ export class DrugSearchComponent implements OnInit {
   medicines: Drug[] = [];
   filteredMedicines: Drug[] = [];
   
-  constructor(private http: HttpClient) { }
+  constructor(private drugService: DrugsService) { }
 
   ngOnInit() {
     this.reload();
   }
 
   public reload() {
-    this.http.get<Drug[]>('http://localhost:9003/pharmacies').subscribe((data) => {
+    this.drugService.loadDrugs().subscribe((data) => {
       this.medicines = data;
       this.filteredMedicines = data;
       console.log(data);
-      
       /*this.http.get<LocationDTO[]>('http://localhost:8080/api/location/allLocation').subscribe((data) => {
         this.locations = data;
         console.log(data);

@@ -25,6 +25,8 @@ import ftn.pharmacyX.model.Pharmacy;
 import ftn.pharmacyX.model.users.Patient;
 import ftn.pharmacyX.model.users.User;
 import ftn.pharmacyX.service.PharmacyService;
+import ftn.pharmacyX.model.DrugReservation;
+import ftn.pharmacyX.service.DrugReservationService;
 import ftn.pharmacyX.service.UserService;
 
 @RestController
@@ -35,6 +37,9 @@ public class UserController {
 	
 	@Autowired
 	PharmacyService pharmacyService;
+
+	@Autowired
+	DrugReservationService drugReservationService;
 	
 	@Autowired
 	private DTOConverter converter;
@@ -98,7 +103,16 @@ public class UserController {
 	
 	@PutMapping(value = "/me", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<UserDTO> editUser(@RequestBody UserDTO userDTO){
-		return new ResponseEntity<>(userService.editUser(userDTO), HttpStatus.OK);
+		userService.editUser(userDTO);
+		return new ResponseEntity<>(userDTO, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/me/history/drugreservations", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> getDrugReservations() {
+		User user = userService.getLoggedUser();
+		List<DrugReservation> reservations = drugReservationService.getDrugReservationsForUser(user);
+		
+		return new ResponseEntity<>(reservations, HttpStatus.OK);
 	}
 	
 	/*

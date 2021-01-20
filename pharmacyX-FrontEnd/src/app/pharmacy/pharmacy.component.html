@@ -89,7 +89,7 @@
                                                 {{phar.firstName}} {{phar.lastName}}
                                             </div> 
                                             <div class="col-md-4 col-3">
-                                                <button>Rezervisi pregled</button>
+                                                <button>Rezervisi savetovanje</button>
                                             </div> 
                                         </div>
                                         <hr />
@@ -98,15 +98,17 @@
 
 
                                  <div *ngIf="view==='drugs'" class="tab-pane fade show active" id="drugs" role="tabpanel" aria-labelledby="drugs-tab">
-                                    <div *ngFor="let item of pharmacy.drugs">
+                                    <div *ngFor="let item of pharmacy.drugsInStock">
                                         <div class="row" >
                                             <div class="col-sm-3 col-md-2 col-5">
-                                                <label style="font-weight:bold;">{{item.name}}</label>
+                                                <label style="font-weight:bold;">{{item.drug.name}}</label>
                                             </div>
                                             <div class="col-md-8 col-6">
-                                                {{item.specification}}
+                                                Quantity: {{item.quantity}}
                                             </div> 
-                                            
+                                            <div class="col-md-4 col-3">
+                                                <button>Rezervisi lek</button>
+                                            </div>
                                         </div>
                                         <hr />
                                     </div>

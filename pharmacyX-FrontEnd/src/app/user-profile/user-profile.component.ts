@@ -7,6 +7,8 @@ import { LoginService } from '../services/login.service';
 import { UserService } from '../services/user.service';
 import { Location } from '@angular/common';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { Drug } from '../model/drug';
+import { DrugsService } from '../services/drugs.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -17,27 +19,27 @@ export class UserProfileComponent implements OnInit {
 
   public user: User;
   private userRole: string;
+  public drugs: Drug[] = [];
+  public selectedDrug: Drug = new Drug();
 
   constructor(private userService: UserService, private loginService: LoginService, private location: Location, private toastr: ToastrService,
-    private route: ActivatedRoute, private http: HttpClient) {
+    private route: ActivatedRoute, private http: HttpClient, private drugService: DrugsService) {
     this.user = new User();
+    this.drugService.loadDrugs().subscribe((data) => {
+      this.drugs = data;
+      console.log(this.drugs);
+    })
   }
 
   ngOnInit() {
-    if (localStorage.getItem('currentUser') != null) {
-      this.user = this.loginService.currentUserValue;
-      console.log(this.user);
-      
-    }
-    else{
-      this.return();
-    }
+    this.userService.getUser().subscribe((data) => {
+      this.user = data;
+    });
   }
 
 
 
   editUser() {
-    debugger
     if (this.user.firstName !== '' && this.user.lastName !== ''  && this.user.phone !== '' && this.user.address.city !==''
                       && this.user.address.street !=='' && this.user.address.country !=='' && this.user.address.postalCode !=='' ) {
       this.userService.editUser(this.user);
@@ -50,6 +52,17 @@ export class UserProfileComponent implements OnInit {
 
   return() {
     this.location.back()
+  }
+
+  addAlergie(alergie) {
+    let i;
+    for(i = 0 ; i < this.drugs.length; i++) {
+      if(this.drugs[i].name === alergie) {
+        this.user.allergies.push(this.drugs[i]);
+      }
+    }
+    
+    
   }
 
 }

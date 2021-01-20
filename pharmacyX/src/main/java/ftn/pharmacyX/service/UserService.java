@@ -4,9 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import ftn.pharmacyX.dto.EditPatientDTO;
-import ftn.pharmacyX.dto.UserDTO;
 import ftn.pharmacyX.model.Pharmacy;
 import ftn.pharmacyX.model.users.Patient;
+import ftn.pharmacyX.dto.UserDTO;
+import ftn.pharmacyX.model.DrugReservation;
 import ftn.pharmacyX.model.users.User;
 
 public interface UserService {
@@ -19,8 +20,6 @@ public interface UserService {
 	public User findByEmail(String email);
 	
 	public User getLoggedUser();
-	
-	public Patient editPatient(EditPatientDTO editedPatient);
 
 	public UserDTO editUser(UserDTO editUser);
 	
@@ -31,5 +30,6 @@ public interface UserService {
 	public List<User> findAllDermatologists();
 	
 	public List<User> findAllDermatologistsForPharmacy(Pharmacy pharmacy);
+	public User addDrugReservation(DrugReservation drugReservation);
 
 }
