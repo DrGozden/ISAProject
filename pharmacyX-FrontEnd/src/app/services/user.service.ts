@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { User } from '../model/user';
 
@@ -27,20 +27,25 @@ addUser(user) {
     )
 }
 
-getUser(email) {
-  return this.http.get<User>("http://localhost:9003/user" + "/" + email)
-    .pipe(tap(
-      user => {
-        for (var i = 0; i < this.users.length; i++) {
-          if (user.email === this.users[i].email) {
-            this.users[i] = stop;
-            this.userSource.next(this.users);
-            return stop;
-          }
-        }
-      })
-    )
+public getUser() : Observable<User>{
+  //let headers = this.authService.getHeaders();
+  return this.http.get<User>('http://localhost:9003/me'); 
 }
+
+// getUser(email) {
+//   return this.http.get<User>("http://localhost:9003/user" + "/" + email)
+//     .pipe(tap(
+//       user => {
+//         for (var i = 0; i < this.users.length; i++) {
+//           if (user.email === this.users[i].email) {
+//             this.users[i] = stop;
+//             this.userSource.next(this.users);
+//             return stop;
+//           }
+//         }
+//       })
+//     )
+// }
 
 editUser(user: User) {
   this.http.put<User>("http://localhost:9003/me", user)

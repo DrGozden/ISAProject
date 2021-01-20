@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Appointment } from '../model/appointment';
+import { ReservationService } from '../services/reservation.service';
 
 @Component({
   selector: 'app-exam-reservations',
@@ -7,9 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ExamReservationsComponent implements OnInit {
 
-  constructor() { }
+  public reservations: Appointment[] = [];
+
+  constructor(private reservationService: ReservationService) {}
 
   ngOnInit() {
+    this.reload();
+  }
+
+  public reload(){
+    this.reservationService.loadDermatologistReservations().subscribe((data)=> {
+      this.reservations = data;
+      console.log(this.reservations);
+    });
+  }
+
+  public cancel(id) {
+    this.reservationService.cancelDermatologistReservation(id).subscribe((data)=>{
+      this.reload();
+    })
   }
 
 }
