@@ -11,6 +11,11 @@ import { PharmacyComponent } from './pharmacy/pharmacy.component';
 import { DrugReservationsComponent } from './drug-reservations/drug-reservations.component';
 import { ExamReservationsComponent } from './exam-reservations/exam-reservations.component';
 import { ConsultingReservationsComponent } from './consulting-reservations/consulting-reservations.component';
+import { ConsultingReservationComponent } from './consulting-reservation/consulting-reservation.component';
+import { DrugReservationComponent } from './drug-reservation/drug-reservation.component';
+import { ExamReservationComponent } from './exam-reservation/exam-reservation.component';
+import { FinalConsultationReservationComponent } from './final-consultation-reservation/final-consultation-reservation.component';
+import { FinalDrugReservationComponent } from './final-drug-reservation/final-drug-reservation.component';
 
 const routes: Routes = [
   { path: 'homepage', component: HomepageComponent },
@@ -25,6 +30,12 @@ const routes: Routes = [
   { path: 'drug-reservations', component: DrugReservationsComponent},
   { path: 'exam-reservations', component: ExamReservationsComponent},
   { path: 'consulting-reservations', component: ConsultingReservationsComponent},
+  { path: 'drug-reservation/:id', component: DrugReservationComponent},
+  { path: 'exam-reservation/:id', component: ExamReservationComponent},
+  { path: 'consulting-reservation', component: ConsultingReservationComponent},
+
+  { path: 'confirm-consulting-reservation/:pharmacyId/:doctorId', component: FinalConsultationReservationComponent},
+  { path: 'confirm-drug-reservation/:pharmacyId/:drugId', component: FinalDrugReservationComponent},
 
 ];
 

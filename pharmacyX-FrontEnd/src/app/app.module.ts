@@ -20,6 +20,11 @@ import { PharmacyComponent } from './pharmacy/pharmacy.component';
 import { DrugReservationsComponent } from './drug-reservations/drug-reservations.component';
 import { ConsultingReservationsComponent } from './consulting-reservations/consulting-reservations.component';
 import { ExamReservationsComponent } from './exam-reservations/exam-reservations.component';
+import { DrugReservationComponent } from './drug-reservation/drug-reservation.component';
+import { ExamReservationComponent } from './exam-reservation/exam-reservation.component';
+import { ConsultingReservationComponent } from './consulting-reservation/consulting-reservation.component';
+import { FinalDrugReservationComponent } from './final-drug-reservation/final-drug-reservation.component';
+import { FinalConsultationReservationComponent } from './final-consultation-reservation/final-consultation-reservation.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +39,12 @@ import { ExamReservationsComponent } from './exam-reservations/exam-reservations
     PharmacyComponent,
     DrugReservationsComponent,
     ConsultingReservationsComponent,
-    ExamReservationsComponent
+    ExamReservationsComponent,
+    DrugReservationComponent,
+    ExamReservationComponent,
+    ConsultingReservationComponent,
+    FinalDrugReservationComponent,
+    FinalConsultationReservationComponent
   ],
   imports: [
     BrowserModule,

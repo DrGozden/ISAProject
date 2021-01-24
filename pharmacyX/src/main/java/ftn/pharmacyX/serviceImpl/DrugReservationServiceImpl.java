@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import ftn.pharmacyX.dto.DrugReservationDTO;
 import ftn.pharmacyX.helpers.DTOConverter;
@@ -13,6 +14,7 @@ import ftn.pharmacyX.model.users.User;
 import ftn.pharmacyX.repository.DrugReservationRepository;
 import ftn.pharmacyX.service.DrugReservationService;
 
+@Service
 public class DrugReservationServiceImpl implements DrugReservationService {
 
 	@Autowired
