@@ -12,6 +12,6 @@ public interface PharmacyService {
 	public Pharmacy getPharmacy(long id);
 	
 	public List<Pharmacy> searchPharmacies(Map<String, String> queryParams);
-
+	public List<Pharmacy> getPharmaciesContainingDrug(Long drugId);
 	
 }
