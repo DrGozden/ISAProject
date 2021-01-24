@@ -116,7 +116,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 		List<DermatologistExam> exams = appointmentRepo.findDermatologistExamsByPharmacyId(pharmacyId);
 		List<DermatologistExam> freeExams = new ArrayList<DermatologistExam>();
 		for (DermatologistExam dermatologistExam : exams) {
+			System.out.println(dermatologistExam.getId());
 			if(dermatologistExam.getDateTime().isAfter(LocalDateTime.now()) && dermatologistExam.getPatient()==null) {
+				System.out.println(dermatologistExam.getPatient());
 				freeExams.add(dermatologistExam);	
 			}
 		}

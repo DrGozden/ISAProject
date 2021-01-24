@@ -104,7 +104,7 @@
                                                 Quantity: {{item.quantity}}
                                             </div> 
                                             <div class="col-md-4 col-3">
-                                                <button>Rezervisi lek</button>
+                                                <button (click)="reserveMedicine(item)">Rezervisi lek</button>
                                             </div>
                                         </div>
                                         <hr />
@@ -112,21 +112,17 @@
                                 </div>
 
                                 <div *ngIf="view==='predefined'" class="tab-pane fade show active" id="predefined" role="tabpanel" aria-labelledby="predefined-tab">
-                                    <div *ngFor="let pe of predefinedExaminations">
+                                    <div *ngFor="let pe of predefinedExams">
                                         <div class="row" >
                                             <ul>
-                                                <li>Datum: {{pe.date | date}}</li>
-                                                <li>Doctor: {{pe.doctorUsername}}</li>
-                                                <li>Type: {{pe.type}}</li>
-                                                <li>Duration: {{pe.duration}}</li>
+                                                <li>Date {{parseDateTime(pe.dateTime) | date: 'short'}}</li>
+                                                <li>Doctor: {{pe.dermatologist.firstName }} {{pe.dermatologist.lastName}}</li>
                                                 <li>Price: {{pe.price}} rsd</li>
-                                                <li>Medical room: {{pe.medicalRoom}}</li>
-                                                <li><button class="btn btn-primary" (click)="reserve(pe.id )">Reserve</button></li>
+                                                <li><button class="btn btn-primary" (click)="reserve(pe.id)">Reserve</button></li>
                                             </ul>
                                         </div>
                                         <hr />
                                     </div>
-                                    
                                 </div> 
                             </div>
                         </div>
