@@ -83,5 +83,10 @@ insert into drug_reservation (id, code, deadline, deleted, drug_id, pharmacy_id)
 insert into user_drug_reservations (patient_id, drug_reservation_id) values (713, 997);		
 insert into user_drug_reservations (patient_id, drug_reservation_id) values (713, 998);
 
+insert into user_appointment_history(patient_id, appointment_id) values (713, 761);		
+insert into user_appointment_history(patient_id, appointment_id) values (713, 762);	
+insert into user_appointment_history(patient_id, appointment_id) values (713, 765);		
+insert into user_appointment_history(patient_id, appointment_id) values (713, 766);	
+
 
 
