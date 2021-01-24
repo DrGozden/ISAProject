@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ftn.pharmacyX.model.DermatologistExam;
 import ftn.pharmacyX.model.PharmacistConsultation;
-import ftn.pharmacyX.model.users.Patient;
 import ftn.pharmacyX.model.users.User;
 import ftn.pharmacyX.service.AppointmentService;
 import ftn.pharmacyX.service.UserService;
@@ -36,6 +35,22 @@ public class AppointmentController {
 		List<DermatologistExam> exams = apptService.getDermatologistExamsForPharmacy(pharmacyId);
 
 		return new ResponseEntity<>(exams, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/pharmacies/{id}/unreserved_exams", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> getUnreservedExamsForPharmacy(@PathVariable("id") Long pharmacyId) {
+
+		List<DermatologistExam> exams = apptService.getUnreservedDermatologistExamsForPharmacy(pharmacyId);
+
+		return new ResponseEntity<>(exams, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/pharmacies/{id}/unreserved_consultation", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> getUnreservedConsultationsForPharmacy(@PathVariable("id") Long pharmacyId) {
+
+		List<PharmacistConsultation> consultations = apptService.getUnreservedConsultationsForPharmacy(pharmacyId);
+
+		return new ResponseEntity<>(consultations, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/pharmacies/{id}/consultations", produces = MediaType.APPLICATION_JSON_VALUE)

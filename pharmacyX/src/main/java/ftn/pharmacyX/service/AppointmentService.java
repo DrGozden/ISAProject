@@ -19,5 +19,7 @@ public interface AppointmentService {
 	public List<PharmacistConsultation> getPharmacistConsutationsForPharmacy(Long pharmacyId);
 	public List<PharmacistConsultation> getPharmacistConsutationsForUser(Patient patient);
 	public List<DermatologistExam> getDermatologistExamsForUser(Patient patient);
+	public List<DermatologistExam> getUnreservedDermatologistExamsForPharmacy(Long pharmacyId);
+	public List<PharmacistConsultation> getUnreservedConsultationsForPharmacy(Long pharmacyId);
 
 }

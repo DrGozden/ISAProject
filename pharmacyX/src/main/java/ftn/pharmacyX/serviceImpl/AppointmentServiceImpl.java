@@ -1,5 +1,7 @@
 package ftn.pharmacyX.serviceImpl;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,6 +89,30 @@ public class AppointmentServiceImpl implements AppointmentService {
 	public List<DermatologistExam> getDermatologistExamsForUser(Patient patient) {
 		List<DermatologistExam> exams = appointmentRepo.findExamsByUserId(patient.getId());
 		return exams;
+	}
+
+	@Override
+	public List<DermatologistExam> getUnreservedDermatologistExamsForPharmacy(Long pharmacyId) {
+		List<DermatologistExam> exams = appointmentRepo.findDermatologistExamsByPharmacyId(pharmacyId);
+		List<DermatologistExam> freeExams = new ArrayList<DermatologistExam>();
+		for (DermatologistExam dermatologistExam : exams) {
+			if(dermatologistExam.getDateTime().isAfter(LocalDateTime.now())) {
+				freeExams.add(dermatologistExam);	
+			}
+		}
+		return freeExams;
+	}
+
+	@Override
+	public List<PharmacistConsultation> getUnreservedConsultationsForPharmacy(Long pharmacyId) {
+		List<PharmacistConsultation> consultations = appointmentRepo.findConsultationsByPharmacyId(pharmacyId);
+		List<PharmacistConsultation> freeConsultations = new ArrayList<PharmacistConsultation>();
+		for (PharmacistConsultation consultation : consultations) {
+			if(consultation.getDateTime().isAfter(LocalDateTime.now())) {
+				freeConsultations.add(consultation);	
+			}
+		}
+		return freeConsultations;
 	}
 
 
