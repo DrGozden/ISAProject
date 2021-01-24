@@ -1,15 +1,21 @@
 package ftn.pharmacyX.serviceImpl;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import ftn.pharmacyX.dto.EditPatientDTO;
 import ftn.pharmacyX.dto.UserDTO;
 import ftn.pharmacyX.enums.UserRole;
 import ftn.pharmacyX.enums.UserStatus;
 import ftn.pharmacyX.exceptions.EntityNotFoundException;
 import ftn.pharmacyX.model.Address;
+import ftn.pharmacyX.model.Pharmacy;
 import ftn.pharmacyX.model.Drug;
 import ftn.pharmacyX.model.DrugReservation;
 import ftn.pharmacyX.model.users.Patient;
@@ -108,6 +114,64 @@ public class UserServiceImpl implements UserService {
 		}
 
 		return new UserDTO(user);
+	}
+	
+	public List<User> searchDermatologistsAndPharmacists(Map<String, String> searchParams, List<User> users) {
+		
+		String searchParam = null;
+		String filter = null;
+		
+		ArrayList<User> searched = new ArrayList<User>();
+		
+		if (searchParams.get("search") != null) {
+			searchParam = searchParams.get("search").toLowerCase();
+		}
+		
+		if (searchParams.get("filter") != null) {
+			filter = searchParams.get("filter").toLowerCase();
+		}
+		
+		if (searchParam == null && filter == null) {
+			return searched;
+		}
+		
+		if (searchParam != null) {
+			for (User user : users) {
+				if (user.getFirstName().toLowerCase().contains(searchParam) || 
+						user.getLastName().toLowerCase().contains(searchParam)) {
+					searched.add(user);
+				}	
+			}
+		}
+		
+		return searched;
+	}
+	
+	@Override
+	public List<User> findAllPharmacists() {
+		return userRepository.findAllByUserRole(UserRole.PHARMACIST);
+	}
+	
+	@Override
+	public List<User> findAllDermatologists() {
+		return userRepository.findAllByUserRole(UserRole.DERMATOLOGIST);
+	}
+	
+	@Override
+	public List<User> findAllDermatologistsForPharmacy(Pharmacy pharmacy) {
+		List<User> allDermatologists = findAllDermatologists();
+		List<User> ret = new ArrayList<User>();
+		
+		for (User user : pharmacy.getDermatologists()) {
+			for (User user2 : allDermatologists) {
+				if (user.getId() == user2.getId()) {
+					ret.add(user2);
+				}
+			}
+		}
+		
+		return ret;
+		
 	}
 
 	@Override

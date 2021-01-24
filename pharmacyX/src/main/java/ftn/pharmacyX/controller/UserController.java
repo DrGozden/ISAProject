@@ -1,6 +1,8 @@
 package ftn.pharmacyX.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ftn.pharmacyX.dto.UserDTO;
@@ -18,9 +21,11 @@ import ftn.pharmacyX.enums.UserRole;
 import ftn.pharmacyX.enums.UserStatus;
 import ftn.pharmacyX.helpers.DTOConverter;
 import ftn.pharmacyX.model.Appointment;
-import ftn.pharmacyX.model.DrugReservation;
+import ftn.pharmacyX.model.Pharmacy;
 import ftn.pharmacyX.model.users.Patient;
 import ftn.pharmacyX.model.users.User;
+import ftn.pharmacyX.service.PharmacyService;
+import ftn.pharmacyX.model.DrugReservation;
 import ftn.pharmacyX.service.DrugReservationService;
 import ftn.pharmacyX.service.UserService;
 
@@ -30,6 +35,9 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	PharmacyService pharmacyService;
+
 	@Autowired
 	DrugReservationService drugReservationService;
 	
@@ -135,5 +143,36 @@ public class UserController {
 		return new ResponseEntity<>(employee, HttpStatus.OK);
 	}
 	*/
+	
+	@GetMapping(value = "/pharmacists/search", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<UserDTO>> getAllPharmacists(@RequestParam Map<String, String> queryParams) {
+		List<User> users = userService.findAllPharmacists();
+		List<UserDTO> ret = new ArrayList<UserDTO>();
+		List<User> found = userService.searchDermatologistsAndPharmacists(queryParams, users);
+		for (User user : found) {
+			ret.add(new UserDTO(user));
+		}
+		return new ResponseEntity<List<UserDTO>>(ret, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/dermatologists/search", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<UserDTO>> getAllDermatologistsForSpecificPharmacy(@RequestParam Map<String, String> queryParams) {
+		String pharmacyId = queryParams.get("pharmacyId");
+		List<UserDTO> ret = new ArrayList<UserDTO>();
+		
+		if (pharmacyId == null) {
+			return new ResponseEntity<List<UserDTO>>(ret, HttpStatus.BAD_REQUEST);
+		}
+		
+		Pharmacy foundPharmacy = pharmacyService.getPharmacy(Long.parseLong(pharmacyId));
+		List<User> dermatologists = userService.findAllDermatologistsForPharmacy(foundPharmacy);
+		List<User> found = userService.searchDermatologistsAndPharmacists(queryParams, dermatologists);
+		
+		for (User user : found) {
+			ret.add(new UserDTO(user));
+		}
+		
+		return new ResponseEntity<List<UserDTO>>(ret, HttpStatus.OK);
+	}
 }
 
