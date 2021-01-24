@@ -47,5 +47,9 @@ public class PharmacyController {
 		return new ResponseEntity<>(found, HttpStatus.OK);	
 	}
 
-
+	@GetMapping(value = "/containingDrug/{drugId}")
+	public ResponseEntity<?> getPharmaciesContainingDrug(@PathVariable("drugId") Long drugId) {
+		List<Pharmacy> found = pharmacyService.getPharmaciesContainingDrug(drugId);
+		return new ResponseEntity<>(found, HttpStatus.OK);
+	}
 }

@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ftn.pharmacyX.model.Drug;
 import ftn.pharmacyX.model.Pharmacy;
 import ftn.pharmacyX.repository.PharmacyRepository;
 import ftn.pharmacyX.service.PharmacyService;
@@ -27,6 +28,21 @@ public class PharmacyServiceImpl implements PharmacyService {
 	public Pharmacy getPharmacy(long id) {
 		return pharmacyRepo.findByIdAndDeletedIsFalse(id);
 		
+	}
+	
+	@Override
+	public List<Pharmacy> getPharmaciesContainingDrug(Long drugId) {
+		List<Pharmacy> all = getAllPharmacies();
+		List<Pharmacy> ret = new ArrayList<Pharmacy>();
+		for (Pharmacy pharmacy : all) {
+			for (Drug drug : pharmacy.getDrugsInStock().keySet()) {
+				if (drug.getId() == drugId) {
+					ret.add(pharmacy);
+					break;
+				}
+			}
+		}
+		return ret;
 	}
 	
 	public double calculateRating(List<Integer> ratings) {
