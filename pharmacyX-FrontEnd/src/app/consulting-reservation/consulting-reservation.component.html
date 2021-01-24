@@ -1,0 +1,70 @@
+<div id="login">
+    <h5>Pharmacist consulting reservation</h5>
+    <div class="container">
+        <div id="login-row" class="row justify-content-center align-items-center">
+            <div id="login-column" class="col-md-6">
+                <div id="login-box" class="col-md-12">
+                    <div class="form-group">
+                        <label>Uneti datum i vreme:</label>
+                        <input type="text" name="postalCode" id="postalCode" class="form-control"
+                            [(ngModel)]="this.date" placeholder="Enter date..." required>
+                    </div>
+                    <hr />
+                    <h4>List of available pharmacies: </h4>
+                    <br>
+                    <div class="row" id="ads" *ngIf="filteredPharmacies">
+                        <!-- Category Card -->
+                        <div class="col-md-4" *ngFor="let fp of filteredPharmacies">
+                            <div class="card rounded">
+                                <div class="card-image">
+                                    <img class="img-fluid" src="assets/resources/pharmacy.jpg" alt="Alternate Text" />
+                                </div>
+                                <div class="card-image-overlay m-auto">
+                                    <span class="card-detail-badge">{{fp.description}}</span>
+                                </div>
+
+                                <div class="card-body text-center">
+                                    <h5>{{fp.name}}</h5>
+                                    <button (click)="addPharmacy(fp)">Select</button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div *ngIf="!filteredPharmacies">
+                        <h2>No results found!</h2>
+                    </div>
+                    <hr />
+                    <h4>List of available pharmacist: </h4>
+                    <br>
+                    <div class="row" id="ads" *ngIf="filteredPharmacies">
+                        <!-- Category Card -->
+                        <div class="col-md-4" *ngFor="let fp of filteredPharmacies">
+                            <div class="card rounded">
+                                <div class="card-image">
+                                    <img class="img-fluid" src="assets/resources/pharmacistLogo.png" alt="Alternate Text" />
+                                </div>
+                                <div class="card-image-overlay m-auto">
+                                    <span class="card-detail-badge">{{fp.description}}</span>
+                                </div>
+
+                                <div class="card-body text-center">
+                                    <h5>{{fp.name}}</h5>
+                                    <button (click)="addPharmacy(fp)">Select</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="!filteredPharmacies">
+                        <h2>No results found!</h2>
+                    </div>
+                    <hr/>
+                    <div class="form-group" id="button">
+                        <button (click)="reserve()" class="btn btn-danger btn-block">Reserve</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

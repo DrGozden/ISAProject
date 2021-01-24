@@ -14,4 +14,12 @@ export class PharmacyService {
     //let headers = this.authService.getHeaders();
     return this.http.get<Pharmacy>('http://localhost:9003/pharmacies/' + id); 
   }
+
+  public loadPharmacies() : Observable<Pharmacy[]>{
+    return this.http.get<Pharmacy[]>('http://localhost:9003/pharmacies' ); 
+  }
+
+  public loadPharmaciesByDateTime(date: string) : Observable<Pharmacy[]>{
+    return this.http.get<Pharmacy[]>('http://localhost:9003/pharmacies' );//ovde dodati i date i time 
+  }
 }
