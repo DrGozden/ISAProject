@@ -2,6 +2,9 @@ package ftn.pharmacyX.controller;
 
 import java.util.List;
 
+import ftn.pharmacyX.dto.DermatologistExamDTO;
+import ftn.pharmacyX.dto.PharmacistConsultationDTO;
+import ftn.pharmacyX.model.users.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -32,7 +35,7 @@ public class AppointmentController {
 	@GetMapping(value = "/pharmacies/{id}/exams", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getExamsForPharmacy(@PathVariable("id") Long pharmacyId) {
 
-		List<DermatologistExam> exams = apptService.getDermatologistExamsForPharmacy(pharmacyId);
+		List<DermatologistExamDTO> exams = apptService.getDermatologistExamsForPharmacy(pharmacyId);
 
 		return new ResponseEntity<>(exams, HttpStatus.OK);
 	}
@@ -56,7 +59,7 @@ public class AppointmentController {
 	@GetMapping(value = "/pharmacies/{id}/consultations", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getconsultationsForPharmacy(@PathVariable("id") Long pharmacyId) {
 
-		List<PharmacistConsultation> consultations = apptService.getPharmacistConsutationsForPharmacy(pharmacyId);
+		List<PharmacistConsultationDTO> consultations = apptService.getPharmacistConsutationsForPharmacy(pharmacyId);
 
 		return new ResponseEntity<>(consultations, HttpStatus.OK);
 	}
@@ -95,13 +98,12 @@ public class AppointmentController {
 		return new ResponseEntity<>(canceled, HttpStatus.OK);
 	}
 
-	//PROBLEM POSTOJI
-	/*
+
 	@GetMapping(value = "/my-consultations", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getConsultationsForUser() {
 		Patient patient = (Patient) userService.getLoggedUser();
 		
-		List<PharmacistConsultation> consultations = apptService.getPharmacistConsutationsForUser(patient);
+		List<PharmacistConsultationDTO> consultations = apptService.getPharmacistConsutationsForUser(patient);
 
 		return new ResponseEntity<>(consultations, HttpStatus.OK);
 	}
@@ -111,9 +113,8 @@ public class AppointmentController {
 		Patient patient = (Patient) userService.getLoggedUser();
 		
 			
-		List<DermatologistExam> exams = apptService.getDermatologistExamsForUser(patient);
+		List<DermatologistExamDTO> exams = apptService.getDermatologistExamsForUser(patient);
 
 		return new ResponseEntity<>(exams, HttpStatus.OK);
 	}
-	*/
 }

@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import ftn.pharmacyX.dto.DermatologistExamDTO;
+import ftn.pharmacyX.dto.PharmacistConsultationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -70,25 +72,43 @@ public class AppointmentServiceImpl implements AppointmentService {
 	}
 
 	@Override
-	public List<DermatologistExam> getDermatologistExamsForPharmacy(Long pharmacyId) {
-		return appointmentRepo.findDermatologistExamsByPharmacyId(pharmacyId);
+	public List<DermatologistExamDTO> getDermatologistExamsForPharmacy(Long pharmacyId) {
+		List<DermatologistExam> exams = appointmentRepo.findDermatologistExamsByPharmacyId(pharmacyId);
+		List<DermatologistExamDTO> examsDTO = new ArrayList<>();
+		for (DermatologistExam exam: exams) {
+			examsDTO.add(new DermatologistExamDTO(exam));
+		}
+		return examsDTO;
 	}
 
 	@Override
-	public List<PharmacistConsultation> getPharmacistConsutationsForPharmacy(Long pharmacyId) {
-		return appointmentRepo.findConsultationsByPharmacyId(pharmacyId);
+	public List<PharmacistConsultationDTO> getPharmacistConsutationsForPharmacy(Long pharmacyId) {
+		List<PharmacistConsultation> consultations = appointmentRepo.findConsultationsByPharmacyId(pharmacyId);
+		List<PharmacistConsultationDTO> dtos = new ArrayList<>();
+		for (PharmacistConsultation consultation : consultations) {
+			dtos.add(new PharmacistConsultationDTO(consultation));
+		}
+		return dtos;
 	}
 
 	@Override
-	public List<PharmacistConsultation> getPharmacistConsutationsForUser(Patient patient) {
+	public List<PharmacistConsultationDTO> getPharmacistConsutationsForUser(Patient patient) {
 		List<PharmacistConsultation> consultations = appointmentRepo.findConsultationsByUserId(patient.getId());
-		return consultations;
+		List<PharmacistConsultationDTO> dtos = new ArrayList<>();
+		for (PharmacistConsultation consultation : consultations) {
+			dtos.add(new PharmacistConsultationDTO(consultation));
+		}
+		return dtos;
 	}
 
 	@Override
-	public List<DermatologistExam> getDermatologistExamsForUser(Patient patient) {
+	public List<DermatologistExamDTO> getDermatologistExamsForUser(Patient patient) {
 		List<DermatologistExam> exams = appointmentRepo.findExamsByUserId(patient.getId());
-		return exams;
+		List<DermatologistExamDTO> examsDTO = new ArrayList<>();
+		for (DermatologistExam exam: exams) {
+			examsDTO.add(new DermatologistExamDTO(exam));
+		}
+		return examsDTO;
 	}
 
 	@Override
