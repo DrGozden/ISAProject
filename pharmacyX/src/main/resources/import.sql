@@ -42,8 +42,10 @@ insert into drug_specification_substitutes (drug_specification_id, substitute_dr
 
 
 insert into appointment (id, appointment_type, date_time, price, therapy_description, diagnosis, pharmacist_opinion, patient_id, pharmacy_id, dermatologist_id, pharmacist_id, deleted) values (761, 'dermatologist_appointment', '2021-02-02 16:00:00', 1500.00, 'Therapy description...', 'Dermatologist diagnosis...', null, 713, 717, 715, null, false);
-insert into appointment (id, appointment_type, date_time, price, therapy_description, diagnosis, pharmacist_opinion, patient_id, pharmacy_id, dermatologist_id, pharmacist_id, deleted) values (762, 'dermatologist_appointment', '2020-03-02 18:00:00', 1500.00, 'Therapy description2...', 'Dermatologist diagnosis2...', null, null, 717, 715s, null, false);
+insert into appointment (id, appointment_type, date_time, price, therapy_description, diagnosis, pharmacist_opinion, patient_id, pharmacy_id, dermatologist_id, pharmacist_id, deleted) values (762, 'dermatologist_appointment', '2021-03-02 18:00:00', 1500.00, 'Therapy description2...', 'Dermatologist diagnosis2...', null, null, 717, 715, null, false);
 
+insert into appointment (id, appointment_type, date_time, price, therapy_description, diagnosis, pharmacist_opinion, patient_id, pharmacy_id, dermatologist_id, pharmacist_id, deleted) values (777, 'dermatologist_appointment', '2021-05-02 18:00:00', 1500.00, 'Therapy description2...', 'Dermatologist diagnosis2...', null, null, 717, 715, null, false);
+insert into appointment (id, appointment_type, date_time, price, therapy_description, diagnosis, pharmacist_opinion, patient_id, pharmacy_id, dermatologist_id, pharmacist_id, deleted) values (787, 'dermatologist_appointment', '2021-04-02 18:00:00', 1500.00, 'Therapy description2...', 'Dermatologist diagnosis2...', null, null, 717, 715, null, false);
 
 insert into appointment (id, appointment_type, date_time, price, therapy_description, diagnosis, pharmacist_opinion, patient_id, pharmacy_id, dermatologist_id, pharmacist_id, deleted) values (765, 'pharmacist_appointment', '2021-02-02 18:00:00', 1500.00, 'Therapy description2...', 'Pharmacist diagnosis4...', null, 713, 717, null, 711, false);
 insert into appointment (id, appointment_type, date_time, price, therapy_description, diagnosis, pharmacist_opinion, patient_id, pharmacy_id, dermatologist_id, pharmacist_id, deleted) values (766, 'pharmacist_appointment', '2020-01-02 18:00:00', 1500.00, 'Therapy description2...', 'Pharmacist diagnosis4...', null, 713, 717, null, 711, false);
@@ -84,7 +86,6 @@ insert into user_drug_reservations (patient_id, drug_reservation_id) values (713
 insert into user_drug_reservations (patient_id, drug_reservation_id) values (713, 998);
 
 insert into user_appointment_history(patient_id, appointment_id) values (713, 761);		
-insert into user_appointment_history(patient_id, appointment_id) values (713, 762);	
 insert into user_appointment_history(patient_id, appointment_id) values (713, 765);		
 insert into user_appointment_history(patient_id, appointment_id) values (713, 766);	
 
