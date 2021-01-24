@@ -31,5 +31,7 @@ public interface UserService {
 	
 	public List<User> findAllDermatologistsForPharmacy(Pharmacy pharmacy);
 	public User addDrugReservation(DrugReservation drugReservation);
+	
+	public User findById(Long id);
 
 }

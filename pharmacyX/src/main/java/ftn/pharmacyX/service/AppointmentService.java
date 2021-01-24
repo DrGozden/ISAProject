@@ -2,6 +2,7 @@ package ftn.pharmacyX.service;
 
 import java.util.List;
 
+import ftn.pharmacyX.dto.CreateExamDTO;
 import ftn.pharmacyX.dto.DermatologistExamDTO;
 import ftn.pharmacyX.dto.PharmacistConsultationDTO;
 import ftn.pharmacyX.model.DermatologistExam;
@@ -24,4 +25,5 @@ public interface AppointmentService {
 	public List<DermatologistExam> getUnreservedDermatologistExamsForPharmacy(Long pharmacyId);
 	public List<PharmacistConsultation> getUnreservedConsultationsForPharmacy(Long pharmacyId);
 
+	public DermatologistExam createExam(CreateExamDTO dto);
 }

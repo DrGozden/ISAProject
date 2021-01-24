@@ -10,18 +10,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import ftn.pharmacyX.dto.CreateExamDTO;
 import ftn.pharmacyX.dto.DrugReservationDTO;
 import ftn.pharmacyX.dto.DrugsInStockDTO;
 import ftn.pharmacyX.dto.PharmacyDTO;
 import ftn.pharmacyX.dto.UserDTO;
 import ftn.pharmacyX.enums.UserRole;
 import ftn.pharmacyX.model.Address;
+import ftn.pharmacyX.model.DermatologistExam;
 import ftn.pharmacyX.model.Drug;
 import ftn.pharmacyX.model.DrugReservation;
 import ftn.pharmacyX.model.Pharmacy;
+import ftn.pharmacyX.model.users.Dermatologist;
 import ftn.pharmacyX.model.users.Patient;
 import ftn.pharmacyX.repository.DrugRepository;
 import ftn.pharmacyX.repository.PharmacyRepository;
+import ftn.pharmacyX.service.PharmacyService;
+import ftn.pharmacyX.service.UserService;
 
 @Service
 public class DTOConverter {
@@ -31,6 +36,12 @@ public class DTOConverter {
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private PharmacyService pharmacyService;
 	
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 	
@@ -91,6 +102,18 @@ public class DTOConverter {
 		}
 		
 		return dtos;
+	}
+	
+	public DermatologistExam dtoToExam(CreateExamDTO dto) {
+		DermatologistExam exam = new DermatologistExam();
+		exam.setPatient(null);
+		exam.setPrice(dto.getPrice());
+		exam.setDateTime(LocalDateTime.parse(dto.getDateStart(), formatter));
+		Dermatologist d = (Dermatologist) userService.findById(dto.getDermatologistId());
+		exam.setDermatologist(d);
+		Pharmacy ph = pharmacyService.getPharmacy(dto.getPharmacyId());
+		exam.setPharmacy(ph);
+		return exam;
 	}
 	
 	

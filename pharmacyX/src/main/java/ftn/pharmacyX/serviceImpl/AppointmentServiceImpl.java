@@ -4,13 +4,16 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import ftn.pharmacyX.dto.DermatologistExamDTO;
-import ftn.pharmacyX.dto.PharmacistConsultationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ftn.pharmacyX.dto.CreateExamDTO;
+import ftn.pharmacyX.dto.DermatologistExamDTO;
+import ftn.pharmacyX.dto.PharmacistConsultationDTO;
+import ftn.pharmacyX.helpers.DTOConverter;
 import ftn.pharmacyX.model.DermatologistExam;
 import ftn.pharmacyX.model.PharmacistConsultation;
+import ftn.pharmacyX.model.WorkingHours;
 import ftn.pharmacyX.model.users.Patient;
 import ftn.pharmacyX.model.users.User;
 import ftn.pharmacyX.repository.AppointmentRepository;
@@ -21,6 +24,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 	
 	@Autowired
 	private AppointmentRepository appointmentRepo;
+	
+	@Autowired
+	private DTOConverter converter;
 
 	@Override
 	public DermatologistExam scheduleExam(User patient, Long examId) {
@@ -133,6 +139,26 @@ public class AppointmentServiceImpl implements AppointmentService {
 			}
 		}
 		return freeConsultations;
+	}
+	
+
+	@Override
+	public DermatologistExam createExam(CreateExamDTO dto) {
+		DermatologistExam exam = converter.dtoToExam(dto);
+		List<WorkingHours> workingHours = exam.getDermatologist().getWorkingHours();
+		boolean flag = false;
+		for (WorkingHours wh : workingHours) {
+			if (wh.getDay().name().equalsIgnoreCase(exam.getDateTime().getDayOfWeek().name())){
+				if (exam.getDateTime().toLocalTime().isBefore(wh.getEndTime()) &&
+						exam.getDateTime().toLocalTime().isAfter(wh.getStartTime())) {
+					flag = true;
+				}
+			}
+		}
+		if (flag) {
+			return appointmentRepo.save(exam);
+		}
+		return null;
 	}
 
 

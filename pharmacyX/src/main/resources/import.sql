@@ -89,5 +89,19 @@ insert into user_appointment_history(patient_id, appointment_id) values (713, 76
 insert into user_appointment_history(patient_id, appointment_id) values (713, 765);		
 insert into user_appointment_history(patient_id, appointment_id) values (713, 766);	
 
+insert into working_hours(id, day, employee_id, end_time, pharmacy_id, start_time) values (801, 0, 715, '21:00', 717, '08:00');
+insert into working_hours(id, day, employee_id, end_time, pharmacy_id, start_time) values (802, 1, 715, '21:00', 717, '08:00');
+insert into working_hours(id, day, employee_id, end_time, pharmacy_id, start_time) values (803, 2, 715, '21:00', 717, '08:00');
+insert into working_hours(id, day, employee_id, end_time, pharmacy_id, start_time) values (804, 3, 715, '21:00', 717, '08:00');
+insert into working_hours(id, day, employee_id, end_time, pharmacy_id, start_time) values (805, 4, 715, '21:00', 717, '08:00');
+insert into working_hours(id, day, employee_id, end_time, pharmacy_id, start_time) values (806, 5, 715, '21:00', 717, '08:00');
+insert into working_hours(id, day, employee_id, end_time, pharmacy_id, start_time) values (807, 6, 715, '21:00', 717, '08:00');
 
+insert into user_working_hours(pharmacist_id, working_hours_id, dermatologist_id) values (-1, 801, 715);
+insert into user_working_hours(pharmacist_id, working_hours_id, dermatologist_id) values (-1, 802, 715);
+insert into user_working_hours(pharmacist_id, working_hours_id, dermatologist_id) values (-1, 804, 715);
+insert into user_working_hours(pharmacist_id, working_hours_id, dermatologist_id) values (-1, 803, 715);
+insert into user_working_hours(pharmacist_id, working_hours_id, dermatologist_id) values (-1, 805, 715);
+insert into user_working_hours(pharmacist_id, working_hours_id, dermatologist_id) values (-1, 806, 715);
+insert into user_working_hours(pharmacist_id, working_hours_id, dermatologist_id) values (-1, 807, 715);
 

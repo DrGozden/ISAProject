@@ -2,9 +2,6 @@ package ftn.pharmacyX.controller;
 
 import java.util.List;
 
-import ftn.pharmacyX.dto.DermatologistExamDTO;
-import ftn.pharmacyX.dto.PharmacistConsultationDTO;
-import ftn.pharmacyX.model.users.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,11 +10,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ftn.pharmacyX.dto.CreateExamDTO;
+import ftn.pharmacyX.dto.DermatologistExamDTO;
+import ftn.pharmacyX.dto.PharmacistConsultationDTO;
 import ftn.pharmacyX.model.DermatologistExam;
 import ftn.pharmacyX.model.PharmacistConsultation;
+import ftn.pharmacyX.model.users.Patient;
 import ftn.pharmacyX.model.users.User;
 import ftn.pharmacyX.service.AppointmentService;
 import ftn.pharmacyX.service.UserService;
@@ -116,5 +118,17 @@ public class AppointmentController {
 		List<DermatologistExamDTO> exams = apptService.getDermatologistExamsForUser(patient);
 
 		return new ResponseEntity<>(exams, HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "/create-exam")
+	public ResponseEntity<?> createExam(@RequestBody CreateExamDTO dto) {
+		DermatologistExam exam = apptService.createExam(dto);
+		
+		// ako pokusa da doda exam dermatologu izvan njehovog radnog vremena
+		if (exam == null) {
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		}
+		
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }

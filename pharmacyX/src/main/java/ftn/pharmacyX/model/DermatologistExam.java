@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
+import ftn.pharmacyX.dto.CreateExamDTO;
 import ftn.pharmacyX.model.users.Dermatologist;
 
 
@@ -27,6 +28,7 @@ public class DermatologistExam extends Appointment {
 	public DermatologistExam() {
 		
 	}
+	
 
 
 	public DermatologistExam(Dermatologist dermatologist, String diagnosis) {
