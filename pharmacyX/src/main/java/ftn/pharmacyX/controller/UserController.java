@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import ftn.pharmacyX.dto.DrugReservationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -110,7 +111,7 @@ public class UserController {
 	@GetMapping(value = "/me/history/drugreservations", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getDrugReservations() {
 		User user = userService.getLoggedUser();
-		List<DrugReservation> reservations = drugReservationService.getDrugReservationsForUser(user);
+		List<DrugReservationDTO> reservations = drugReservationService.getDrugReservationsForUser(user);
 		
 		return new ResponseEntity<>(reservations, HttpStatus.OK);
 	}

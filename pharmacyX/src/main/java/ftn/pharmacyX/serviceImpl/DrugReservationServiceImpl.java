@@ -1,6 +1,7 @@
 package ftn.pharmacyX.serviceImpl;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,13 +42,14 @@ public class DrugReservationServiceImpl implements DrugReservationService {
 	}
 
 	@Override
-	public List<DrugReservation> getDrugReservationsForUser(User user) {
+	public List<DrugReservationDTO> getDrugReservationsForUser(User user) {
 		List<DrugReservation> reservations = null;
 		Patient patient = (Patient) user;
+		List<DrugReservationDTO> dtos = new ArrayList<>();
 		for (DrugReservation drugReservation : patient.getDrugReservations()) {
-			reservations.add(drugReservation);
+			dtos.add(new DrugReservationDTO(drugReservation));
 		}
-		return reservations;
+		return dtos;
 	}
 	
 	
