@@ -20,7 +20,11 @@ public class DrugServiceImpl implements DrugService {
 		//return pharmacyRepo.findAll();
 		return drugRepo.findByDeleted(false);
 	}
-	
-	
+
+	@Override
+	public Drug getDrug(Long id) {
+		return drugRepo.findByIdAndDeletedIsFalse(id);
+	}
+
 
 }

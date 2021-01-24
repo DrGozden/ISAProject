@@ -13,4 +13,5 @@ public interface DrugRepository extends JpaRepository<Drug, Long> {
 	
 	public List<Drug> findByDeleted(boolean deleted);
 
+	Drug findByIdAndDeletedIsFalse(Long id);
 }
