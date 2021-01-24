@@ -3,7 +3,7 @@ import { Drug } from './drug';
 import { Pharmacy } from './pharmacy';
 import { User } from './user';
 
-export class Appointment implements Deserializable {
+export class PredefinedExam implements Deserializable {
     
     id: number;
     dateTime: Date;
@@ -13,9 +13,8 @@ export class Appointment implements Deserializable {
     therapyDrugs: Drug[];
     price : number;
     deleted: boolean;
-    pharmacistName: string;
-    dermatologistName: string;
-    pharmacyName: string;
+    dermatologist: User;
+    diagnosis: string;
 
     deserialize(input: any): this {
         Object.assign(this, input);

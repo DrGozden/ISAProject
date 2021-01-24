@@ -1,4 +1,4 @@
-<h2 style="margin-left: 50px; margin-top: 20px;">Pharmacist reservation history: </h2>
+<h2 style="margin-left: 50px; margin-top: 20px;">Consulting reservation history: </h2>
 			
 <div class="container">
 	<!-- <div class="form-group">
@@ -17,23 +17,29 @@
 							Pharmacist
 						</th>
 						<th class="text-center">
-							Opinion
+							Pharmacy
+						</th>
+						<th class="text-center">
+							Date and time
 						</th>
                         <th class="text-center">
-							Cancel
+							
 						</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr id='addr0' data-id="0" class="hidden" *ngFor="let reservation of reservations">
 						<td data-name="name">
-							{{reservation.pharmacist.firstName}}
+							{{reservation.pharmacistName}}
+						</td>
+						<td data-name="name">
+							{{reservation.pharmacyName}}
 						</td>
 						<td data-name="mail">
-							{{reservation.pharmacistOpinion}}
+							{{parseDateTime(reservation.dateTime) | date: 'short'}}
 						</td>
 						<td>
-							<button  class="btn btn-primary" (click)="cancel(reservation.id)">Cancel reservation</button>
+							<button *ngIf="isNotPassed(parseDateTime(reservation.dateTime))" class="btn btn-primary" (click)="cancel(reservation.id)">Cancel reservation</button>
 						</td>
 					</tr>
 				</tbody>

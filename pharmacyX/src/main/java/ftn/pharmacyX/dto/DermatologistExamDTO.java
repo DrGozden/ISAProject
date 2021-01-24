@@ -11,10 +11,12 @@ public class DermatologistExamDTO {
     private Long id;
     private LocalDateTime dateTime;
     private Long pharmacyId;
+    private String pharmacyName;
     private Long patientId;
     private String therapyDescription;
     private List<Drug> therapyDrugs;
     private Long dermatologistId;
+    private String dermatologistName;
     private String diagnosis;
     private double price;
     private boolean deleted = false;
@@ -51,6 +53,8 @@ public class DermatologistExamDTO {
         this.diagnosis = exam.getDiagnosis();
         this.price = exam.getPrice();
         this.deleted = exam.isDeleted();
+        this.dermatologistName = exam.getDermatologist().getFirstName() + " " + exam.getDermatologist().getLastName();
+        this.pharmacyName = exam.getPharmacy().getName();
     }
 
     public Long getId() {
@@ -131,5 +135,21 @@ public class DermatologistExamDTO {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public String getPharmacyName() {
+        return pharmacyName;
+    }
+
+    public void setPharmacyName(String pharmacyName) {
+        this.pharmacyName = pharmacyName;
+    }
+
+    public String getDermatologistName() {
+        return dermatologistName;
+    }
+
+    public void setDermatologistName(String dermatologistName) {
+        this.dermatologistName = dermatologistName;
     }
 }

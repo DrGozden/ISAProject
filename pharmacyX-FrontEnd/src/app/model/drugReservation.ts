@@ -3,19 +3,12 @@ import { Drug } from './drug';
 import { Pharmacy } from './pharmacy';
 import { User } from './user';
 
-export class Appointment implements Deserializable {
+export class DrugReservation implements Deserializable {
     
     id: number;
-    dateTime: Date;
-    pharmacy: Pharmacy;
-    patient: User;
-    therapyDescription: string;
-    therapyDrugs: Drug[];
-    price : number;
-    deleted: boolean;
-    pharmacistName: string;
-    dermatologistName: string;
+    dateTimeDeadline: Date;
     pharmacyName: string;
+    drugName: string;
 
     deserialize(input: any): this {
         Object.assign(this, input);

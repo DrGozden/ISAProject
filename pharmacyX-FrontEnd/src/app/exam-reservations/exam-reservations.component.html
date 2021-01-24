@@ -17,23 +17,29 @@
 							Dermatologist
 						</th>
 						<th class="text-center">
-							Diagnosis
+							Pharmacy
+						</th>
+						<th class="text-center">
+							Date and time
 						</th>
                         <th class="text-center">
-							Cancel
+							
 						</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr id='addr0' data-id="0" class="hidden" *ngFor="let reservation of reservations">
 						<td data-name="name">
-							{{reservation.pharmacy.name}}
+							{{reservation.dermatologistName}}
+						</td>
+						<td data-name="name">
+							{{reservation.pharmacyName}}
 						</td>
 						<td data-name="mail">
-							{{reservation.dataTime}}
+							{{parseDateTime(reservation.dateTime) | date: 'short'}}
 						</td>
 						<td>
-							<button  class="btn btn-primary" (click)="cancel(reservation.id)">Cancel reservation</button>
+							<button *ngIf="isNotPassed(parseDateTime(reservation.dateTime))" class="btn btn-primary" (click)="cancel(reservation.id)">Cancel reservation</button>
 						</td>
 					</tr>
 				</tbody>

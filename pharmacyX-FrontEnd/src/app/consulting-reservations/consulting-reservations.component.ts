@@ -30,4 +30,15 @@ export class ConsultingReservationsComponent implements OnInit {
     })
   }
 
+  public parseDateTime(d: number[]){
+    return new Date(d[0],d[1]-1,d[2],d[3],d[4]);
+  }
+
+  public isNotPassed(dateTime: Date) {
+    if(dateTime > new Date())
+    return true;
+
+    return false;
+  }
+
 }

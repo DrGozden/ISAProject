@@ -10,5 +10,5 @@ public interface DrugReservationService {
 
 	public DrugReservation makeReservation(DrugReservationDTO reservationDTO);
 	public DrugReservation cancelReservation(Long id);
-	public List<DrugReservation> getDrugReservationsForUser(User user);
+	public List<DrugReservationDTO> getDrugReservationsForUser(User user);
 }

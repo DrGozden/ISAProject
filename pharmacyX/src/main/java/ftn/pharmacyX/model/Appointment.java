@@ -37,9 +37,9 @@ public abstract class Appointment implements Serializable{
 	private Long id;
 	@Column
 	private LocalDateTime dateTime;
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Pharmacy pharmacy;
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Patient patient;
 	@Column
 	private String therapyDescription;

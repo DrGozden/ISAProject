@@ -17,6 +17,8 @@ public class PharmacistConsultationDTO {
 	private String pharmacistOpinion;
 	private double price;
 	private boolean deleted = false;
+	private String pharmacistName;
+	private String pharmacyName;
 
 	public PharmacistConsultationDTO() {
 	}
@@ -50,6 +52,8 @@ public class PharmacistConsultationDTO {
 		this.pharmacistOpinion = consultation.getPharmacistOpinion();
 		this.price = consultation.getPrice();
 		this.deleted = consultation.isDeleted();
+		this.pharmacistName = consultation.getPharmacist().getFirstName() + " " + consultation.getPharmacist().getLastName();
+		this.pharmacyName = consultation.getPharmacy().getName();
 	}
 
 	public Long getId() {
@@ -130,5 +134,21 @@ public class PharmacistConsultationDTO {
 
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
+	}
+
+	public String getPharmacistName() {
+		return pharmacistName;
+	}
+
+	public void setPharmacistName(String pharmacistName) {
+		this.pharmacistName = pharmacistName;
+	}
+
+	public String getPharmacyName() {
+		return pharmacyName;
+	}
+
+	public void setPharmacyName(String pharmacyName) {
+		this.pharmacyName = pharmacyName;
 	}
 }

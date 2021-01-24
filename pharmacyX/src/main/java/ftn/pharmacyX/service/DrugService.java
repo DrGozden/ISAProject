@@ -8,6 +8,6 @@ public interface DrugService {
 
 	List<Drug> getAllDrugs();
 
-	
-	
+
+    Drug getDrug(Long id);
 }

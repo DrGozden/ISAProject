@@ -14,32 +14,32 @@
 				<thead>
 					<tr>
 						<th class="text-center">
-							Drug name
+							Drug
 						</th>
 						<th class="text-center">
-							Code
+							Pharmacy
 						</th>
 						<th class="text-center">
-							Specification
-                        </th>
+							Date and time
+						</th>
                         <th class="text-center">
-							Cancel
+							
 						</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr id='addr0' data-id="0" class="hidden" *ngFor="let reservation of drugReservations">
+					<tr id='addr0' data-id="0" class="hidden" *ngFor="let reservation of reservations">
 						<td data-name="name">
-							{{reservation.name}}
+							{{reservation.drugName}}
+						</td>
+						<td data-name="name">
+							{{reservation.pharmacyName}}
 						</td>
 						<td data-name="mail">
-							{{reservation.code}}
-						</td>
-						<td data-name="desc">
-							{{reservation.specification}}
+							{{parseDateTime(reservation.dateTimeDeadline) | date: 'short'}}
 						</td>
 						<td>
-							<button  class="btn btn-primary" (click)="delete(reservation.id)">Cancel reservation</button>
+							<button *ngIf="isNotPassed(parseDateTime(reservation.dateTimeDeadline))" class="btn btn-primary" (click)="cancel(reservation.id)">Cancel reservation</button>
 						</td>
 					</tr>
 				</tbody>

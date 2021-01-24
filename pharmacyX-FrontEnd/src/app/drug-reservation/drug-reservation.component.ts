@@ -23,6 +23,7 @@ export class DrugReservationComponent implements OnInit {
   public date: string = "";
   public selectedPharmacy: Pharmacy = new Pharmacy();
   public pharmacies: Pharmacy[] = [];
+  public pharmacyId: string = "";
 
   constructor(private userService: UserService, private loginService: LoginService, private location: Location, private toastr: ToastrService,
     private route: ActivatedRoute, private http: HttpClient, private drugService: DrugsService) {
@@ -32,9 +33,16 @@ export class DrugReservationComponent implements OnInit {
       this.drugService.loadPharmaciesByDrugId(this.drugId).subscribe((data) => {
         this.pharmacies = data;
         console.log(this.pharmacies);
+        if(localStorage.getItem("pharmacyId")){
+          let i;
+          for(i = 0; i < this.pharmacies.length; i++) {
+            if(this.pharmacies[i].id === +localStorage.getItem("pharmacyId")) {
+              this.selectedPharmacy = this.pharmacies[i];
+            }
+          }
+        }
       })  
     });
-    
   }
 
   ngOnInit() {
