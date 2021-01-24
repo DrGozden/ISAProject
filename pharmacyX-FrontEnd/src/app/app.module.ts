@@ -23,8 +23,7 @@ import { ExamReservationsComponent } from './exam-reservations/exam-reservations
 import { DrugReservationComponent } from './drug-reservation/drug-reservation.component';
 import { ExamReservationComponent } from './exam-reservation/exam-reservation.component';
 import { ConsultingReservationComponent } from './consulting-reservation/consulting-reservation.component';
-import { FinalDrugReservationComponent } from './final-drug-reservation/final-drug-reservation.component';
-import { FinalConsultationReservationComponent } from './final-consultation-reservation/final-consultation-reservation.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -43,8 +42,6 @@ import { FinalConsultationReservationComponent } from './final-consultation-rese
     DrugReservationComponent,
     ExamReservationComponent,
     ConsultingReservationComponent,
-    FinalDrugReservationComponent,
-    FinalConsultationReservationComponent
   ],
   imports: [
     BrowserModule,
@@ -56,6 +53,7 @@ import { FinalConsultationReservationComponent } from './final-consultation-rese
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

@@ -27,5 +27,9 @@ export class ReservationService {
   public cancelPharmacistReservation(id:string) : Observable<PharmacistExam>{
     return this.http.put<PharmacistExam>('http://localhost:9003/appointmnents/consultations/'+id+"/cancel",{}); //mozda ne
   }
+
+  public reservePredefinedExamination(id:string) : Observable<DermatologistExam>{
+    return this.http.post<DermatologistExam>('http://localhost:9003/reservations/exams/'+id,{});
+  }
   
 }

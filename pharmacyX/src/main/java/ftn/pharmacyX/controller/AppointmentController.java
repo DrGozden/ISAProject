@@ -20,7 +20,7 @@ import ftn.pharmacyX.service.AppointmentService;
 import ftn.pharmacyX.service.UserService;
 
 @RestController
-@RequestMapping("/appointmnents")
+@RequestMapping("/appointments")
 public class AppointmentController {
 
 	@Autowired

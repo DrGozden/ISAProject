@@ -16,7 +16,7 @@ export class DrugsService {
   }
 
   public loadPharmaciesByDrugId(id: number) : Observable<Pharmacy[]>{
-    return this.http.get<Pharmacy[]>('http://localhost:9003/drugs/getByPharmacy/'+id); 
+    return this.http.get<Pharmacy[]>('http://localhost:9003/pharmacies/containingDrug/'+id); 
   }
 
   public reserveDrug(id: number) : Observable<Pharmacy[]>{

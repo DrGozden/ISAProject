@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import ftn.pharmacyX.model.users.Pharmacist;
 
 @Entity
-@DiscriminatorValue("consultation_appointment")
+@DiscriminatorValue("pharmacist_appointment")
 public class PharmacistConsultation extends Appointment {
 
 	/**

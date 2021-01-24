@@ -18,7 +18,7 @@ public class DermatologistExam extends Appointment {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Dermatologist dermatologist;
 	@Column
 	private String diagnosis;
