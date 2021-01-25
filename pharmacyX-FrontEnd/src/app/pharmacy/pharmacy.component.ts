@@ -50,6 +50,8 @@ export class PharmacyComponent implements OnInit {
   }
 
   public reserve(id: number) {
+    console.log(id);
+    
     this.reservationService.reservePredefinedExamination(id.toString()).subscribe((data) => {
       this.reload();
     });
