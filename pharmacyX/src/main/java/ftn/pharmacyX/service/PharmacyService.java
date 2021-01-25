@@ -1,9 +1,11 @@
 package ftn.pharmacyX.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
 import ftn.pharmacyX.model.Pharmacy;
+import ftn.pharmacyX.model.users.Pharmacist;
 
 public interface PharmacyService {
 	
@@ -13,5 +15,6 @@ public interface PharmacyService {
 	
 	public List<Pharmacy> searchPharmacies(Map<String, String> queryParams);
 	public List<Pharmacy> getPharmaciesContainingDrug(Long drugId);
-	
+
+	List<Pharmacist> getAvailablePharmacist(LocalDateTime dateTime);
 }

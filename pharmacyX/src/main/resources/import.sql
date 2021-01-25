@@ -99,9 +99,10 @@ insert into working_hours(id, day, employee_id, end_time, pharmacy_id, start_tim
 
 insert into user_working_hours(pharmacist_id, working_hours_id, dermatologist_id) values (-1, 801, 715);
 insert into user_working_hours(pharmacist_id, working_hours_id, dermatologist_id) values (-1, 802, 715);
-insert into user_working_hours(pharmacist_id, working_hours_id, dermatologist_id) values (-1, 804, 715);
 insert into user_working_hours(pharmacist_id, working_hours_id, dermatologist_id) values (-1, 803, 715);
-insert into user_working_hours(pharmacist_id, working_hours_id, dermatologist_id) values (-1, 805, 715);
-insert into user_working_hours(pharmacist_id, working_hours_id, dermatologist_id) values (-1, 806, 715);
-insert into user_working_hours(pharmacist_id, working_hours_id, dermatologist_id) values (-1, 807, 715);
+insert into user_working_hours(pharmacist_id, working_hours_id, dermatologist_id) values (-1, 804, 715);
+
+insert into user_working_hours(pharmacist_id, working_hours_id, dermatologist_id) values (711, 805, -1);
+insert into user_working_hours(pharmacist_id, working_hours_id, dermatologist_id) values (711, 806, -1);
+insert into user_working_hours(pharmacist_id, working_hours_id, dermatologist_id) values (711, 807, -1);
 
