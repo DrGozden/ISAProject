@@ -36,7 +36,7 @@ public class PharmacyServiceImpl implements PharmacyService {
 		List<Pharmacy> ret = new ArrayList<Pharmacy>();
 		for (Pharmacy pharmacy : all) {
 			for (Drug drug : pharmacy.getDrugsInStock().keySet()) {
-				if (drug.getId() == drugId) {
+				if (drug.getId().equals(drugId)) {
 					ret.add(pharmacy);
 					break;
 				}

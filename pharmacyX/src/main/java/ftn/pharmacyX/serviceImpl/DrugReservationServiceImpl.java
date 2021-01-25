@@ -38,6 +38,7 @@ public class DrugReservationServiceImpl implements DrugReservationService {
 		if (now.isBefore(forCancelation.getDeadline().minusHours(24))) {
 			forCancelation.setDeleted(true);
 		}
+		reservationRepo.save(forCancelation);
 		return forCancelation;
 	}
 

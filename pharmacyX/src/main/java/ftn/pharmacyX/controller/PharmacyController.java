@@ -1,5 +1,6 @@
 package ftn.pharmacyX.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +32,11 @@ public class PharmacyController {
 	@GetMapping()
 	public ResponseEntity<?> getAllPharmacies() {
 		List<Pharmacy> pharmacies = pharmacyService.getAllPharmacies();
-		return new ResponseEntity<>(pharmacies, HttpStatus.OK);
+		List<PharmacyDTO> dtos = new ArrayList<>();
+		for (Pharmacy pharmacy: pharmacies) {
+			dtos.add(converter.pharmacyToDTO(pharmacy));
+		}
+		return new ResponseEntity<>(dtos, HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/{id}")
@@ -44,12 +49,20 @@ public class PharmacyController {
 	@GetMapping(value = "/search")
 	public ResponseEntity<?> searchPharmacies(@RequestParam Map<String, String> queryParams) {
 		List<Pharmacy> found = pharmacyService.searchPharmacies(queryParams);
-		return new ResponseEntity<>(found, HttpStatus.OK);	
+		List<PharmacyDTO> dtos = new ArrayList<>();
+		for (Pharmacy pharmacy: found) {
+			dtos.add(converter.pharmacyToDTO(pharmacy));
+		}
+		return new ResponseEntity<>(dtos, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/containingDrug/{drugId}")
 	public ResponseEntity<?> getPharmaciesContainingDrug(@PathVariable("drugId") Long drugId) {
 		List<Pharmacy> found = pharmacyService.getPharmaciesContainingDrug(drugId);
-		return new ResponseEntity<>(found, HttpStatus.OK);
+		List<PharmacyDTO> dtos = new ArrayList<>();
+		for (Pharmacy pharmacy: found) {
+			dtos.add(converter.pharmacyToDTO(pharmacy));
+		}
+		return new ResponseEntity<>(dtos, HttpStatus.OK);
 	}
 }
