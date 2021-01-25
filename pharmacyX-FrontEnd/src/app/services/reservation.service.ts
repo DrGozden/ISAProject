@@ -38,7 +38,7 @@ export class ReservationService {
   }
 
   public reservePredefinedExamination(id:string) : Observable<DermatologistExam>{
-    return this.http.post<DermatologistExam>('http://localhost:9003/reservations/exams/'+id,{});
+    return this.http.post<DermatologistExam>('http://localhost:9003/appointments/exams/'+id,{});
   }
   
 }

@@ -21,6 +21,9 @@ export class AppComponent {
   
   ngOnInit() {
     this.getCurrentUser();
+    console.log(this.currentUser);
+    
+
   }
 
   getCurrentUser(){

@@ -14,6 +14,8 @@ import { ConsultingReservationsComponent } from './consulting-reservations/consu
 import { ConsultingReservationComponent } from './consulting-reservation/consulting-reservation.component';
 import { DrugReservationComponent } from './drug-reservation/drug-reservation.component';
 import { ExamReservationComponent } from './exam-reservation/exam-reservation.component';
+import { AllDermatologistComponent } from './all-dermatologist/all-dermatologist.component';
+import { AllPharmacistComponent } from './all-pharmacist/all-pharmacist.component';
 
 const routes: Routes = [
   { path: 'homepage', component: HomepageComponent },
@@ -25,6 +27,8 @@ const routes: Routes = [
   { path: 'pharmacies', component: PharmaciesComponent},
   { path: 'drug-search', component: DrugSearchComponent},
   { path: 'pharmacy/:id', component: PharmacyComponent},
+  { path: 'dermatologists', component: AllDermatologistComponent},
+  { path: 'pharmacists', component: AllPharmacistComponent},
   { path: 'drug-reservations', component: DrugReservationsComponent},
   { path: 'exam-reservations', component: ExamReservationsComponent},
   { path: 'consulting-reservations', component: ConsultingReservationsComponent},

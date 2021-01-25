@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -30,6 +30,18 @@ addUser(user) {
 public getUser() : Observable<User>{
   //let headers = this.authService.getHeaders();
   return this.http.get<User>('http://localhost:9003/me'); 
+}
+
+public filterPharmacists(name: string) : Observable<User[]> {
+  return this.http.get<User[]>('http://localhost:9003/pharmacists/search',{
+    params: new HttpParams().set('search', name)
+  });
+}
+
+public filterDermatologists(name: string) : Observable<User[]> {
+  return this.http.get<User[]>('http://localhost:9003/dermatologists/search',{
+    params: new HttpParams().set('search', name)
+  });
 }
 
 // getUser(email) {

@@ -1,0 +1,49 @@
+<div id="login">
+    <h5>Pharmacists</h5>
+    <div class="container">
+        <div id="login-row" class="row justify-content-center align-items-center">
+            <div id="login-column" class="col-md-6">
+                <div id="login-box" class="col-md-12">
+                    <h4>Filter: </h4>
+                    <form id="login-form" class="form" action="" method="post">
+                        <div class="form-group">
+                            <label>Name:</label>
+                            <input type="text" name="pharName" id="pharName" class="form-control"
+                                [(ngModel)]="this.pharmacistName" placeholder="Enter pharmacist name">
+                        </div>
+                        <div class="form-group" id="button">
+                            <button (click)="filter()" class="btn btn-danger btn-block">Filter</button>
+                        </div>
+                        <div class="form-group" id="button">
+                            <button (click)="reload()" class="btn btn-danger btn-block">Reset</button>
+                        </div>
+                    </form>
+                    <hr />
+                    <h4>List of pharmacists: </h4>
+                    <br>
+                    <div class="row" id="ads" *ngIf="filteredPharmacists">
+                        <!-- Category Card -->
+                        <div class="col-md-4" *ngFor="let fp of filteredPharmacists">
+                            <div class="card rounded">
+                                <div class="card-image">
+                                    <img class="img-fluid" src="assets/resources/pharmacistLogo.png"
+                                        alt="Alternate Text" />
+                                </div>
+                                <div class="card-image-overlay m-auto">
+                                    <span class="card-detail-badge">{{fp.firstName}} {{fp.lastName}}</span>
+                                </div>
+
+                                <div class="card-body text-center">
+                                    <h5>{{fp.email}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="!filteredPharmacists">
+                        <h2>No results found!</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

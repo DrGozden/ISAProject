@@ -1,5 +1,6 @@
 package ftn.pharmacyX.helpers;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import ftn.pharmacyX.model.DermatologistExam;
 import ftn.pharmacyX.model.Drug;
 import ftn.pharmacyX.model.DrugReservation;
 import ftn.pharmacyX.model.Pharmacy;
+import ftn.pharmacyX.model.Vacation;
 import ftn.pharmacyX.model.users.Dermatologist;
 import ftn.pharmacyX.model.users.Patient;
 import ftn.pharmacyX.repository.DrugRepository;
@@ -44,6 +46,10 @@ public class DTOConverter {
 	private PharmacyService pharmacyService;
 	
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+	
+	private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+	
+	private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 	
 	@Autowired
 	private PharmacyRepository pharmacyRepo;
@@ -116,6 +122,5 @@ public class DTOConverter {
 		exam.setPharmacy(ph);
 		return exam;
 	}
-	
 	
 }

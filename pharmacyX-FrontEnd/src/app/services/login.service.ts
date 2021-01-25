@@ -50,7 +50,9 @@ export class LoginService {
         }
         return userDTO;
       })).subscribe(
-        (data) => { Swal.fire({text: 'Hello!',icon: 'success'})},
+        (data) => { 
+          Swal.fire({text: 'Hello!',icon: 'success'})
+        },
         error => {  Swal.fire('Oops...', 'Bad email/password!', 'error') }
       );
   }

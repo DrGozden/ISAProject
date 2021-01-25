@@ -12,6 +12,8 @@ export class PharmaciesComponent implements OnInit {
 
   pharmacies: Pharmacy[] = [];
   filteredPharmacies: Pharmacy[] = [];
+  pharmacyName: string = "";
+  rating: number;
   
   constructor(private pharmacyService: PharmacyService) { }
 
@@ -27,6 +29,10 @@ export class PharmaciesComponent implements OnInit {
     });
   }
 
-  public refresh(id: number) {  }
+  public filter() {
+    console.log(this.pharmacyName);
+    console.log(this.rating);
+    this.pharmacyService.filterPharmacies(this.pharmacyName,this.rating && this.rating.toString()).subscribe(data => this.filteredPharmacies = data);
+  }
 
 }
