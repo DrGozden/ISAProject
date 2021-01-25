@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import ftn.pharmacyX.dto.DrugReservationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,30 +16,36 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import ftn.pharmacyX.dto.DrugReservationDTO;
 import ftn.pharmacyX.dto.UserDTO;
+import ftn.pharmacyX.dto.VacationRejectDTO;
 import ftn.pharmacyX.enums.UserRole;
 import ftn.pharmacyX.enums.UserStatus;
 import ftn.pharmacyX.helpers.DTOConverter;
 import ftn.pharmacyX.model.Appointment;
 import ftn.pharmacyX.model.Pharmacy;
+import ftn.pharmacyX.model.Vacation;
 import ftn.pharmacyX.model.users.Patient;
 import ftn.pharmacyX.model.users.User;
-import ftn.pharmacyX.service.PharmacyService;
-import ftn.pharmacyX.model.DrugReservation;
 import ftn.pharmacyX.service.DrugReservationService;
+import ftn.pharmacyX.service.PharmacyService;
 import ftn.pharmacyX.service.UserService;
+import ftn.pharmacyX.service.VacationService;
 
 @RestController
 public class UserController {
 
 	@Autowired
-	UserService userService;
+	private UserService userService;
 	
 	@Autowired
-	PharmacyService pharmacyService;
+	private PharmacyService pharmacyService;
 
 	@Autowired
-	DrugReservationService drugReservationService;
+	private DrugReservationService drugReservationService;
+	
+	@Autowired
+	private VacationService vacationService;
 	
 	@Autowired
 	private DTOConverter converter;
@@ -168,6 +173,32 @@ public class UserController {
 		}
 		
 		return new ResponseEntity<List<UserDTO>>(ret, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/vacation-requests")
+	public ResponseEntity<?> getVacationRequests() {
+		List<Vacation> requests = vacationService.getVacationRequests();
+		return new ResponseEntity<>(requests, HttpStatus.OK);
+	}
+	
+	@PutMapping(value = "/approve-vacation/{vacationId}")
+	public ResponseEntity<?> approveVacation(@PathVariable("vacationId") Long vacationId) {
+		boolean ret = vacationService.approveVacation(vacationId);
+		if (ret) {
+			return new ResponseEntity<>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@PutMapping(value = "/reject-vacation")
+	public ResponseEntity<?> rejectVacation(@RequestBody VacationRejectDTO dto) {
+		boolean ret = vacationService.rejectVacation(dto.getVacationId(), dto.getRejectDescription());
+		if (ret) {
+			return new ResponseEntity<>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 	}
 }
 
