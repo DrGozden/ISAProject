@@ -90,6 +90,7 @@ public class DTOConverter {
 		dto.setPharmacists(pharmacy.getPharmacists());
 		dto.setPriceList(pharmacy.getPriceList());
 		dto.setDrugsInStock(inStockToDTO(pharmacy.getDrugsInStock()));
+		dto.setRating(pharmacy.getRatings());
 		return dto;
 	}
 	

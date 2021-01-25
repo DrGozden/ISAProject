@@ -17,6 +17,7 @@ public class PharmacyDTO {
 	private List<Dermatologist> dermatologists;
 	private List<PriceList> priceList;
 	private List<DrugsInStockDTO> drugsInStock;
+	private double rating;
 	
 	public PharmacyDTO() {
 		
@@ -98,7 +99,16 @@ public class PharmacyDTO {
 	public void setDrugsInStock(List<DrugsInStockDTO> drugsInStock) {
 		this.drugsInStock = drugsInStock;
 	}
-	
-	
-	
+
+	public double getRating() {
+		return rating;
+	}
+
+	public void setRating(List<Integer>ratings) {
+		for (int rate : ratings) {
+			rating = rating + rate;
+		}
+
+		rating = rating/ratings.size();
+	}
 }
