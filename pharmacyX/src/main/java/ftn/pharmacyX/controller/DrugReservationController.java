@@ -27,19 +27,18 @@ public class DrugReservationController {
 	private UserService userService;
 	
 	
-	@PutMapping(value = "/{id}/cancel", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/{id}/cancel")
 	public ResponseEntity<?> cancelDrugReservation(@PathVariable("id") Long reservationId) {
 
-		DrugReservation canceled = drugReservationService.cancelReservation(reservationId);
+		drugReservationService.cancelReservation(reservationId);
 
-		return new ResponseEntity<>(canceled, HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<DrugReservation> makeDrugReservation(@RequestBody DrugReservationDTO drugReservationDTO) {
-		DrugReservation drugReservation = drugReservationService.makeReservation(drugReservationDTO);
-		userService.addDrugReservation(drugReservation);
-		return new ResponseEntity<>(drugReservation, HttpStatus.OK);
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> makeDrugReservation(@RequestBody DrugReservationDTO drugReservationDTO) {
+		userService.addDrugReservation(drugReservationService.makeReservation(drugReservationDTO));
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	
