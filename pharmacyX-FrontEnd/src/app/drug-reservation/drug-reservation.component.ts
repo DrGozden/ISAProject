@@ -5,8 +5,10 @@ import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
 import { Drug } from '../model/drug';
+import { DrugReservation } from '../model/drugReservation';
 import { Pharmacy } from '../model/pharmacy';
 import { User } from '../model/user';
+import { DrugReservationDTO } from '../modelDTO/drugReservationDTO';
 import { DrugsService } from '../services/drugs.service';
 import { LoginService } from '../services/login.service';
 import { UserService } from '../services/user.service';
@@ -59,7 +61,14 @@ export class DrugReservationComponent implements OnInit {
     }
     else {
       this.userService.editUser(this.user);//ovde reserve leka
-      this.return();      
+      let reservation = new DrugReservationDTO();
+      reservation.drugId = this.drugId;
+      reservation.pharmacyId = this.selectedPharmacy.id;
+      reservation.deadlineDateTime = this.date;
+      console.log(reservation);
+      this.drugService.reserveDrug(reservation).subscribe(data => undefined);
+      
+      //this.return();      
     }
   }
 

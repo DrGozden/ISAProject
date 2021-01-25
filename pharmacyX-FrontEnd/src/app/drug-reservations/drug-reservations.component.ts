@@ -25,6 +25,8 @@ export class DrugReservationsComponent implements OnInit {
   }
 
   public cancel(id) {
+    console.log(id);
+    
     this.reservationService.cancelDrugReservation(id).subscribe((data)=>{
       this.reload();
     })

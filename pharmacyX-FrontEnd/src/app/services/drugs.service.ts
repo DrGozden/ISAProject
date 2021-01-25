@@ -2,7 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Drug } from '../model/drug';
+import { DrugReservation } from '../model/drugReservation';
 import { Pharmacy } from '../model/pharmacy';
+import { DrugReservationDTO } from '../modelDTO/drugReservationDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +18,12 @@ export class DrugsService {
   }
 
   public loadPharmaciesByDrugId(id: number) : Observable<Pharmacy[]>{
+    console.log('http://localhost:9003/pharmacies/containingDrug/'+id);
+    
     return this.http.get<Pharmacy[]>('http://localhost:9003/pharmacies/containingDrug/'+id); 
   }
 
-  public reserveDrug(id: number) : Observable<Pharmacy[]>{
-    return this.http.get<Pharmacy[]>('http://localhost:9003/drugs/getByPharmacy/'+id); 
+  public reserveDrug(reservation: DrugReservationDTO) : Observable<DrugReservation>{
+    return this.http.post<DrugReservation>('http://localhost:9003/drug_reservation',reservation); 
   }
 }

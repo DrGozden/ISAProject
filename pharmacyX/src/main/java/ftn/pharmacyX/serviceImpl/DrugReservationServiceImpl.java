@@ -48,7 +48,8 @@ public class DrugReservationServiceImpl implements DrugReservationService {
 		Patient patient = (Patient) user;
 		List<DrugReservationDTO> dtos = new ArrayList<>();
 		for (DrugReservation drugReservation : patient.getDrugReservations()) {
-			dtos.add(new DrugReservationDTO(drugReservation));
+			if(!drugReservation.isDeleted())
+				dtos.add(new DrugReservationDTO(drugReservation));
 		}
 		return dtos;
 	}

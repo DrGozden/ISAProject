@@ -26,16 +26,15 @@ export class ReservationService {
   }
 
   public cancelDermatologistReservation(id:string) : Observable<DermatologistExam>{
-    return this.http.put<DermatologistExam>('http://localhost:9003/appointmnents/exams/'+id+"/cancel",{}); //mozda ne
+    return this.http.put<DermatologistExam>('http://localhost:9003/appointments/exams/'+id+"/cancel",{});
   }
 
   public cancelPharmacistReservation(id:string) : Observable<PharmacistExam>{
-    return this.http.put<PharmacistExam>('http://localhost:9003/appointmnents/consultations/'+id+"/cancel",{}); //mozda ne
+    return this.http.put<PharmacistExam>('http://localhost:9003/appointments/consultations/'+id+"/cancel",{}); 
   }
 
-  public cancelDrugReservation(id:string) : Observable<PharmacistExam>{
-    // change this later!!!!
-    return this.http.put<PharmacistExam>('http://localhost:9003/appointmnents/consultations/'+id+"/cancel",{}); //mozda ne
+  public cancelDrugReservation(id:string) : Observable<DrugReservation>{
+    return this.http.put<DrugReservation>('http://localhost:9003/drug_reservation/'+id+"/cancel",{}); 
   }
 
   public reservePredefinedExamination(id:string) : Observable<DermatologistExam>{
