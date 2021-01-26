@@ -1,9 +1,9 @@
 package ftn.pharmacyX.helpers;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,19 +15,26 @@ import ftn.pharmacyX.dto.CreateExamDTO;
 import ftn.pharmacyX.dto.DrugReservationDTO;
 import ftn.pharmacyX.dto.DrugsInStockDTO;
 import ftn.pharmacyX.dto.PharmacyDTO;
+import ftn.pharmacyX.dto.SupplyOfferDTO;
+import ftn.pharmacyX.dto.SupplyOrderDTO;
 import ftn.pharmacyX.dto.UserDTO;
+import ftn.pharmacyX.enums.OfferStatus;
 import ftn.pharmacyX.enums.UserRole;
 import ftn.pharmacyX.model.Address;
 import ftn.pharmacyX.model.DermatologistExam;
 import ftn.pharmacyX.model.Drug;
 import ftn.pharmacyX.model.DrugReservation;
 import ftn.pharmacyX.model.Pharmacy;
-import ftn.pharmacyX.model.Vacation;
+import ftn.pharmacyX.model.SupplierOffer;
+import ftn.pharmacyX.model.SupplyOrder;
 import ftn.pharmacyX.model.users.Dermatologist;
 import ftn.pharmacyX.model.users.Patient;
+import ftn.pharmacyX.model.users.Supplier;
 import ftn.pharmacyX.repository.DrugRepository;
 import ftn.pharmacyX.repository.PharmacyRepository;
+import ftn.pharmacyX.service.DrugService;
 import ftn.pharmacyX.service.PharmacyService;
+import ftn.pharmacyX.service.SupplyService;
 import ftn.pharmacyX.service.UserService;
 
 @Service
@@ -41,6 +48,12 @@ public class DTOConverter {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private DrugService drugService;
+	
+	@Autowired
+	private SupplyService supplyService;
 	
 	@Autowired
 	private PharmacyService pharmacyService;
@@ -121,6 +134,28 @@ public class DTOConverter {
 		Pharmacy ph = pharmacyService.getPharmacy(dto.getPharmacyId());
 		exam.setPharmacy(ph);
 		return exam;
+	}
+	
+	public SupplyOrder dtoToOrder(SupplyOrderDTO dto) {
+		SupplyOrder order = new SupplyOrder();
+		order.setDeadline(LocalDateTime.parse(dto.getDeadline(), formatter));
+		Pharmacy ph = pharmacyService.getPharmacy(dto.getPharmacyId());
+		if (ph == null) {
+			return null;
+		}
+		order.setPharmacy(ph);
+		Map<Drug, Integer> supplies = new HashMap<Drug, Integer>();
+		for (Long drugId : dto.getSupplies().keySet()) {
+			Drug drug = drugService.getDrug(drugId);
+			if (drug == null) {
+				return null;
+			}
+			supplies.put(drug, supplies.get(drugId));
+		}
+		
+		order.setSupplies(supplies);
+		return order;
+		
 	}
 	
 }

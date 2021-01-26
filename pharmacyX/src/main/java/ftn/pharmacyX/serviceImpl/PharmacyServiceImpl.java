@@ -6,15 +6,20 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import ftn.pharmacyX.dto.PharmacistConsultationDTO;
-import ftn.pharmacyX.model.WorkingHours;
-import ftn.pharmacyX.model.users.Pharmacist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ftn.pharmacyX.dto.PharmacistConsultationDTO;
+import ftn.pharmacyX.dto.SupplyOrderDTO;
+import ftn.pharmacyX.helpers.DTOConverter;
 import ftn.pharmacyX.model.Drug;
 import ftn.pharmacyX.model.Pharmacy;
+import ftn.pharmacyX.model.SupplyOrder;
+import ftn.pharmacyX.model.WorkingHours;
+import ftn.pharmacyX.model.users.Pharmacist;
 import ftn.pharmacyX.repository.PharmacyRepository;
+import ftn.pharmacyX.repository.SupplyOrderRepository;
+import ftn.pharmacyX.service.AppointmentService;
 import ftn.pharmacyX.service.PharmacyService;
 
 @Service
@@ -24,7 +29,13 @@ public class PharmacyServiceImpl implements PharmacyService {
 	private PharmacyRepository pharmacyRepo;
 
 	@Autowired
-	private AppointmentServiceImpl appointmentService;
+	private AppointmentService appointmentService;
+	
+	@Autowired
+	private DTOConverter converter;
+	
+	@Autowired
+	private SupplyOrderRepository supplyRepository;
 	
 	
 	@Override
@@ -169,5 +180,6 @@ public class PharmacyServiceImpl implements PharmacyService {
 		}
 		
 	}
+
 	
 }

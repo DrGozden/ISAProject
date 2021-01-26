@@ -39,7 +39,6 @@ public class ReservationController {
 		DermatologistExam scheduled = appointmentService.scheduleExam(loggedPatient, id);
 		
 		return new ResponseEntity<DermatologistExam>(scheduled, HttpStatus.OK);
-		
 	}
 	
 }
