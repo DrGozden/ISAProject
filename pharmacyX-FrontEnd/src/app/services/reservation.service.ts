@@ -44,7 +44,7 @@ export class ReservationService {
   }
 
   public getPharmacistsForDateAndPharmacy(filter:FilterDatePharmacy) : Observable<User[]>{
-    return this.http.post<User[]>('http://localhost:9003/pharmacies/availablePharmacists',filter);
+    return this.http.post<User[]>('http://localhost:9003/pharmacies/availablePharmacist',filter);
   }
   
 }
