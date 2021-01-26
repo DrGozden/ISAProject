@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Pharmacy } from '../model/pharmacy';
@@ -26,5 +26,11 @@ export class PharmacyService {
 
   public loadPredefinedExams(id: string) : Observable<PredefinedExam[]>{
     return this.http.get<PredefinedExam[]>('http://localhost:9003/appointments/pharmacies/'+id+'/unreserved_exams' ); 
+  }
+
+  public filterPharmacies(name: string, rating: string) : Observable<Pharmacy[]> {
+    return this.http.get<Pharmacy[]>('http://localhost:9003/pharmacies/search',{
+      params: new HttpParams().set('search', name).set('rating',rating)
+    });
   }
 }

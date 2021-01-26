@@ -1,5 +1,7 @@
 package ftn.pharmacyX.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +9,7 @@ import java.util.Map;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import ftn.pharmacyX.model.users.Pharmacist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +33,8 @@ public class PharmacyController {
 	
 	@Autowired
 	private DTOConverter converter;
+
+	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 	
 	
 	@GetMapping()
@@ -67,5 +72,12 @@ public class PharmacyController {
 			dtos.add(converter.pharmacyToDTO(pharmacy));
 		}
 		return new ResponseEntity<>(dtos, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "availablePharmacist/{date}")
+	public ResponseEntity<?> getAvailablePharmacist(@PathVariable("date") String date){
+		LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
+		List<Pharmacist> availablePharmacist = pharmacyService.getAvailablePharmacist(dateTime);
+		return new ResponseEntity<>(availablePharmacist, HttpStatus.OK);
 	}
 }

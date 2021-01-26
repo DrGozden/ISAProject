@@ -24,6 +24,8 @@ import { DrugReservationComponent } from './drug-reservation/drug-reservation.co
 import { ExamReservationComponent } from './exam-reservation/exam-reservation.component';
 import { ConsultingReservationComponent } from './consulting-reservation/consulting-reservation.component';
 import { DatePipe } from '@angular/common';
+import { AllPharmacistComponent } from './all-pharmacist/all-pharmacist.component';
+import { AllDermatologistComponent } from './all-dermatologist/all-dermatologist.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { DatePipe } from '@angular/common';
     DrugReservationComponent,
     ExamReservationComponent,
     ConsultingReservationComponent,
+    AllPharmacistComponent,
+    AllDermatologistComponent,
   ],
   imports: [
     BrowserModule,

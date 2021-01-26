@@ -163,15 +163,9 @@ public class UserController {
 	
 	@GetMapping(value = "/dermatologists/search", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<UserDTO>> getAllDermatologistsForSpecificPharmacy(@RequestParam Map<String, String> queryParams) {
-		String pharmacyId = queryParams.get("pharmacyId");
 		List<UserDTO> ret = new ArrayList<UserDTO>();
 		
-		if (pharmacyId == null) {
-			return new ResponseEntity<List<UserDTO>>(ret, HttpStatus.BAD_REQUEST);
-		}
-		
-		Pharmacy foundPharmacy = pharmacyService.getPharmacy(Long.parseLong(pharmacyId));
-		List<User> dermatologists = userService.findAllDermatologistsForPharmacy(foundPharmacy);
+		List<User> dermatologists = userService.findAllDermatologists();
 		List<User> found = userService.searchDermatologistsAndPharmacists(queryParams, dermatologists);
 		
 		for (User user : found) {

@@ -66,38 +66,38 @@ public class AppointmentController {
 		return new ResponseEntity<>(consultations, HttpStatus.OK);
 	}
 
-	@PostMapping(value = "/exams/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/exams/{id}")
 	public ResponseEntity<?> scheduleExam(@PathVariable("id") Long examId) {
 
 		User loggedUser = userService.getLoggedUser();
 
-		DermatologistExam exam = apptService.scheduleExam(loggedUser, examId);
-		return new ResponseEntity<>(exam, HttpStatus.OK);
+		apptService.scheduleExam(loggedUser, examId);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@PostMapping(value = "/consultations/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/consultations/{id}")
 	public ResponseEntity<?> scheduleConsultation(@PathVariable("id") Long consultationId) {
 		User loggedUser = userService.getLoggedUser();
 
-		PharmacistConsultation consultation = apptService.scheduleConsultation(loggedUser, consultationId);
+		apptService.scheduleConsultation(loggedUser, consultationId);
 
-		return new ResponseEntity<>(consultation, HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@PutMapping(value = "/exams/{id}/cancel", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/exams/{id}/cancel")
 	public ResponseEntity<?> cancelExam(@PathVariable("id") Long examId) {
 
-		DermatologistExam canceledExam = apptService.cancelExam(examId);
+		apptService.cancelExam(examId);
 
-		return new ResponseEntity<>(canceledExam, HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@PutMapping(value = "/consultations/{id}/cancel", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/consultations/{id}/cancel")
 	public ResponseEntity<?> cancelConsultation(@PathVariable("id") Long consultationId) {
 
-		PharmacistConsultation canceled = apptService.cancelConsultation(consultationId);
+		apptService.cancelConsultation(consultationId);
 
-		return new ResponseEntity<>(canceled, HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 
