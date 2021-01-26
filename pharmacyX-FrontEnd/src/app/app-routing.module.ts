@@ -16,6 +16,7 @@ import { DrugReservationComponent } from './drug-reservation/drug-reservation.co
 import { ExamReservationComponent } from './exam-reservation/exam-reservation.component';
 import { AllDermatologistComponent } from './all-dermatologist/all-dermatologist.component';
 import { AllPharmacistComponent } from './all-pharmacist/all-pharmacist.component';
+import { FreeApointmentsComponent } from './free-apointments/free-apointments.component';
 
 const routes: Routes = [
   { path: 'homepage', component: HomepageComponent },
@@ -38,7 +39,9 @@ const routes: Routes = [
 
   { path: 'exam-reservation/:id', component: ExamReservationComponent},
 
+  { path: 'free-apointments', component: FreeApointmentsComponent},
 
+  
 ];
 
 @NgModule({
