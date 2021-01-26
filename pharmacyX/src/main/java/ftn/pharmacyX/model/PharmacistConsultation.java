@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
+import ftn.pharmacyX.dto.NewConsultationDTO;
 import ftn.pharmacyX.model.users.Pharmacist;
 
 @Entity
@@ -37,7 +38,8 @@ public class PharmacistConsultation extends Appointment {
 	}
 
 
-	public Pharmacist getPharmacist() {
+
+    public Pharmacist getPharmacist() {
 		return pharmacist;
 	}
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import ftn.pharmacyX.dto.CreateExamDTO;
 import ftn.pharmacyX.dto.DermatologistExamDTO;
+import ftn.pharmacyX.dto.NewConsultationDTO;
 import ftn.pharmacyX.dto.PharmacistConsultationDTO;
 import ftn.pharmacyX.model.DermatologistExam;
 import ftn.pharmacyX.model.PharmacistConsultation;
@@ -15,7 +16,7 @@ public interface AppointmentService {
 	public DermatologistExam scheduleExam(User patient, Long examId);
 	public DermatologistExam cancelExam(Long examId);	
 	
-	public PharmacistConsultation scheduleConsultation(User patient, Long consultationId);
+	public PharmacistConsultation scheduleConsultation(User patient, NewConsultationDTO consultationDTO);
 	public PharmacistConsultation cancelConsultation(Long consultationId);
 	
 	public List<DermatologistExamDTO> getDermatologistExamsForPharmacy(Long pharmacyId);

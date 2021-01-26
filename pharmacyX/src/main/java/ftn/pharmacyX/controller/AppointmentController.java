@@ -2,6 +2,7 @@ package ftn.pharmacyX.controller;
 
 import java.util.List;
 
+import ftn.pharmacyX.dto.NewConsultationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -75,12 +76,10 @@ public class AppointmentController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@PostMapping(value = "/consultations/{id}")
-	public ResponseEntity<?> scheduleConsultation(@PathVariable("id") Long consultationId) {
+	@PostMapping(value = "/consultations/new", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> scheduleConsultation(@RequestBody  NewConsultationDTO consultationDTO) {
 		User loggedUser = userService.getLoggedUser();
-
-		apptService.scheduleConsultation(loggedUser, consultationId);
-
+		apptService.scheduleConsultation(loggedUser, consultationDTO);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 

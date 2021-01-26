@@ -1,9 +1,14 @@
 package ftn.pharmacyX.serviceImpl;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import ftn.pharmacyX.dto.NewConsultationDTO;
+import ftn.pharmacyX.model.users.Pharmacist;
+import ftn.pharmacyX.service.PharmacyService;
+import ftn.pharmacyX.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +29,18 @@ public class AppointmentServiceImpl implements AppointmentService {
 	
 	@Autowired
 	private AppointmentRepository appointmentRepo;
+
+	@Autowired
+	UserService userService;
+
+	@Autowired
+	PharmacyService pharmacyService;
 	
 	@Autowired
 	private DTOConverter converter;
+
+
+	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
 	@Override
 	public DermatologistExam scheduleExam(User patient, Long examId) {
@@ -55,13 +69,14 @@ public class AppointmentServiceImpl implements AppointmentService {
 	}
 
 	@Override
-	public PharmacistConsultation scheduleConsultation(User patient, Long consultationId) {
-		PharmacistConsultation consultation = (PharmacistConsultation) appointmentRepo.findById(consultationId).orElse(null);
-		
-		if (consultation == null) {
-			return null;
-		}
-		
+	public PharmacistConsultation scheduleConsultation(User patient, NewConsultationDTO consultationDTO) {
+		PharmacistConsultation consultation = new PharmacistConsultation();
+		consultation.setDateTime(LocalDateTime.parse(consultationDTO.getDateTime(), formatter));
+		consultation.setPharmacist((Pharmacist) userService.findById(consultationDTO.getPharmacistId()));
+		consultation.setPharmacy(pharmacyService.getPharmacy(consultationDTO.getPharmacyId()));
+
+		//TO-DO setovanje cene iz cenovnika!
+
 		consultation.setPatient((Patient) patient);
 		return appointmentRepo.save(consultation);
 	}
