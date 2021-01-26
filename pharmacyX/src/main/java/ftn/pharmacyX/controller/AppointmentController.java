@@ -79,6 +79,7 @@ public class AppointmentController {
 	@PostMapping(value = "/consultations/new", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> scheduleConsultation(@RequestBody  NewConsultationDTO consultationDTO) {
 		User loggedUser = userService.getLoggedUser();
+		System.out.println(consultationDTO.getDateTime());
 		apptService.scheduleConsultation(loggedUser, consultationDTO);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

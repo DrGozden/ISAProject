@@ -5,6 +5,7 @@ import java.util.Map;
 
 import ftn.pharmacyX.dto.FilterDatePharmacistDTO;
 import ftn.pharmacyX.model.Pharmacy;
+import ftn.pharmacyX.model.PriceList;
 import ftn.pharmacyX.model.users.Pharmacist;
 
 public interface PharmacyService {
@@ -17,4 +18,6 @@ public interface PharmacyService {
 	public List<Pharmacy> getPharmaciesContainingDrug(Long drugId);
 
 	List<Pharmacist> getAvailablePharmacist(FilterDatePharmacistDTO filterDto);
+
+
 }

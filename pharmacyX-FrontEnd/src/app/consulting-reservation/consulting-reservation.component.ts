@@ -80,7 +80,7 @@ export class ConsultingReservationComponent implements OnInit {
     reser.dateTime = this.date;
     reser.pharmacistId = this.user.id;
     reser.pharmacyId = this.selectedPharmacy.id;
-    this.reservationService.reserveConsultation(reser);
+    this.reservationService.reserveConsultation(reser).subscribe(data => undefined);
     
           
     }

@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ftn.pharmacyX.dto.NewConsultationDTO;
+import ftn.pharmacyX.model.PriceList;
 import ftn.pharmacyX.model.users.Pharmacist;
 import ftn.pharmacyX.service.PharmacyService;
+import ftn.pharmacyX.service.PriceListService;
 import ftn.pharmacyX.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +37,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 	@Autowired
 	PharmacyService pharmacyService;
+
+	@Autowired
+	PriceListService priceListService;
 	
 	@Autowired
 	private DTOConverter converter;
@@ -74,12 +79,11 @@ public class AppointmentServiceImpl implements AppointmentService {
 		consultation.setDateTime(LocalDateTime.parse(consultationDTO.getDateTime(), formatter));
 		consultation.setPharmacist((Pharmacist) userService.findById(consultationDTO.getPharmacistId()));
 		consultation.setPharmacy(pharmacyService.getPharmacy(consultationDTO.getPharmacyId()));
-
-		//TO-DO setovanje cene iz cenovnika!
-
 		consultation.setPatient((Patient) patient);
 		return appointmentRepo.save(consultation);
 	}
+
+
 
 	@Override
 	public PharmacistConsultation cancelConsultation(Long consultationId) {
