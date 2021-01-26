@@ -120,7 +120,7 @@ public class AppointmentController {
 		return new ResponseEntity<>(exams, HttpStatus.OK);
 	}
 	
-	@PostMapping(value = "/create-exam")
+	@PostMapping(value = "/create-exam", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> createExam(@RequestBody CreateExamDTO dto) {
 		DermatologistExam exam = apptService.createExam(dto);
 		
