@@ -10,6 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import ftn.pharmacyX.dto.CreateExamDTO;
+import ftn.pharmacyX.dto.FilterDatePharmacistDTO;
 import ftn.pharmacyX.dto.PharmacistConsultationDTO;
 import ftn.pharmacyX.model.DermatologistExam;
 import ftn.pharmacyX.model.users.Pharmacist;
@@ -75,7 +76,7 @@ public class PharmacyController {
 
 
 	@PostMapping(value = "/availablePharmacist")
-	public ResponseEntity<?> getAvailablePharmacist(@RequestBody PharmacistConsultationDTO dto) {
+	public ResponseEntity<?> getAvailablePharmacist(@RequestBody FilterDatePharmacistDTO dto) {
 		List<Pharmacist> availablePharmacist = pharmacyService.getAvailablePharmacist(dto);
 		System.out.println(dto.toString());
 		return new ResponseEntity<>(availablePharmacist,HttpStatus.OK);

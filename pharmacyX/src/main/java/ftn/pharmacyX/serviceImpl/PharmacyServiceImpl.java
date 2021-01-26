@@ -1,10 +1,14 @@
 package ftn.pharmacyX.serviceImpl;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import ftn.pharmacyX.dto.FilterDatePharmacistDTO;
 import ftn.pharmacyX.dto.PharmacistConsultationDTO;
 import ftn.pharmacyX.model.WorkingHours;
 import ftn.pharmacyX.model.users.Pharmacist;
@@ -24,7 +28,8 @@ public class PharmacyServiceImpl implements PharmacyService {
 
 	@Autowired
 	private AppointmentServiceImpl appointmentService;
-	
+
+	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 	
 	@Override
 	public List<Pharmacy> getAllPharmacies() {
@@ -53,14 +58,15 @@ public class PharmacyServiceImpl implements PharmacyService {
 	}
 
 	@Override
-	public List<Pharmacist> getAvailablePharmacist(PharmacistConsultationDTO queryDto) {
+	public List<Pharmacist> getAvailablePharmacist(FilterDatePharmacistDTO queryDto) {
+		queryDto.setLocalDateTime(LocalDateTime.parse(queryDto.getDateTime(),formatter));
 		List<Pharmacist> availablePharmacistTemp = new ArrayList<>();
 		Pharmacy pharmacy = getPharmacy(queryDto.getPharmacyId());
 
 		for(Pharmacist pharmacist: pharmacy.getPharmacists()){
 			for(WorkingHours wh: pharmacist.getWorkingHours()){
-				if(wh.getDay().name().equalsIgnoreCase(queryDto.getDateTime().getDayOfWeek().name())){
-					if(queryDto.getDateTime().getHour() >= (wh.getStartTime().getHour()) && queryDto.getDateTime().getHour() <= (wh.getEndTime().getHour()) ){
+				if(wh.getDay().name().equalsIgnoreCase(queryDto.getLocalDateTime().getDayOfWeek().name())){
+					if(queryDto.getLocalDateTime().getHour() >= (wh.getStartTime().getHour()) && queryDto.getLocalDateTime().getHour() <= (wh.getEndTime().getHour()) ){
 						availablePharmacistTemp.add(pharmacist); //Rade u periodu koji je zahtevan
 					}
 				}
@@ -73,15 +79,15 @@ public class PharmacyServiceImpl implements PharmacyService {
 		List<PharmacistConsultationDTO> consultations = appointmentService.getPharmacistConsutationsForPharmacy(pharmacy.getId());
 		for (PharmacistConsultationDTO consultationsDTO: consultations) {
 			for(Pharmacist pharmacist: availablePharmacistTemp){
-				System.out.println(queryDto.getDateTime().getMonth() + "ovo je mesec");
-				System.out.println(queryDto.getDateTime().getDayOfMonth() + "ovo je dan");
-				if(consultationsDTO.getDateTime().getHour() == queryDto.getDateTime().getHour() && consultationsDTO.getDateTime().getDayOfMonth() == queryDto.getDateTime().getDayOfMonth() &&
-						consultationsDTO.getDateTime().getMonth() == queryDto.getDateTime().getMonth()){
+				System.out.println(queryDto.getLocalDateTime().getMonth() + "ovo je mesec");
+				System.out.println(queryDto.getLocalDateTime().getDayOfMonth() + "ovo je dan");
+				if(consultationsDTO.getDateTime().getHour() == queryDto.getLocalDateTime().getHour() && consultationsDTO.getDateTime().getDayOfMonth() == queryDto.getLocalDateTime().getDayOfMonth() &&
+						consultationsDTO.getDateTime().getMonth() == queryDto.getLocalDateTime().getMonth()){
 					System.out.println("Vreme i datum su isti");
 				}
-				if(consultationsDTO.getPharmacistId().equals(pharmacist.getId()) && consultationsDTO.getDateTime().getHour() == queryDto.getDateTime().getHour()
-				&& consultationsDTO.getDateTime().getDayOfMonth() == queryDto.getDateTime().getDayOfMonth() &&
-						consultationsDTO.getDateTime().getMonth() == queryDto.getDateTime().getMonth()){
+				if(consultationsDTO.getPharmacistId().equals(pharmacist.getId()) && consultationsDTO.getDateTime().getHour() == queryDto.getLocalDateTime().getHour()
+				&& consultationsDTO.getDateTime().getDayOfMonth() == queryDto.getLocalDateTime().getDayOfMonth() &&
+						consultationsDTO.getDateTime().getMonth() == queryDto.getLocalDateTime().getMonth()){
 					notAvailablePharmacist.add(pharmacist); //Farmaceuti koje treba izbaciti iz liste dostupnih
 				}
 			}
