@@ -1,27 +1,26 @@
 package ftn.pharmacyX.controller;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-
-import ftn.pharmacyX.model.users.Pharmacist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import ftn.pharmacyX.dto.FilterDatePharmacistDTO;
 import ftn.pharmacyX.dto.PharmacyDTO;
 import ftn.pharmacyX.helpers.DTOConverter;
 import ftn.pharmacyX.model.Pharmacy;
+import ftn.pharmacyX.model.users.Pharmacist;
 import ftn.pharmacyX.service.PharmacyService;
 
 @RestController
@@ -74,10 +73,12 @@ public class PharmacyController {
 		return new ResponseEntity<>(dtos, HttpStatus.OK);
 	}
 
-	@GetMapping(value = "availablePharmacist/{date}")
-	public ResponseEntity<?> getAvailablePharmacist(@PathVariable("date") String date){
-		LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
-		List<Pharmacist> availablePharmacist = pharmacyService.getAvailablePharmacist(dateTime);
-		return new ResponseEntity<>(availablePharmacist, HttpStatus.OK);
+
+	@PostMapping(value = "/availablePharmacist")
+	public ResponseEntity<?> getAvailablePharmacist(@RequestBody FilterDatePharmacistDTO dto) {
+		List<Pharmacist> availablePharmacist = pharmacyService.getAvailablePharmacist(dto);
+		System.out.println(dto.toString());
+		return new ResponseEntity<>(availablePharmacist,HttpStatus.OK);
 	}
+
 }

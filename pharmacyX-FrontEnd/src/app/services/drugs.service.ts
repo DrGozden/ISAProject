@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Drug } from '../model/drug';
@@ -25,5 +25,18 @@ export class DrugsService {
 
   public reserveDrug(reservation: DrugReservationDTO) : Observable<DrugReservation>{
     return this.http.post<DrugReservation>('http://localhost:9003/drug_reservation',reservation); 
+  }
+
+  public filterDrugs(name: string, drugType: string) : Observable<Drug[]> {
+    if(drugType === "") {
+      return this.http.get<Drug[]>('http://localhost:9003/drugs/search',{
+        params: new HttpParams().set('search', name)
+      });
+    } else {
+      return this.http.get<Drug[]>('http://localhost:9003/drugs/search',{
+        params: new HttpParams().set('search', name).set('filter',drugType)
+      });
+    }
+    
   }
 }

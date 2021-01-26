@@ -21,11 +21,11 @@ import { DrugReservationsComponent } from './drug-reservations/drug-reservations
 import { ConsultingReservationsComponent } from './consulting-reservations/consulting-reservations.component';
 import { ExamReservationsComponent } from './exam-reservations/exam-reservations.component';
 import { DrugReservationComponent } from './drug-reservation/drug-reservation.component';
-import { ExamReservationComponent } from './exam-reservation/exam-reservation.component';
 import { ConsultingReservationComponent } from './consulting-reservation/consulting-reservation.component';
 import { DatePipe } from '@angular/common';
 import { AllPharmacistComponent } from './all-pharmacist/all-pharmacist.component';
 import { AllDermatologistComponent } from './all-dermatologist/all-dermatologist.component';
+import { FreeApointmentsComponent } from './free-apointments/free-apointments.component';
 
 @NgModule({
   declarations: [
@@ -42,10 +42,10 @@ import { AllDermatologistComponent } from './all-dermatologist/all-dermatologist
     ConsultingReservationsComponent,
     ExamReservationsComponent,
     DrugReservationComponent,
-    ExamReservationComponent,
     ConsultingReservationComponent,
     AllPharmacistComponent,
     AllDermatologistComponent,
+    FreeApointmentsComponent,
   ],
   imports: [
     BrowserModule,

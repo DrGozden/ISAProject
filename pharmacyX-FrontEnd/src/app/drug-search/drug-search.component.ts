@@ -11,8 +11,10 @@ import { DrugsService } from '../services/drugs.service';
 })
 export class DrugSearchComponent implements OnInit {
 
-  medicines: Drug[] = [];
   filteredMedicines: Drug[] = [];
+  drugName: string = "";
+  drugType: string = "";
+  drugTypes: string[] = ["","ANTIBIOTIC", "ANESTHETIC", "ANTIHISTAMINE", "ANTISEPTICS", "STIMULANTS"];
   
   constructor(private drugService: DrugsService) { }
 
@@ -22,37 +24,20 @@ export class DrugSearchComponent implements OnInit {
 
   public reload() {
     this.drugService.loadDrugs().subscribe((data) => {
-      this.medicines = data;
       this.filteredMedicines = data;
+      this.drugName = "";
+      this.drugType = "";
       console.log(data);
-      /*this.http.get<LocationDTO[]>('http://localhost:8080/api/location/allLocation').subscribe((data) => {
-        this.locations = data;
-        console.log(data);
-      });*/
     });
   }
 
-  public refresh(id: number) {
-    /*var i;
-    this.filteredManifestations = [];
-    for (i = 0; i < this.manifestations.length; i++) {
-      if (this.manifestations[i].locationId == id || id == 0) {
-        this.filteredManifestations.push(this.manifestations[i]);
-      }
-    }
+  public filter() {
+    
+    this.drugService.filterDrugs(this.drugName,this.drugType).subscribe(data => this.filteredMedicines = data);
+  }
 
-    if(id == 0) {
-      this.selectedLocation = new LocationDTO();
-      this.selectedLocation.locationName == "No filter";
-    } else {
-      var j;
-      for (j = 0; j < this.locations.length; j++) {
-        if (this.locations[j].id == id) {
-          console.log(this.locations[j]);
-          this.selectedLocation = this.locations[j];
-        }
-      }
-    }*/
+  addDrugType(drygT) {
+    this.drugType = drygT;
   }
 
 }

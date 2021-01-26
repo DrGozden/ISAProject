@@ -1,8 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { DermatologistExam } from '../model/dermatologistExam';
 import { Pharmacy } from '../model/pharmacy';
 import { PredefinedExam } from '../model/predefinedExam';
+import { FreeApointmentDTO } from '../modelDTO/freeAppointmentDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -32,5 +34,9 @@ export class PharmacyService {
     return this.http.get<Pharmacy[]>('http://localhost:9003/pharmacies/search',{
       params: new HttpParams().set('search', name).set('rating',rating)
     });
+  }
+
+  public createExam(exam: FreeApointmentDTO)  {
+    return this.http.post('http://localhost:9003/appointments/create-exam',exam);
   }
 }

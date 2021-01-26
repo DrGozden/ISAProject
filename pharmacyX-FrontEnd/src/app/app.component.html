@@ -143,6 +143,12 @@
                                 <span>Appeal</span>
                             </a>
                         </li>
+                        <li id="freeId" *ngIf="this.currentUser && this.currentUser.userRole === 'PHARMACY_ADMIN'">
+                            <a routerLink="/free-apointments">
+                                <i class="fas fa-hospital"></i>
+                                <span>Free Apointments</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>

@@ -9,14 +9,12 @@
                                 <label>Uneti datum preuzimanja leka:</label>
                                 <input type="text" name="postalCode" id="postalCode" class="form-control" [(ngModel)]="this.date" placeholder="Enter date..." required>
                             </div>
-                            <div class="form-group">
                                 <div class="form-group">
                                     <label>Add pharmacy</label>
                                     <select (change)="addPharmacy(selectedPharmacy)" class="custom-select" name="type" [(ngModel)]="selectedPharmacy">
                                         <option  *ngFor="let st of pharmacies">{{st.name}}</option>
                                     </select>
                                 </div>
-                            </div>
                             <div class="form-group" id="button">
                                 <button (click)="reserve()" class="btn btn-danger btn-block">Save</button>
                             </div>

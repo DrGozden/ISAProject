@@ -60,7 +60,6 @@ export class DrugReservationComponent implements OnInit {
       Swal.fire('Oops...', 'You must fill all fields!', 'error');
     }
     else {
-      this.userService.editUser(this.user);//ovde reserve leka
       let reservation = new DrugReservationDTO();
       reservation.drugId = this.drugId;
       reservation.pharmacyId = this.selectedPharmacy.id;

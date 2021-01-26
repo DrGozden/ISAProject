@@ -1,11 +1,17 @@
 package ftn.pharmacyX.serviceImpl;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import ftn.pharmacyX.dto.FilterDatePharmacistDTO;
+import ftn.pharmacyX.dto.PharmacistConsultationDTO;
+import ftn.pharmacyX.model.WorkingHours;
+import ftn.pharmacyX.model.users.Pharmacist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +42,8 @@ public class PharmacyServiceImpl implements PharmacyService {
 	
 	@Autowired
 	private SupplyOrderRepository supplyRepository;
-	
+
+	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 	
 	@Override
 	public List<Pharmacy> getAllPharmacies() {
@@ -65,49 +72,43 @@ public class PharmacyServiceImpl implements PharmacyService {
 	}
 
 	@Override
-	public List<Pharmacist> getAvailablePharmacist(LocalDateTime dateTime) {
-		List<Pharmacy> pharmacies = getAllPharmacies();
+	public List<Pharmacist> getAvailablePharmacist(FilterDatePharmacistDTO queryDto) {
+		queryDto.setLocalDateTime(LocalDateTime.parse(queryDto.getDateTime(),formatter));
 		List<Pharmacist> availablePharmacistTemp = new ArrayList<>();
-		List<Pharmacy> availablePharmacy = new ArrayList<>();
-		for (Pharmacy pharmacie: pharmacies) {
-			for(Pharmacist pharmacist: pharmacie.getPharmacists()){
+		Pharmacy pharmacy = getPharmacy(queryDto.getPharmacyId());
+		if(queryDto.getLocalDateTime().isAfter(LocalDateTime.now())){
+			for(Pharmacist pharmacist: pharmacy.getPharmacists()){
 				for(WorkingHours wh: pharmacist.getWorkingHours()){
-					if(wh.getDay().name().equalsIgnoreCase(dateTime.getDayOfWeek().name())){
-						if(dateTime.getHour() >= (wh.getStartTime().getHour()) && dateTime.getHour() <= (wh.getEndTime().getHour()) ){
-							availablePharmacistTemp.add(pharmacist); //Rade u periodu koji je zahtevan
-							availablePharmacy.add(pharmacie); //Farmaceut pripada apoteci
+					if(wh.getDay().name().equalsIgnoreCase(queryDto.getLocalDateTime().getDayOfWeek().name())){
+						if(queryDto.getLocalDateTime().getHour() >= (wh.getStartTime().getHour()) && queryDto.getLocalDateTime().getHour() <= (wh.getEndTime().getHour()) ){
+							availablePharmacistTemp.add(pharmacist); //Radno vreme im je u periodu koji je zahtevan
 						}
 					}
 				}
 			}
-		}
 
-		List<Pharmacist> notAvailablePharmacist = new ArrayList<>();
-		for (Pharmacy pharmacy: availablePharmacy) {
+			List<Pharmacist> notAvailablePharmacist = new ArrayList<>();//Farmaceuti koje treba izbaciti iz liste dostupnih
+
 			List<PharmacistConsultationDTO> consultations = appointmentService.getPharmacistConsutationsForPharmacy(pharmacy.getId());
-			for (PharmacistConsultationDTO dto: consultations) {
+			for (PharmacistConsultationDTO consultationsDTO: consultations) {
 				for(Pharmacist pharmacist: availablePharmacistTemp){
-					System.out.println(dateTime.getMonth() + "ovo je mesec");
-					System.out.println(dateTime.getDayOfMonth() + "ovo je dan");
-					if(dto.getDateTime().getHour() == dateTime.getHour() && dto.getDateTime().getDayOfMonth() == dateTime.getDayOfMonth() &&
-							dto.getDateTime().getMonth() == dateTime.getMonth()){
-						System.out.println("Vreme i datum su isti");
-					}
-					if(dto.getPharmacistId().equals(pharmacist.getId()) && dto.getDateTime().getHour() == dateTime.getHour()
-					&& dto.getDateTime().getDayOfMonth() == dateTime.getDayOfMonth() &&
-							dto.getDateTime().getMonth() == dateTime.getMonth()){
+					if(consultationsDTO.getPharmacistId().equals(pharmacist.getId()) && consultationsDTO.getDateTime().getHour() == queryDto.getLocalDateTime().getHour()
+							&& consultationsDTO.getDateTime().getDayOfMonth() == queryDto.getLocalDateTime().getDayOfMonth() &&
+							consultationsDTO.getDateTime().getMonth() == queryDto.getLocalDateTime().getMonth()){
 						notAvailablePharmacist.add(pharmacist); //Farmaceuti koje treba izbaciti iz liste dostupnih
 					}
 				}
 			}
-		}
 
-		Iterator itr = availablePharmacistTemp.iterator();
-		while (itr.hasNext())
-		{
-			Pharmacist pharmacist = (Pharmacist) itr.next();
-			if(notAvailablePharmacist.contains(pharmacist))
-				itr.remove();
+
+			Iterator itr = availablePharmacistTemp.iterator();
+			while (itr.hasNext())
+			{
+				Pharmacist pharmacist = (Pharmacist) itr.next();
+				if(notAvailablePharmacist.contains(pharmacist))
+					itr.remove();
+			}
+
 		}
 
 	return availablePharmacistTemp;
