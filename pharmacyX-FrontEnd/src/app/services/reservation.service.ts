@@ -49,6 +49,8 @@ export class ReservationService {
   }
 
   public reserveConsultation(res: ReserveConsultationDTO) {
+    console.log(res);
+    
     return this.http.post('http://localhost:9003/appointments/consultations/new',res);
   }
   
