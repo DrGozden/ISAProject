@@ -1,16 +1,27 @@
 <div class="container">
+    <h4>Filter: </h4>
+    <form id="login-form" class="form" action="" method="post">
+        <div class="form-group">
+            <label>Drug Name:</label>
+            <input type="text" name="derName" id="derName" class="form-control" [(ngModel)]="this.drugName"
+                placeholder="Enter drug name">
+        </div>
+        <div class="form-group">
+            <label>Drug type</label>
+            <select (change)="addDrugType(drugType)" class="custom-select" name="type" [(ngModel)]="drugType">
+                <option  *ngFor="let st of drugTypes">{{st}}</option>
+            </select>
+        </div>
+        <div class="form-group" id="button">
+            <button (click)="filter()" class="btn btn-danger btn-block">Filter</button>
+        </div>
+        <div class="form-group" id="button">
+            <button (click)="reload()" class="btn btn-danger btn-block">Reset</button>
+        </div>
+    </form>
+    <hr />
     <br>
     <h4>List of available medicines: </h4>
-    <!-- <div class="dropdown">
-        Filter by location: <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{selectedLocation.locationName}}
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" (click)="refresh(0)">None</a>
-            <a class="dropdown-item" *ngFor="let loc of locations" (click)="refresh(loc.id)">{{loc.locationName}}</a>
-        </div>
-    </div> -->
     <br>
     <div class="row" id="ads" *ngIf="filteredMedicines">
         <!-- Category Card -->
@@ -25,7 +36,8 @@
 
                 <div class="card-body text-center">
                     <h5>{{fm.name}}</h5>
-                    <span class="card-detail-badge"><a class="moreLink" [routerLink]="['/drug-reservation', fm.id]">Reserve</a></span>
+                    <span class="card-detail-badge"><a class="moreLink"
+                            [routerLink]="['/drug-reservation', fm.id]">Reserve</a></span>
                 </div>
             </div>
         </div>

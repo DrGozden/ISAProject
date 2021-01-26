@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { Pharmacy } from '../model/pharmacy';
 import { User } from '../model/user';
 import { FilterDatePharmacy } from '../modelDTO/filterDatePharmacy';
+import { ReserveConsultationDTO } from '../modelDTO/reserveConsultationDTO';
 import { DrugsService } from '../services/drugs.service';
 import { LoginService } from '../services/login.service';
 import { PharmacyService } from '../services/pharmacy.service';
@@ -32,10 +33,7 @@ export class ConsultingReservationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getUser().subscribe((data) => {
-      this.user = data;
-      this.reload();
-    });
+    this.reload();
   }
 
   public reload() {
@@ -47,15 +45,7 @@ export class ConsultingReservationComponent implements OnInit {
 
 
 
-  reserve() {
-    if (this.date === "") {
-      Swal.fire('Oops...', 'You must fill all fields!', 'error');
-    }
-    else {
-      this.userService.editUser(this.user);
-      this.return();      
-    }
-  }
+  
 
   return() {
     this.location.back()
@@ -75,6 +65,29 @@ export class ConsultingReservationComponent implements OnInit {
     this.reservationService.getPharmacistsForDateAndPharmacy(filter).subscribe(data => this.filteredUsers = data);
     
   }
+
+  addPharmacist(pharmacist) {
+    this.user = pharmacist;    
+  }
+
+  reserve() {
+    if (this.date === "") {
+      Swal.fire('Oops...', 'You must fill all fields!', 'error');
+    }
+    else {
+
+    let reser = new ReserveConsultationDTO();
+    reser.dateTime = this.date;
+    reser.pharmacistId = this.user.id;
+    reser.pharmacyId = this.selectedPharmacy.id;
+    console.log(reser);
+    //this.reservationService.reserveConsultation(reser);
+    
+          
+    }
+  }
+
+  
 
   public refresh(id: number) {
     

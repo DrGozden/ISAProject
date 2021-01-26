@@ -7,6 +7,7 @@ import { DrugReservation } from '../model/drugReservation';
 import { PharmacistExam } from '../model/pharmacistExam';
 import { User } from '../model/user';
 import { FilterDatePharmacy } from '../modelDTO/filterDatePharmacy';
+import { ReserveConsultationDTO } from '../modelDTO/reserveConsultationDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +46,10 @@ export class ReservationService {
 
   public getPharmacistsForDateAndPharmacy(filter:FilterDatePharmacy) : Observable<User[]>{
     return this.http.post<User[]>('http://localhost:9003/pharmacies/availablePharmacist',filter);
+  }
+
+  public reserveConsultation(res: ReserveConsultationDTO) {
+    return this.http.post('http://localhost:9003/appointments/consultations/new',res);
   }
   
 }

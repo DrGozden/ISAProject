@@ -13,7 +13,6 @@ import { ExamReservationsComponent } from './exam-reservations/exam-reservations
 import { ConsultingReservationsComponent } from './consulting-reservations/consulting-reservations.component';
 import { ConsultingReservationComponent } from './consulting-reservation/consulting-reservation.component';
 import { DrugReservationComponent } from './drug-reservation/drug-reservation.component';
-import { ExamReservationComponent } from './exam-reservation/exam-reservation.component';
 import { AllDermatologistComponent } from './all-dermatologist/all-dermatologist.component';
 import { AllPharmacistComponent } from './all-pharmacist/all-pharmacist.component';
 import { FreeApointmentsComponent } from './free-apointments/free-apointments.component';
@@ -36,9 +35,6 @@ const routes: Routes = [
 
   { path: 'drug-reservation/:id', component: DrugReservationComponent},
   { path: 'consulting-reservation', component: ConsultingReservationComponent}, 
-
-  { path: 'exam-reservation/:id', component: ExamReservationComponent},
-
   { path: 'free-apointments', component: FreeApointmentsComponent},
 
   
