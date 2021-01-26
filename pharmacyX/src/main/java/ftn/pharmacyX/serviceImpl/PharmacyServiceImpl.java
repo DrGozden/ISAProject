@@ -62,44 +62,39 @@ public class PharmacyServiceImpl implements PharmacyService {
 		queryDto.setLocalDateTime(LocalDateTime.parse(queryDto.getDateTime(),formatter));
 		List<Pharmacist> availablePharmacistTemp = new ArrayList<>();
 		Pharmacy pharmacy = getPharmacy(queryDto.getPharmacyId());
-
-		for(Pharmacist pharmacist: pharmacy.getPharmacists()){
-			for(WorkingHours wh: pharmacist.getWorkingHours()){
-				if(wh.getDay().name().equalsIgnoreCase(queryDto.getLocalDateTime().getDayOfWeek().name())){
-					if(queryDto.getLocalDateTime().getHour() >= (wh.getStartTime().getHour()) && queryDto.getLocalDateTime().getHour() <= (wh.getEndTime().getHour()) ){
-						availablePharmacistTemp.add(pharmacist); //Rade u periodu koji je zahtevan
+		if(queryDto.getLocalDateTime().isAfter(LocalDateTime.now())){
+			for(Pharmacist pharmacist: pharmacy.getPharmacists()){
+				for(WorkingHours wh: pharmacist.getWorkingHours()){
+					if(wh.getDay().name().equalsIgnoreCase(queryDto.getLocalDateTime().getDayOfWeek().name())){
+						if(queryDto.getLocalDateTime().getHour() >= (wh.getStartTime().getHour()) && queryDto.getLocalDateTime().getHour() <= (wh.getEndTime().getHour()) ){
+							availablePharmacistTemp.add(pharmacist); //Radno vreme im je u periodu koji je zahtevan
+						}
 					}
 				}
 			}
-		}
 
+			List<Pharmacist> notAvailablePharmacist = new ArrayList<>();//Farmaceuti koje treba izbaciti iz liste dostupnih
 
-		List<Pharmacist> notAvailablePharmacist = new ArrayList<>();
-
-		List<PharmacistConsultationDTO> consultations = appointmentService.getPharmacistConsutationsForPharmacy(pharmacy.getId());
-		for (PharmacistConsultationDTO consultationsDTO: consultations) {
-			for(Pharmacist pharmacist: availablePharmacistTemp){
-				System.out.println(queryDto.getLocalDateTime().getMonth() + "ovo je mesec");
-				System.out.println(queryDto.getLocalDateTime().getDayOfMonth() + "ovo je dan");
-				if(consultationsDTO.getDateTime().getHour() == queryDto.getLocalDateTime().getHour() && consultationsDTO.getDateTime().getDayOfMonth() == queryDto.getLocalDateTime().getDayOfMonth() &&
-						consultationsDTO.getDateTime().getMonth() == queryDto.getLocalDateTime().getMonth()){
-					System.out.println("Vreme i datum su isti");
-				}
-				if(consultationsDTO.getPharmacistId().equals(pharmacist.getId()) && consultationsDTO.getDateTime().getHour() == queryDto.getLocalDateTime().getHour()
-				&& consultationsDTO.getDateTime().getDayOfMonth() == queryDto.getLocalDateTime().getDayOfMonth() &&
-						consultationsDTO.getDateTime().getMonth() == queryDto.getLocalDateTime().getMonth()){
-					notAvailablePharmacist.add(pharmacist); //Farmaceuti koje treba izbaciti iz liste dostupnih
+			List<PharmacistConsultationDTO> consultations = appointmentService.getPharmacistConsutationsForPharmacy(pharmacy.getId());
+			for (PharmacistConsultationDTO consultationsDTO: consultations) {
+				for(Pharmacist pharmacist: availablePharmacistTemp){
+					if(consultationsDTO.getPharmacistId().equals(pharmacist.getId()) && consultationsDTO.getDateTime().getHour() == queryDto.getLocalDateTime().getHour()
+							&& consultationsDTO.getDateTime().getDayOfMonth() == queryDto.getLocalDateTime().getDayOfMonth() &&
+							consultationsDTO.getDateTime().getMonth() == queryDto.getLocalDateTime().getMonth()){
+						notAvailablePharmacist.add(pharmacist); //Farmaceuti koje treba izbaciti iz liste dostupnih
+					}
 				}
 			}
-		}
 
 
-		Iterator itr = availablePharmacistTemp.iterator();
-		while (itr.hasNext())
-		{
-			Pharmacist pharmacist = (Pharmacist) itr.next();
-			if(notAvailablePharmacist.contains(pharmacist))
-				itr.remove();
+			Iterator itr = availablePharmacistTemp.iterator();
+			while (itr.hasNext())
+			{
+				Pharmacist pharmacist = (Pharmacist) itr.next();
+				if(notAvailablePharmacist.contains(pharmacist))
+					itr.remove();
+			}
+
 		}
 
 	return availablePharmacistTemp;
