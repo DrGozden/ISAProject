@@ -149,6 +149,12 @@
                                 <span>Free Apointments</span>
                             </a>
                         </li>
+                        <li id="vacationId" *ngIf="this.currentUser && this.currentUser.userRole === 'PHARMACY_ADMIN'">
+                            <a routerLink="/vacations">
+                                <i class="fas fa-hospital"></i>
+                                <span>Vacations</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>

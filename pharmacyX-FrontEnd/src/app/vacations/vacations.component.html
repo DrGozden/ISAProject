@@ -1,0 +1,56 @@
+<h2 style="margin-left: 50px; margin-top: 20px;">Vacation manager: </h2>
+			
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 table-responsive">
+			<table class="table table-bordered table-sortable" id="tab_logic">
+				<thead>
+					<tr>
+						<th class="text-center">
+							User
+						</th>
+						<th class="text-center">
+							Start date
+						</th>
+						<th class="text-center">
+							End date
+						</th>
+						<th class="text-center">
+							Accepted
+						</th>
+                        <th class="text-center">
+							Accept
+						</th>
+						<th class="text-center">
+							Decline
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr id='addr0' data-id="0" class="hidden" *ngFor="let v of vacations">
+						<td data-name="name">
+							{{v.userId}}
+						</td>
+						<td data-name="name">
+							{{v.startDate}}
+						</td>
+						<td data-name="mail">
+							{{v.endDate}}
+						</td>
+						<td data-name="mail">
+							{{getState(v.deleted, v.accepted)}}
+						</td>
+						<td>
+							<button *ngIf="!v.accepted" class="btn btn-primary" (click)="accept(v.id)">Accept</button>
+							<span *ngIf="v.accepted">Accepted</span>
+						</td>
+						<td>
+							<button *ngIf="!v.accepted" class="btn btn-primary" (click)="decline(v.id)">Decline</button>
+							<span *ngIf="v.accepted">Accepted</span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
