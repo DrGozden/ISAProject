@@ -77,6 +77,8 @@ public class SupplyServiceImpl implements SupplyService {
 		}
 		return pendingOffers;
 	}
+	
+	
 
 	@Override
 	public boolean acceptOffer(Long offerId) {
@@ -124,6 +126,18 @@ public class SupplyServiceImpl implements SupplyService {
 		pharmacyRepo.save(pharmacy);
 		
 		return true;
+	}
+
+	@Override
+	public List<SupplyOrder> getAllOrdersForPharmacy(Long pharmacyId) {
+		List<SupplyOrder> all = getAllOrders();
+		List<SupplyOrder> ret = new ArrayList<SupplyOrder>();
+		for (SupplyOrder supplyOrder : all) {
+			if (supplyOrder.getPharmacy().getId().equals(pharmacyId)) {
+				ret.add(supplyOrder);
+			}
+		}
+		return ret;
 	}
 
 }

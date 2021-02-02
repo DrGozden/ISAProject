@@ -20,4 +20,6 @@ public interface SupplyService {
 	public List<SupplierOffer> getAllPendingOffersForOrder(Long orderId);
 	
 	public boolean acceptOffer(Long offerId);
+	
+	public List<SupplyOrder> getAllOrdersForPharmacy(Long pharmacyId);
 }

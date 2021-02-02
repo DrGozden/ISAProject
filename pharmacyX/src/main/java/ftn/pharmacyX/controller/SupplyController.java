@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ftn.pharmacyX.dto.SupplyOrderDTO;
 import ftn.pharmacyX.model.SupplierOffer;
+import ftn.pharmacyX.model.SupplyOrder;
+import ftn.pharmacyX.model.users.PharmacyAdmin;
 import ftn.pharmacyX.service.SupplyService;
+import ftn.pharmacyX.service.UserService;
 
 @RestController
 @RequestMapping("/supplies")
@@ -26,6 +29,9 @@ public class SupplyController {
 	
 	@Autowired
 	private SupplyService supplyService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@PostMapping("/create-order")
 	@Consumes(MediaType.APPLICATION_JSON_VALUE)
@@ -36,6 +42,14 @@ public class SupplyController {
 		}
 		
 		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@GetMapping("/orders")
+	@Produces(MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> getOrders() {
+		PharmacyAdmin admin = (PharmacyAdmin) userService.getLoggedUser();
+		List<SupplyOrder> orders = supplyService.getAllOrdersForPharmacy(admin.getPharmacy().getId());
+		return new ResponseEntity<>(orders, HttpStatus.OK);
 	}
 	
 	@GetMapping("/pending-offers")
