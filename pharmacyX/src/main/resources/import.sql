@@ -16,7 +16,7 @@ insert into user (id, first_name, last_name, email, password, phone, user_type, 
 insert into user (id, first_name, last_name, email, password, phone, user_type, address_id, user_role, deleted, user_status) values (714, 'Mira', 'Miric', 'mira@gmail.com', '$2a$10$Bhbe5Azsb1wOUnTXJMfnrO8Ou2kCrBDI4AQDwTOEm5MxG/0YtmtzG', '111-555', 'patient_user', 704, 0, false, 0);
 insert into user (id, first_name, last_name, email, password, phone, user_type, address_id, user_role, deleted, user_status) values (715, 'Pera', 'Peric', 'pera@gmail.com', '$2a$10$Bhbe5Azsb1wOUnTXJMfnrO8Ou2kCrBDI4AQDwTOEm5MxG/0YtmtzG', '111-333', 'dermatologist_user', 705, 1, false, 0);
 insert into user (id, first_name, last_name, email, password, phone, user_type, address_id, user_role, deleted, user_status) values (716, 'Djura', 'Djuric', 'djura@gmail.com', '$2a$10$Bhbe5Azsb1wOUnTXJMfnrO8Ou2kCrBDI4AQDwTOEm5MxG/0YtmtzG', '111-444', 'dermatologist_user', 706, 1, false, 0);
-insert into user (id, first_name, last_name, email, password, phone, user_type, address_id, user_role, deleted, user_status) values (878, 'Stefan', 'Stevic', 'stefan@gmail.com', '$2a$10$Bhbe5Azsb1wOUnTXJMfnrO8Ou2kCrBDI4AQDwTOEm5MxG/0YtmtzG', '111-444', 'pharmacy_admin_user', 888, 3, false, 0);
+insert into user (id, first_name, last_name, email, password, phone, user_type, address_id, user_role, deleted, user_status, pharmacy_id) values (878, 'Stefan', 'Stevic', 'stefan@gmail.com', '$2a$10$Bhbe5Azsb1wOUnTXJMfnrO8Ou2kCrBDI4AQDwTOEm5MxG/0YtmtzG', '111-444', 'pharmacy_admin_user', 888, 3, false, 0, 717);
 				
 
 insert into pharmacy (id, name, description, address_id, deleted) values (717, 'Apoteka PharmacyX 1', 'Bulevar', 710, false);
@@ -33,11 +33,13 @@ insert into drug_specification (id, contraindications, daily_recommendation, des
 insert into drug_specification (id, contraindications, daily_recommendation, description, drug_form, drug_type, prescription, producer, structure, deleted) values (732, 'Temperatura', '1 kesica dnevno', 'Lek protiv bola u misicima', 0, 3, true, 'Convol', 'Sadrzi 450mg necega', false);
 insert into drug_specification (id, contraindications, daily_recommendation, description, drug_form, drug_type, prescription, producer, structure, deleted) values (733, 'Povracanje', 'Preporuceno 1 kapsula dnevno', 'Lek protiv upale grla', 1, 1, true, 'Tantum', 'Sadrzi 450mg necega', false);
 insert into drug_specification (id, contraindications, daily_recommendation, description, drug_form, drug_type, prescription, producer, structure, deleted) values (734, 'Malaksalost, dijareja', 'Preporuceno 1 tableta na 4h', 'Brufen', 1, 1, true, 'Bayer', 'Sadrzi 200mg ibuprofena', false);
+insert into drug_specification (id, contraindications, daily_recommendation, description, drug_form, drug_type, prescription, producer, structure, deleted) values (735, 'Bol', 'Preporuceno 2 tableta na 4h', 'TestLek', 1, 1, true, 'Bayer', 'Sadrzi 200mg testLeka', false);
 				
 insert into drug (id, code, name, specification_id, deleted) values (741, 'SIFR111222333', 'Brufen 600mg', 733, false);
 insert into drug (id, code, name, specification_id, deleted) values (742, 'SIFR111222444', 'Rapidol 200mg', 732, false);
 insert into drug (id, code, name, specification_id, deleted) values (743, 'SIFR111222555', 'Enterofuril 200', 731, false);
 insert into drug (id, code, name, specification_id, deleted) values (744, 'SIFR111222666', 'Tantum Verde Kapsule', 734, false);
+insert into drug (id, code, name, specification_id, deleted) values (745, 'SIFR111222777', 'Novi test lek', 735, false);
 				
 insert into drug_specification_substitutes (drug_specification_id, substitute_drug_id) values (732, 744);
 insert into drug_specification_substitutes (drug_specification_id, substitute_drug_id) values (734, 742);
@@ -80,6 +82,7 @@ insert into pharmacy_stock_mapping (pharmacy_id, quantity, drug_id) values (717,
 insert into pharmacy_stock_mapping (pharmacy_id, quantity, drug_id) values (717, 52, 742);
 insert into pharmacy_stock_mapping (pharmacy_id, quantity, drug_id) values (717, 3, 743);
 insert into pharmacy_stock_mapping (pharmacy_id, quantity, drug_id) values (717, 20, 744);
+insert into pharmacy_stock_mapping (pharmacy_id, quantity, drug_id) values (718, 20, 745);
 
 insert into drug_reservation (id, code, deadline, deleted, drug_id, pharmacy_id) values (997, 'SIFR111222555', '2021-02-02', false, 743, 717);
 insert into drug_reservation (id, code, deadline, deleted, drug_id, pharmacy_id) values (998, 'SIFR111222555', '2020-01-01', false, 743, 717);
