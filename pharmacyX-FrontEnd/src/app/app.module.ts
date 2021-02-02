@@ -26,6 +26,7 @@ import { DatePipe } from '@angular/common';
 import { AllPharmacistComponent } from './all-pharmacist/all-pharmacist.component';
 import { AllDermatologistComponent } from './all-dermatologist/all-dermatologist.component';
 import { FreeApointmentsComponent } from './free-apointments/free-apointments.component';
+import { VacationsComponent } from './vacations/vacations.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { FreeApointmentsComponent } from './free-apointments/free-apointments.co
     AllPharmacistComponent,
     AllDermatologistComponent,
     FreeApointmentsComponent,
+    VacationsComponent,
   ],
   imports: [
     BrowserModule,
