@@ -19,6 +19,7 @@ public interface PharmacyService {
 	public List<Pharmacy> searchPharmacies(Map<String, String> queryParams);
 	public List<Pharmacy> getPharmaciesContainingDrug(Long drugId);
 
+	public List<Pharmacist> getAvailablePharmacist(LocalDateTime dateTime);
 	
 	List<Pharmacist> getAvailablePharmacist(FilterDatePharmacistDTO filterDto);
 
