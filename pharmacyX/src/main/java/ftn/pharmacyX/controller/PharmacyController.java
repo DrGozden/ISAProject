@@ -1,6 +1,5 @@
 package ftn.pharmacyX.controller;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,7 +33,7 @@ public class PharmacyController {
 	@Autowired
 	private DTOConverter converter;
 
-	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+	//private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 	
 	
 	@GetMapping()
@@ -80,5 +80,12 @@ public class PharmacyController {
 		System.out.println(dto.toString());
 		return new ResponseEntity<>(availablePharmacist,HttpStatus.OK);
 	}
+	
+	@PutMapping(value = "/update")
+	public ResponseEntity<?> updatePharmacy(@RequestBody PharmacyDTO dto) {
+		Pharmacy pharmacy = pharmacyService.updatePharmacy(dto);
+		return new ResponseEntity<>(pharmacy,HttpStatus.OK);
+	}
+
 
 }
