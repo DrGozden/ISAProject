@@ -5,26 +5,26 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import ftn.pharmacyX.dto.NewConsultationDTO;
-import ftn.pharmacyX.model.PriceList;
-import ftn.pharmacyX.model.users.Pharmacist;
-import ftn.pharmacyX.service.PharmacyService;
-import ftn.pharmacyX.service.PriceListService;
-import ftn.pharmacyX.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ftn.pharmacyX.dto.CreateExamDTO;
 import ftn.pharmacyX.dto.DermatologistExamDTO;
+import ftn.pharmacyX.dto.NewConsultationDTO;
 import ftn.pharmacyX.dto.PharmacistConsultationDTO;
 import ftn.pharmacyX.helpers.DTOConverter;
 import ftn.pharmacyX.model.DermatologistExam;
 import ftn.pharmacyX.model.PharmacistConsultation;
 import ftn.pharmacyX.model.WorkingHours;
 import ftn.pharmacyX.model.users.Patient;
+import ftn.pharmacyX.model.users.Pharmacist;
 import ftn.pharmacyX.model.users.User;
 import ftn.pharmacyX.repository.AppointmentRepository;
 import ftn.pharmacyX.service.AppointmentService;
+import ftn.pharmacyX.service.PharmacyService;
+import ftn.pharmacyX.service.PriceListService;
+import ftn.pharmacyX.service.UserService;
+import ftn.pharmacyX.service.VacationService;
 
 @Service
 public class AppointmentServiceImpl implements AppointmentService {
@@ -33,16 +33,19 @@ public class AppointmentServiceImpl implements AppointmentService {
 	private AppointmentRepository appointmentRepo;
 
 	@Autowired
-	UserService userService;
+	private UserService userService;
 
 	@Autowired
-	PharmacyService pharmacyService;
+	private PharmacyService pharmacyService;
 
 	@Autowired
-	PriceListService priceListService;
+	private PriceListService priceListService;
 	
 	@Autowired
 	private DTOConverter converter;
+	
+	@Autowired
+	private VacationService vacationService;
 
 
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
@@ -167,12 +170,22 @@ public class AppointmentServiceImpl implements AppointmentService {
 	public DermatologistExam createExam(CreateExamDTO dto) {
 		DermatologistExam exam = converter.dtoToExam(dto);
 		List<WorkingHours> workingHours = exam.getDermatologist().getWorkingHours();
+		// ako je na godisnjem odmoru
+		if (vacationService.isEmployeeOnVacation(dto.getDermatologistId(), exam.getDateTime())) {
+			return null;
+		}
 		boolean flag = false;
+		// ako pokusava da napravi exam koji nije u intervalu radnog vremena dermatologa
 		for (WorkingHours wh : workingHours) {
-			if (wh.getDay().name().equalsIgnoreCase(exam.getDateTime().getDayOfWeek().name())){
-				if (exam.getDateTime().toLocalTime().isBefore(wh.getEndTime()) &&
-						exam.getDateTime().toLocalTime().isAfter(wh.getStartTime())) {
-					flag = true;
+			// working hours u datoj apoteci
+			if (wh.getPharmacyId().equals(dto.getPharmacyId())) {
+				// uslov da je u intervalu radnog vremena u toj apoteci
+				if (wh.getDay().name().equalsIgnoreCase(exam.getDateTime().getDayOfWeek().name())){
+					if (exam.getDateTime().toLocalTime().isBefore(wh.getEndTime()) &&
+							exam.getDateTime().toLocalTime().isAfter(wh.getStartTime())) {
+						flag = true;
+						break;
+					}
 				}
 			}
 		}

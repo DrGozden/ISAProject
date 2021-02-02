@@ -199,7 +199,7 @@ public class UserController {
 		}
 	}
 	
-	@PutMapping(value = "/reject-vacation")
+	@PutMapping(value = "/reject-vacation", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> rejectVacation(@RequestBody VacationRejectDTO dto) {
 		boolean ret = vacationService.rejectVacation(dto.getVacationId(), dto.getRejectDescription());
 		if (ret) {

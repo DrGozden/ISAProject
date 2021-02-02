@@ -1,6 +1,7 @@
 package ftn.pharmacyX.serviceImpl;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,19 @@ public class VacationServiceImpl implements VacationService {
 			if (v.getUserId().equals(employeeId) &&
 				now.isAfter(v.getStartDate()) &&
 				now.isBefore(v.getEndDate())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean isEmployeeOnVacation(Long employeeId, LocalDateTime dateTime) {
+		List<Vacation> allVacations = getVacationRequests();
+		for (Vacation v : allVacations) {
+			if (v.getUserId().equals(employeeId) &&
+				dateTime.toLocalDate().isAfter(v.getStartDate()) &&
+				dateTime.toLocalDate().isBefore(v.getEndDate())) {
 				return true;
 			}
 		}
