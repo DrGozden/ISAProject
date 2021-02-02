@@ -81,6 +81,9 @@ public class UserServiceImpl implements UserService {
 			if (e instanceof NullPointerException) {
 				return null;
 			}
+			else if(e instanceof EntityNotFoundException) {
+				return null; //Vraca null za korisnika koji nije ulogovan kada se pozove getLoggedUser()
+			}
 			e.printStackTrace();
 			throw e;
 		}
