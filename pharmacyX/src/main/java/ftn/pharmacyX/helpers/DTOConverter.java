@@ -15,21 +15,20 @@ import ftn.pharmacyX.dto.CreateExamDTO;
 import ftn.pharmacyX.dto.DrugReservationDTO;
 import ftn.pharmacyX.dto.DrugsInStockDTO;
 import ftn.pharmacyX.dto.PharmacyDTO;
-import ftn.pharmacyX.dto.SupplyOfferDTO;
 import ftn.pharmacyX.dto.SupplyOrderDTO;
 import ftn.pharmacyX.dto.UserDTO;
-import ftn.pharmacyX.enums.OfferStatus;
+import ftn.pharmacyX.dto.VacationWithUserDTO;
 import ftn.pharmacyX.enums.UserRole;
 import ftn.pharmacyX.model.Address;
 import ftn.pharmacyX.model.DermatologistExam;
 import ftn.pharmacyX.model.Drug;
 import ftn.pharmacyX.model.DrugReservation;
 import ftn.pharmacyX.model.Pharmacy;
-import ftn.pharmacyX.model.SupplierOffer;
 import ftn.pharmacyX.model.SupplyOrder;
+import ftn.pharmacyX.model.Vacation;
 import ftn.pharmacyX.model.users.Dermatologist;
 import ftn.pharmacyX.model.users.Patient;
-import ftn.pharmacyX.model.users.Supplier;
+import ftn.pharmacyX.model.users.User;
 import ftn.pharmacyX.repository.DrugRepository;
 import ftn.pharmacyX.repository.PharmacyRepository;
 import ftn.pharmacyX.service.DrugService;
@@ -155,7 +154,21 @@ public class DTOConverter {
 		
 		order.setSupplies(supplies);
 		return order;
+	}
+	
+	public VacationWithUserDTO vacationToDto(Vacation v) {
+		VacationWithUserDTO dto = new VacationWithUserDTO();
+		dto.setVacation(v);
+		User u = userService.findById(dto.getVacation().getUserId());
+		if (u == null) {
+			return null;
+		}
 		
+		dto.setEmail(u.getEmail());
+		dto.setFirstName(u.getFirstName());
+		dto.setLastName(u.getLastName());
+		
+		return dto;
 	}
 	
 }

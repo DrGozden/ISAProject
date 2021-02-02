@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { User } from '../model/user';
+import { Vacation } from '../model/vacation';
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +43,18 @@ public filterDermatologists(name: string) : Observable<User[]> {
   return this.http.get<User[]>('http://localhost:9003/dermatologists/search',{
     params: new HttpParams().set('search', name)
   });
+}
+
+public loadVacations() : Observable<Vacation[]> {
+  return this.http.get<Vacation[]>('http://localhost:9003/vacation-requests');
+}
+
+public accept(id: number) : Observable<any> {
+  return this.http.put('http://localhost:9003/approve-vacation/'+id, {});
+}
+
+public decline(id: number): Observable<any> {
+  return this.http.put('http://localhost:9003/reject-vacation/'+id, {});
 }
 
 // getUser(email) {

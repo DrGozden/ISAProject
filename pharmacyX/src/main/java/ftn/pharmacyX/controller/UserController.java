@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 import ftn.pharmacyX.dto.DrugReservationDTO;
 import ftn.pharmacyX.dto.UserDTO;
 import ftn.pharmacyX.dto.VacationRejectDTO;
+import ftn.pharmacyX.dto.VacationWithUserDTO;
 import ftn.pharmacyX.enums.UserRole;
 import ftn.pharmacyX.enums.UserStatus;
 import ftn.pharmacyX.helpers.DTOConverter;
 import ftn.pharmacyX.model.Appointment;
-import ftn.pharmacyX.model.Pharmacy;
 import ftn.pharmacyX.model.Vacation;
 import ftn.pharmacyX.model.users.Patient;
 import ftn.pharmacyX.model.users.User;
@@ -178,7 +178,15 @@ public class UserController {
 	@GetMapping(value = "/vacation-requests")
 	public ResponseEntity<?> getVacationRequests() {
 		List<Vacation> requests = vacationService.getVacationRequests();
-		return new ResponseEntity<>(requests, HttpStatus.OK);
+		List<VacationWithUserDTO> dtos = new ArrayList<VacationWithUserDTO>();
+		for (Vacation v : requests) {
+			VacationWithUserDTO dto = converter.vacationToDto(v);
+			if (dto == null) {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+			dtos.add(dto);
+		}
+		return new ResponseEntity<>(dtos, HttpStatus.OK);
 	}
 	
 	@PutMapping(value = "/approve-vacation/{vacationId}")
