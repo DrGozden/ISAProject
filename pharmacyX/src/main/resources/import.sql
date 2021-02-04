@@ -115,4 +115,7 @@ insert into vacation(id, accepted, deleted, end_date, reject_description, start_
 insert into vacation(id, accepted, deleted, end_date, reject_description, start_date, user_id) values (902, false, false, '2021-09-09', null, '2021-08-08', 711);
 insert into vacation(id, accepted, deleted, end_date, reject_description, start_date, user_id) values (903, false, false, '2021-10-10', null, '2021-09-09', 712);
 
+insert into supply_order(id, deadline, deleted, pharmacy_id) values (1101, '2021-10-10', false, 717);
+insert into supply_order(id, deadline, deleted, pharmacy_id) values (1102, '2021-10-11', false, 717);
+
 

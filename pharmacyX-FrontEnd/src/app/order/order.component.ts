@@ -46,18 +46,17 @@ export class OrderComponent implements OnInit {
       order.supplies = {};
       order.deadline = this.date;
       for(let i = 0 ; i < this.selectedDrugs.length; i++) {
-        order.supplies[this.selectedDrugs[i].name] = this.prices[i];
+        order.supplies[this.selectedDrugs[i].id] = this.prices[i];
       }
       console.log(order);
-      this.userService.createOrder(order).subscribe(data => undefined);
-
-      //this.return();      
+      this.userService.createOrder(order).subscribe(data => {
+        alert("Order created");      
+      });
+      
     }
   }
 
-  return() {
-    //this.location.back()
-  }
+  
 
   addDrug(drug) {
     
