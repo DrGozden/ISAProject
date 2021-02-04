@@ -2,8 +2,12 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { SupplierOffer } from '../model/supplierOffer';
 import { User } from '../model/user';
 import { Vacation } from '../model/vacation';
+import { VacationUser } from '../model/vacatonUser';
+import { OrderDTO } from '../modelDTO/orderDTO';
+import { VacationReason } from '../modelDTO/vacationReason';
 
 @Injectable({
   providedIn: 'root'
@@ -45,16 +49,32 @@ public filterDermatologists(name: string) : Observable<User[]> {
   });
 }
 
-public loadVacations() : Observable<Vacation[]> {
-  return this.http.get<Vacation[]>('http://localhost:9003/vacation-requests');
+public loadVacations() : Observable<VacationUser[]> {
+  return this.http.get<VacationUser[]>('http://localhost:9003/vacation-requests');
 }
 
 public accept(id: number) : Observable<any> {
   return this.http.put('http://localhost:9003/approve-vacation/'+id, {});
 }
 
-public decline(id: number): Observable<any> {
-  return this.http.put('http://localhost:9003/reject-vacation/'+id, {});
+public createOrder(order: OrderDTO) : Observable<any> {
+  return this.http.post('http://localhost:9003/supplies/create-order', order);
+}
+
+public decline(id: number,reason: VacationReason): Observable<any> {
+  return this.http.put('http://localhost:9003/reject-vacation/'+id,{});
+}
+
+public loadAllOrders(): Observable<OrderDTO> {
+  return this.http.get<OrderDTO>('http://localhost:9003/supplies/orders');
+}
+
+public getOffersForOrder(orderId: number): Observable<SupplierOffer> {
+  return this.http.get<SupplierOffer>('http://localhost:9003/supplies/pending-offers/'+orderId);
+}
+
+public acceptOffer(offerId: number) : Observable<any> {
+  return this.http.put('http://localhost:9003/supplies/offers/'+offerId+'/accept', {});
 }
 
 // getUser(email) {

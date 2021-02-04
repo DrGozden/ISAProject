@@ -1,0 +1,55 @@
+<div id="login">
+    <h5>Create order:</h5>
+    <div class="container">
+        <div id="login-row" class="row justify-content-center align-items-center">
+            <div id="login-column" class="col-md-6">
+                <div id="login-box" class="col-md-12">
+                    <form id="login-form" class="form" action="" method="post">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label>Add Drug</label>
+                                <select (change)="addDrug(selectedDrug)" class="custom-select" name="type"
+                                    [(ngModel)]="selectedDrug">
+                                    <option></option>
+                                    <option *ngFor="let st of drugs">{{st.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <table class="table table-bordered table-sortable" id="tab_logic">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">
+                                        Drug
+                                    </th>
+                                    <th class="text-center">
+                                        Quantity
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id='addr0' data-id="0" class="hidden"
+                                    *ngFor="let d of selectedDrugs; let i = index">
+                                    <td data-name="name">
+                                        {{d.name}}
+                                    </td>
+                                    <td data-name="name">
+                                        <input type="number" name="price" id="price" class="form-control"
+                                                [(ngModel)]="prices[i]" placeholder="Enter price..." required>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="form-group">
+                            <label>Enter end date:</label>
+                            <input type="text" name="date" id="date" class="form-control" [(ngModel)]="this.date"
+                                placeholder="Enter date..." required>
+                        </div>
+                        <div class="form-group" id="button">
+                            <button (click)="create()" class="btn btn-danger btn-block">Create</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

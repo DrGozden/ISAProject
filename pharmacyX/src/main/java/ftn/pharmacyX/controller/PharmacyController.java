@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ftn.pharmacyX.dto.AddDrugDTO;
 import ftn.pharmacyX.dto.FilterDatePharmacistDTO;
+import ftn.pharmacyX.dto.EmployeeDTO;
 import ftn.pharmacyX.dto.PharmacyDTO;
 import ftn.pharmacyX.helpers.DTOConverter;
 import ftn.pharmacyX.model.Pharmacy;
@@ -128,6 +129,10 @@ public class PharmacyController {
 		} else {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
+	@PostMapping
+	public ResponseEntity<?> addPharmacist(@RequestBody EmployeeDTO dto){
+		pharmacyService.addPharmacist(dto);
+		return new ResponseEntity<>(HttpStatus.OK);
 		
 	}
 

@@ -68,15 +68,15 @@ insert into price_list (id, start_date, end_date, deleted) values (772, '2021-08
 insert into pharmacy_price_list (pharmacy_id, price_list_id) values (717, 771);
 insert into pharmacy_price_list (pharmacy_id, price_list_id) values (717, 772);
 
-insert into pharmacy_pricelist_mapping (price_list_id, price, drug_id) values (1, 250.0, 741);
-insert into pharmacy_pricelist_mapping (price_list_id, price, drug_id) values (1, 400.0, 742);
-insert into pharmacy_pricelist_mapping (price_list_id, price, drug_id) values (1, 970.0, 743);
-insert into pharmacy_pricelist_mapping (price_list_id, price, drug_id) values (1, 135.0, 744);
+insert into pharmacy_pricelist_mapping (price_list_id, price, drug_id) values (771, 250.0, 741);
+insert into pharmacy_pricelist_mapping (price_list_id, price, drug_id) values (771, 400.0, 742);
+insert into pharmacy_pricelist_mapping (price_list_id, price, drug_id) values (771, 970.0, 743);
+insert into pharmacy_pricelist_mapping (price_list_id, price, drug_id) values (771, 135.0, 744);
 
-insert into pharmacy_pricelist_mapping (price_list_id, price, drug_id) values (2, 300.0, 741);
-insert into pharmacy_pricelist_mapping (price_list_id, price, drug_id) values (2, 450.0, 742);
-insert into pharmacy_pricelist_mapping (price_list_id, price, drug_id) values (2, 1000.0, 743);
-insert into pharmacy_pricelist_mapping (price_list_id, price, drug_id) values (2, 200.0, 744);
+insert into pharmacy_pricelist_mapping (price_list_id, price, drug_id) values (772, 300.0, 741);
+insert into pharmacy_pricelist_mapping (price_list_id, price, drug_id) values (772, 450.0, 742);
+insert into pharmacy_pricelist_mapping (price_list_id, price, drug_id) values (772, 1000.0, 743);
+insert into pharmacy_pricelist_mapping (price_list_id, price, drug_id) values (772, 200.0, 744);
 
 insert into pharmacy_stock_mapping (pharmacy_id, quantity, drug_id) values (717, 30, 741);
 insert into pharmacy_stock_mapping (pharmacy_id, quantity, drug_id) values (717, 52, 742);
@@ -114,5 +114,8 @@ insert into user_working_hours(pharmacist_id, working_hours_id, dermatologist_id
 insert into vacation(id, accepted, deleted, end_date, reject_description, start_date, user_id) values (901, false, false, '2021-08-08', null, '2021-07-07', 715);
 insert into vacation(id, accepted, deleted, end_date, reject_description, start_date, user_id) values (902, false, false, '2021-09-09', null, '2021-08-08', 711);
 insert into vacation(id, accepted, deleted, end_date, reject_description, start_date, user_id) values (903, false, false, '2021-10-10', null, '2021-09-09', 712);
+
+insert into supply_order(id, deadline, deleted, pharmacy_id) values (1101, '2021-10-10', false, 717);
+insert into supply_order(id, deadline, deleted, pharmacy_id) values (1102, '2021-10-11', false, 717);
 
 

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import ftn.pharmacyX.model.users.PharmacyAdmin;
+import ftn.pharmacyX.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,10 +39,15 @@ public class SupplyServiceImpl implements SupplyService {
 	
 	@Autowired
 	private PharmacyRepository pharmacyRepo;
+
+	@Autowired
+	private UserService userService;
 	
 	
 	@Override
 	public boolean createSupplyOrder(SupplyOrderDTO dto) {
+		PharmacyAdmin pharmacyAdmin = (PharmacyAdmin) userService.getLoggedUser();
+		dto.setPharmacyId(pharmacyAdmin.getPharmacy().getId());
 		SupplyOrder order = converter.dtoToOrder(dto);
 		if (order == null) {
 			return false;

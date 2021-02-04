@@ -17,6 +17,8 @@ import { AllDermatologistComponent } from './all-dermatologist/all-dermatologist
 import { AllPharmacistComponent } from './all-pharmacist/all-pharmacist.component';
 import { FreeApointmentsComponent } from './free-apointments/free-apointments.component';
 import { VacationsComponent } from './vacations/vacations.component';
+import { OrderComponent } from './order/order.component';
+import { OrderPendingComponent } from './order-pending/order-pending.component';
 
 const routes: Routes = [
   { path: 'homepage', component: HomepageComponent },
@@ -38,6 +40,8 @@ const routes: Routes = [
   { path: 'consulting-reservation', component: ConsultingReservationComponent}, 
   { path: 'free-apointments', component: FreeApointmentsComponent},
   { path: 'vacations', component: VacationsComponent},
+  { path: 'order', component: OrderComponent},
+  { path: 'pending-orders', component: OrderPendingComponent},
 
   
 ];

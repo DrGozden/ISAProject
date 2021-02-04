@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DrugReservation } from '../model/drugReservation';
 import { Vacation } from '../model/vacation';
+import { VacationUser } from '../model/vacatonUser';
+import { VacationReason } from '../modelDTO/vacationReason';
 import { ReservationService } from '../services/reservation.service';
 import { UserService } from '../services/user.service';
 
@@ -11,7 +13,8 @@ import { UserService } from '../services/user.service';
 })
 export class VacationsComponent implements OnInit {
 
-  public vacations: Vacation[] = [];
+  public vacations: VacationUser[] = [];
+  public reason: string = "";
 
   constructor(private userService: UserService) {}
 
@@ -36,8 +39,11 @@ export class VacationsComponent implements OnInit {
 
   public decline(id) {
     console.log(id);
-    
-    this.userService.decline(id).subscribe((data)=>{
+    let reasonDTO = new VacationReason();
+    reasonDTO.vacationId = id;
+    reasonDTO.rejectDescription = this.reason;
+
+    this.userService.decline(id, reasonDTO).subscribe((data)=>{
       this.reload();
     })
   }

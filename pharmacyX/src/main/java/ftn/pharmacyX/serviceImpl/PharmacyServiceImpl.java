@@ -11,17 +11,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ftn.pharmacyX.dto.AddDrugDTO;
+import ftn.pharmacyX.dto.DermatologistExamDTO;
+import ftn.pharmacyX.dto.EmployeeDTO;
 import ftn.pharmacyX.dto.FilterDatePharmacistDTO;
 import ftn.pharmacyX.dto.PharmacistConsultationDTO;
 import ftn.pharmacyX.dto.PharmacyDTO;
 import ftn.pharmacyX.model.Drug;
 import ftn.pharmacyX.model.Pharmacy;
 import ftn.pharmacyX.model.WorkingHours;
+import ftn.pharmacyX.model.users.Dermatologist;
 import ftn.pharmacyX.model.users.Pharmacist;
+import ftn.pharmacyX.model.users.PharmacyAdmin;
 import ftn.pharmacyX.repository.PharmacyRepository;
+import ftn.pharmacyX.repository.UserRepository;
 import ftn.pharmacyX.service.AppointmentService;
 import ftn.pharmacyX.service.DrugService;
 import ftn.pharmacyX.service.PharmacyService;
+import ftn.pharmacyX.service.UserService;
 
 @Service
 public class PharmacyServiceImpl implements PharmacyService {
@@ -34,6 +40,13 @@ public class PharmacyServiceImpl implements PharmacyService {
 	
 	@Autowired
 	private DrugService drugService;
+
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private UserRepository userRepo;
+	
 	
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 	
@@ -217,6 +230,108 @@ public class PharmacyServiceImpl implements PharmacyService {
 		return true;
 	}
 
+	@Override
+	public Pharmacist addPharmacist(EmployeeDTO dto) {
+		Pharmacist pharmacist;
+		WorkingHours workingHours = dto.getWorkingHours();
+		PharmacyAdmin pharmacyAdmin = (PharmacyAdmin) userService.getLoggedUser();
+		Pharmacy pharmacy = pharmacyAdmin.getPharmacy();
+		workingHours.setPharmacyId(pharmacy.getId());
+		if(userService.findByEmail(dto.getEmail()) != null) {
+			pharmacist = (Pharmacist) userService.findByEmail(dto.getEmail());
+			workingHours.setEmployeeId(pharmacist.getId());
+			pharmacist.getWorkingHours().add(workingHours);
+			userRepo.save(pharmacist);
+			
+		}
+		else {
+			pharmacist = new Pharmacist(dto);
+			workingHours.setEmployeeId(userRepo.save(pharmacist).getId());
+			pharmacist.getWorkingHours().add(workingHours);
+			userRepo.save(pharmacist);
+			
+		}
+		pharmacy.getPharmacists().add(pharmacist);
+		pharmacyRepo.save(pharmacy);
+		return pharmacist;
+		
+	}
+	
+	@Override
+	public Dermatologist addDermatologist(EmployeeDTO dto) {
+		Dermatologist dermatologist;
+		WorkingHours workingHours = dto.getWorkingHours();
+		PharmacyAdmin pharmacyAdmin = (PharmacyAdmin) userService.getLoggedUser();
+		Pharmacy pharmacy = pharmacyAdmin.getPharmacy();
+		workingHours.setPharmacyId(pharmacy.getId());
+		if(userService.findByEmail(dto.getEmail()) != null) {
+			dermatologist = (Dermatologist) userService.findByEmail(dto.getEmail());
+			workingHours.setEmployeeId(dermatologist.getId());
+			dermatologist.getWorkingHours().add(workingHours);
+			userRepo.save(dermatologist);
+			
+		}
+		else {
+			dermatologist = new Dermatologist(dto);
+			workingHours.setEmployeeId(userRepo.save(dermatologist).getId());
+			dermatologist.getWorkingHours().add(workingHours);
+			userRepo.save(dermatologist);
+			
+		}
+		pharmacy.getDermatologists().add(dermatologist);
+		pharmacyRepo.save(pharmacy);
+		return dermatologist;
+		
+	}
+	
+	@Override
+	public Pharmacist removePharmacist(Long id) {
+		PharmacyAdmin pharmacyAdmin = (PharmacyAdmin) userService.getLoggedUser();
+		Pharmacist pharmacist = (Pharmacist) userService.findById(id);
+		Pharmacy pharmacy = pharmacyAdmin.getPharmacy();
+		List<PharmacistConsultationDTO> consultations = appointmentService.getPharmacistConsutationsForPharmacy(pharmacy.getId());
+		boolean flag = false;
+		for (PharmacistConsultationDTO pharmacistConsultationDTO : consultations) {
+			if(pharmacistConsultationDTO.getPharmacistId() == id && pharmacistConsultationDTO.getDateTime().isAfter(LocalDateTime.now())) {
+				flag = true;
+			}
+		}
+		
+		if(!flag) {
+			pharmacy.getPharmacists().remove(pharmacist);
+		}
+		else {
+			return null;
+		}
+		return pharmacist;
+
+		
+	}
+
+	
+	@Override
+	public Dermatologist removeDermatologist(Long id) {
+		PharmacyAdmin pharmacyAdmin = (PharmacyAdmin) userService.getLoggedUser();
+		Dermatologist dermatologist = (Dermatologist) userService.findById(id);
+		Pharmacy pharmacy = pharmacyAdmin.getPharmacy();
+		List<DermatologistExamDTO> exams = appointmentService.getDermatologistExamsForPharmacy(pharmacy.getId());
+		boolean flag = false;
+		for (DermatologistExamDTO exam : exams) {
+			if(exam.getDermatologistId() == id && exam.getDateTime().isAfter(LocalDateTime.now())) {
+				flag = true;
+			}
+		}
+		
+		if(!flag) {
+			pharmacy.getDermatologists().remove(dermatologist);
+		}
+		else {
+			return null;
+		}
+		return dermatologist;
+
+		
+	}
 	
 
 

@@ -29,24 +29,25 @@
 				<tbody>
 					<tr id='addr0' data-id="0" class="hidden" *ngFor="let v of vacations">
 						<td data-name="name">
-							{{v.userId}}
+							{{v.firstName}} {{v.lastName}}
 						</td>
 						<td data-name="name">
-							{{v.startDate}}
+							{{v.vacation.startDate}}
 						</td>
 						<td data-name="mail">
-							{{v.endDate}}
+							{{v.vacation.endDate}}
 						</td>
 						<td data-name="mail">
-							{{getState(v.deleted, v.accepted)}}
+							{{getState(v.vacation.deleted, v.vacation.accepted)}}
 						</td>
 						<td>
-							<button *ngIf="!v.accepted" class="btn btn-primary" (click)="accept(v.id)">Accept</button>
-							<span *ngIf="v.accepted">Accepted</span>
+							<button *ngIf="!v.vacation.accepted" class="btn btn-primary" (click)="accept(v.vacation.id)">Accept</button>
+							<span *ngIf="v.vacation.accepted">Accepted</span>
 						</td>
 						<td>
-							<button *ngIf="!v.accepted" class="btn btn-primary" (click)="decline(v.id)">Decline</button>
-							<span *ngIf="v.accepted">Accepted</span>
+							<!-- <input type="text" placeholder="Enter reason:" [(ngModel)]="reason" /> -->
+							<button *ngIf="!v.vacation.accepted" class="btn btn-primary" (click)="decline(v.vacation.id)">Decline</button>
+							<span *ngIf="v.vacation.accepted">Accepted</span>
 						</td>
 					</tr>
 				</tbody>
