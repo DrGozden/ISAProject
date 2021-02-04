@@ -32,4 +32,6 @@ public interface UserService {
 	
 	public User findById(Long id);
 
+	public User changePassword(UserDTO userDTO);
+
 }

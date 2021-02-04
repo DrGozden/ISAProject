@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ftn.pharmacyX.enums.UserRole;
+import ftn.pharmacyX.enums.UserStatus;
 import ftn.pharmacyX.model.Address;
 import ftn.pharmacyX.model.Drug;
 import ftn.pharmacyX.model.users.User;
@@ -21,6 +22,7 @@ public class UserDTO {
 	private boolean deleted = false;
 	private UserRole userRole;
 	private String JWTToken;
+	private UserStatus userStatus;
 	private List<Drug> allergies = new ArrayList<Drug>();
 	
 	public UserDTO(User user) {
@@ -32,6 +34,7 @@ public class UserDTO {
 		this.address = user.getAddress();
 		this.deleted = user.isDeleted();
 		this.userRole = user.getUserRole();
+		this.userStatus = user.getUserStatus();
 		
 	}
 	
@@ -152,6 +155,19 @@ public class UserDTO {
 	public void setAllergies(List<Drug> allergies) {
 		this.allergies = allergies;
 	}
+
+
+
+	public UserStatus getUserStatus() {
+		return userStatus;
+	}
+
+
+
+	public void setUserStatus(UserStatus userStatus) {
+		this.userStatus = userStatus;
+	}
+	
 	
 	
 	

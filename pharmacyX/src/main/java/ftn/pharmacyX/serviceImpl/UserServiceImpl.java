@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import ftn.pharmacyX.dto.UserDTO;
@@ -38,6 +39,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private EmailServiceImpl emailService;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public User saveUser(User user) {
@@ -183,6 +187,13 @@ public class UserServiceImpl implements UserService {
 		patient.getDrugReservations().add(drugReservation);
 		userRepository.save(patient);
 		return patient;
+	}
+
+	@Override
+	public User changePassword(UserDTO userDTO) {
+		User current = getLoggedUser();
+		current.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+		return userRepository.save(current);
 	}
 
 }

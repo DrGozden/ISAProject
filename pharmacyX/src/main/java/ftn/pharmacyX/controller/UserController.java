@@ -57,6 +57,12 @@ public class UserController {
 		return new ResponseEntity<>(newUser, HttpStatus.OK);
 	}
 	
+	@PostMapping(value = "/me/password-change", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<User> changePassword(@RequestBody UserDTO userDTO) {
+		User newUser = userService.changePassword(userDTO);
+		return new ResponseEntity<>(newUser, HttpStatus.OK);
+	}
+	
 	@GetMapping(value = "/users/activate/{uuid}")
 	public ResponseEntity<String> activateUser(@PathVariable("uuid") String uuid) {
 		User user = userService.findByUuid(uuid);
@@ -120,35 +126,6 @@ public class UserController {
 		
 		return new ResponseEntity<>(reservations, HttpStatus.OK);
 	}
-	
-	/*
-	@PutMapping(value = "/patient/edit")
-	public ResponseEntity<Patient> editPatient(@RequestBody EditPatientDTO editedPatient) {
-		return new ResponseEntity<>(userService.editPatient(editedPatient), HttpStatus.OK);
-	}
-	/*
-	@PutMapping(value = "/emloyee/edit")
-	public ResponseEntity<User> editEmployee(@RequestBody UserDTO editEmployee) {
-		return new ResponseEntity<>(userService.editEmployee(editEmployee), HttpStatus.OK);
-	}
-	
-	/*
-	PRAVI PROBLEM ZBOG MAIL-A, VEROVATNO TREBA DA SE STAVI @REQUESTPARAM UMESTO @PATHVARIABLE
-	@GetMapping(value = "/patient/{email}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Patient> getPatient(@PathVariable("email") String email) {
-		Patient patient = (Patient) userService.findByEmail(email);
-		if (patient == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<>(patient, HttpStatus.OK);
-	}
-	
-	@GetMapping(value = "/employee/{email}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<UserDTO> getEmployee(@PathVariable("email") String email) {
-		UserDTO employee = new UserDTO(userService.findByEmail(email));
-		return new ResponseEntity<>(employee, HttpStatus.OK);
-	}
-	*/
 	
 	@GetMapping(value = "/pharmacists/search", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<UserDTO>> getAllPharmacists(@RequestParam Map<String, String> queryParams) {
