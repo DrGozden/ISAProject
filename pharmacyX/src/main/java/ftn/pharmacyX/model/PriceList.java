@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.MapKeyJoinColumn;
 
+import ftn.pharmacyX.dto.PriceListDTO;
+
 @Entity
 public class PriceList {
 
@@ -24,16 +26,16 @@ public class PriceList {
 	@Column
 	private LocalDate endDate;
 	@ElementCollection
-	@JoinTable(name = "pharmacy_pricelist_mapping", 
-				joinColumns = { @JoinColumn(name = "price_list_id", referencedColumnName = "id")})
+	@JoinTable(name = "pharmacy_pricelist_mapping", joinColumns = {
+			@JoinColumn(name = "price_list_id", referencedColumnName = "id") })
 	@MapKeyJoinColumn(name = "drug_id")
 	@Column(name = "price")
 	private Map<Drug, Double> prices;
 	@Column
 	private boolean deleted = false;
-	
+
 	public PriceList() {
-		
+
 	}
 
 	public PriceList(Long id, LocalDate startDate, LocalDate endDate, Map<Drug, Double> prices, boolean deleted) {
@@ -43,6 +45,13 @@ public class PriceList {
 		this.endDate = endDate;
 		this.prices = prices;
 		this.deleted = deleted;
+	}
+
+	public PriceList(PriceListDTO priceListDTO) {
+		this.startDate = priceListDTO.getStartDate();
+		this.prices = priceListDTO.getPrices();
+		this.deleted = false;
+
 	}
 
 	public Long getId() {
@@ -84,9 +93,5 @@ public class PriceList {
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
 	}
-	
-	
-	
-	
-	
+
 }

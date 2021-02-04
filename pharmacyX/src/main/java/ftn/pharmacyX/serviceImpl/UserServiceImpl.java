@@ -9,15 +9,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import ftn.pharmacyX.dto.EditPatientDTO;
 import ftn.pharmacyX.dto.UserDTO;
 import ftn.pharmacyX.enums.UserRole;
 import ftn.pharmacyX.enums.UserStatus;
 import ftn.pharmacyX.exceptions.EntityNotFoundException;
 import ftn.pharmacyX.model.Address;
-import ftn.pharmacyX.model.Pharmacy;
 import ftn.pharmacyX.model.Drug;
 import ftn.pharmacyX.model.DrugReservation;
+import ftn.pharmacyX.model.Pharmacy;
 import ftn.pharmacyX.model.users.Patient;
 import ftn.pharmacyX.model.users.User;
 import ftn.pharmacyX.repository.AddressRepository;
@@ -81,6 +80,9 @@ public class UserServiceImpl implements UserService {
 		} catch (Exception e) {
 			if (e instanceof NullPointerException) {
 				return null;
+			}
+			else if(e instanceof EntityNotFoundException) {
+				return null; //Vraca null za korisnika koji nije ulogovan kada se pozove getLoggedUser()
 			}
 			e.printStackTrace();
 			throw e;

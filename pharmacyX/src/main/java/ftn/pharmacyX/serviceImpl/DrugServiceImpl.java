@@ -7,15 +7,22 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ftn.pharmacyX.enums.UserRole;
 import ftn.pharmacyX.model.Drug;
+import ftn.pharmacyX.model.users.PharmacyAdmin;
+import ftn.pharmacyX.model.users.User;
 import ftn.pharmacyX.repository.DrugRepository;
 import ftn.pharmacyX.service.DrugService;
+import ftn.pharmacyX.service.UserService;
 
 @Service
 public class DrugServiceImpl implements DrugService {
 	
 	@Autowired
 	DrugRepository drugRepo;
+	
+	@Autowired
+	UserService userService;
 	
 	@Override
 	public List<Drug> getAllDrugs() {
@@ -30,7 +37,16 @@ public class DrugServiceImpl implements DrugService {
 
 	@Override
 	public List<Drug> searchDrugs(Map<String, String> queryParams) {
-		List<Drug> allDrugs = drugRepo.findByDeleted(false);
+		List<Drug> allDrugs = null;
+		User user = userService.getLoggedUser();
+		
+		if(user != null && user.getUserRole() == UserRole.PHARMACY_ADMIN) {
+			PharmacyAdmin admin = (PharmacyAdmin) user;
+			allDrugs = new ArrayList<Drug>(admin.getPharmacy().getDrugsInStock().keySet());
+		}
+		else {
+			allDrugs = drugRepo.findByDeleted(false);
+		}
 		List<Drug> searched = new ArrayList<Drug>();
 		List<Drug> ret = new ArrayList<Drug>();
 		

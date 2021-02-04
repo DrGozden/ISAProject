@@ -1,6 +1,5 @@
 package ftn.pharmacyX.serviceImpl;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -8,23 +7,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import ftn.pharmacyX.dto.FilterDatePharmacistDTO;
-import ftn.pharmacyX.dto.PharmacistConsultationDTO;
-import ftn.pharmacyX.model.WorkingHours;
-import ftn.pharmacyX.model.users.Pharmacist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ftn.pharmacyX.dto.FilterDatePharmacistDTO;
 import ftn.pharmacyX.dto.PharmacistConsultationDTO;
-import ftn.pharmacyX.dto.SupplyOrderDTO;
-import ftn.pharmacyX.helpers.DTOConverter;
+import ftn.pharmacyX.dto.PharmacyDTO;
 import ftn.pharmacyX.model.Drug;
 import ftn.pharmacyX.model.Pharmacy;
-import ftn.pharmacyX.model.SupplyOrder;
 import ftn.pharmacyX.model.WorkingHours;
 import ftn.pharmacyX.model.users.Pharmacist;
 import ftn.pharmacyX.repository.PharmacyRepository;
-import ftn.pharmacyX.repository.SupplyOrderRepository;
 import ftn.pharmacyX.service.AppointmentService;
 import ftn.pharmacyX.service.PharmacyService;
 
@@ -37,12 +30,6 @@ public class PharmacyServiceImpl implements PharmacyService {
 	@Autowired
 	private AppointmentService appointmentService;
 	
-	@Autowired
-	private DTOConverter converter;
-	
-	@Autowired
-	private SupplyOrderRepository supplyRepository;
-
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 	
 	@Override
@@ -181,6 +168,19 @@ public class PharmacyServiceImpl implements PharmacyService {
 		}
 		
 	}
+
+	@Override
+	public Pharmacy updatePharmacy(PharmacyDTO dto) {
+		Pharmacy pharmacy = pharmacyRepo.findByIdAndDeletedIsFalse(dto.getId());
+		pharmacy.setDescription(dto.getDescription());
+		pharmacy.setName(dto.getName());
+		pharmacy.setAddress(dto.getAddress());
+		
+		return pharmacyRepo.save(pharmacy);
+		
+	}
+
+	
 
 
 	
