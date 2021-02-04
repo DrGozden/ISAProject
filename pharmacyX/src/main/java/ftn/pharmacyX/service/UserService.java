@@ -3,11 +3,9 @@ package ftn.pharmacyX.service;
 import java.util.List;
 import java.util.Map;
 
-import ftn.pharmacyX.dto.EditPatientDTO;
-import ftn.pharmacyX.model.Pharmacy;
-import ftn.pharmacyX.model.users.Patient;
 import ftn.pharmacyX.dto.UserDTO;
 import ftn.pharmacyX.model.DrugReservation;
+import ftn.pharmacyX.model.Pharmacy;
 import ftn.pharmacyX.model.users.User;
 
 public interface UserService {

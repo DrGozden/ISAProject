@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ftn.pharmacyX.dto.FilterDatePharmacistDTO;
+import ftn.pharmacyX.dto.EmployeeDTO;
 import ftn.pharmacyX.dto.PharmacyDTO;
 import ftn.pharmacyX.helpers.DTOConverter;
 import ftn.pharmacyX.model.Pharmacy;
@@ -85,6 +86,13 @@ public class PharmacyController {
 	public ResponseEntity<?> updatePharmacy(@RequestBody PharmacyDTO dto) {
 		Pharmacy pharmacy = pharmacyService.updatePharmacy(dto);
 		return new ResponseEntity<>(pharmacy,HttpStatus.OK);
+	}
+	
+	@PostMapping
+	public ResponseEntity<?> addPharmacist(@RequestBody EmployeeDTO dto){
+		pharmacyService.addPharmacist(dto);
+		return new ResponseEntity<>(HttpStatus.OK);
+		
 	}
 
 

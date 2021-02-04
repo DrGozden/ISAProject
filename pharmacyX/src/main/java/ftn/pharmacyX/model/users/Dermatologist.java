@@ -7,6 +7,8 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
+import ftn.pharmacyX.dto.EmployeeDTO;
+import ftn.pharmacyX.enums.UserRole;
 import ftn.pharmacyX.model.WorkingHours;
 
 @Entity
@@ -33,6 +35,17 @@ public class Dermatologist extends User {
 	public void setWorkingHours(List<WorkingHours> workingHours) {
 		this.workingHours = workingHours;
 	}
+	
+	public Dermatologist(EmployeeDTO dto) {
+		this.setFirstName(dto.getFirstName());
+		this.setLastName(dto.getLastName());
+		this.setEmail(dto.getEmail());
+		this.setPassword(dto.getPassword());
+		this.setPhone(dto.getPhone());
+		this.setUserRole(UserRole.DERMATOLOGIST);
+		this.setDeleted(false);
+	}
+	
 	
 	
 }
