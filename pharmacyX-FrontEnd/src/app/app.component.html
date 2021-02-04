@@ -155,6 +155,18 @@
                                 <span>Vacations</span>
                             </a>
                         </li>
+                        <li id="orderId" *ngIf="this.currentUser && this.currentUser.userRole === 'PHARMACY_ADMIN'">
+                            <a routerLink="/order">
+                                <i class="fas fa-hospital"></i>
+                                <span>Order</span>
+                            </a>
+                        </li>
+                        <li id="porderId" *ngIf="this.currentUser && this.currentUser.userRole === 'PHARMACY_ADMIN'">
+                            <a routerLink="/pending-orders">
+                                <i class="fas fa-hospital"></i>
+                                <span>Pending orders</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
