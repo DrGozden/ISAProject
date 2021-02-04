@@ -3,6 +3,7 @@ package ftn.pharmacyX.service;
 import java.util.List;
 import java.util.Map;
 
+import ftn.pharmacyX.dto.AddDrugDTO;
 import ftn.pharmacyX.dto.FilterDatePharmacistDTO;
 import ftn.pharmacyX.dto.PharmacyDTO;
 import ftn.pharmacyX.model.Pharmacy;
@@ -20,5 +21,8 @@ public interface PharmacyService {
 	List<Pharmacist> getAvailablePharmacist(FilterDatePharmacistDTO filterDto);
 
 	public Pharmacy updatePharmacy(PharmacyDTO dto);
+	
+	public boolean deleteDrugFromPharmacy(Long drugId, Long pharmacyId);
 
+	public boolean addDrugToPharmacy(AddDrugDTO dto, Long pharmacyId);
 }

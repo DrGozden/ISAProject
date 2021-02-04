@@ -10,10 +10,12 @@ import org.springframework.stereotype.Service;
 import ftn.pharmacyX.dto.DrugReservationDTO;
 import ftn.pharmacyX.helpers.DTOConverter;
 import ftn.pharmacyX.model.DrugReservation;
+import ftn.pharmacyX.model.Pharmacy;
 import ftn.pharmacyX.model.users.Patient;
 import ftn.pharmacyX.model.users.User;
 import ftn.pharmacyX.repository.DrugReservationRepository;
 import ftn.pharmacyX.service.DrugReservationService;
+import ftn.pharmacyX.service.UserService;
 
 @Service
 public class DrugReservationServiceImpl implements DrugReservationService {
@@ -23,6 +25,10 @@ public class DrugReservationServiceImpl implements DrugReservationService {
 	
 	@Autowired
 	private DrugReservationRepository reservationRepo;
+	
+	@Autowired
+	private UserService userService;
+
 	
 	@Override
 	public DrugReservation makeReservation(DrugReservationDTO reservationDTO) {
@@ -53,7 +59,18 @@ public class DrugReservationServiceImpl implements DrugReservationService {
 		}
 		return dtos;
 	}
-	
+
+	@Override
+	public boolean checkIfDrugIsReserved(Long drugId, Pharmacy pharmacy) {
+		for (DrugReservation res : reservationRepo.findAll()) {
+			if (res.getPharmacy().getId().equals(pharmacy.getId()) && res.getDrug().getId().equals(drugId) && !res.isDeleted()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+
 	
 	
 

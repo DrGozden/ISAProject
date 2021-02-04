@@ -10,6 +10,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ftn.pharmacyX.dto.AddDrugDTO;
 import ftn.pharmacyX.dto.FilterDatePharmacistDTO;
 import ftn.pharmacyX.dto.PharmacistConsultationDTO;
 import ftn.pharmacyX.dto.PharmacyDTO;
@@ -19,6 +20,7 @@ import ftn.pharmacyX.model.WorkingHours;
 import ftn.pharmacyX.model.users.Pharmacist;
 import ftn.pharmacyX.repository.PharmacyRepository;
 import ftn.pharmacyX.service.AppointmentService;
+import ftn.pharmacyX.service.DrugService;
 import ftn.pharmacyX.service.PharmacyService;
 
 @Service
@@ -29,6 +31,9 @@ public class PharmacyServiceImpl implements PharmacyService {
 
 	@Autowired
 	private AppointmentService appointmentService;
+	
+	@Autowired
+	private DrugService drugService;
 	
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 	
@@ -178,6 +183,38 @@ public class PharmacyServiceImpl implements PharmacyService {
 		
 		return pharmacyRepo.save(pharmacy);
 		
+	}
+
+	@Override
+	public boolean deleteDrugFromPharmacy(Long drugId, Long pharmacyId) {
+		Pharmacy pharmacy = pharmacyRepo.findByIdAndDeletedIsFalse(pharmacyId);
+		Drug drug = drugService.getDrug(drugId);
+		pharmacy.getDrugsInStock().remove(drug);
+		pharmacyRepo.save(pharmacy);
+		return true;
+	}
+
+	@Override
+	public boolean addDrugToPharmacy(AddDrugDTO dto, Long pharmacyId) {
+		Pharmacy ph = getPharmacy(pharmacyId);
+		if (ph == null) {
+			return false;
+		}
+		
+		Drug drug = drugService.getDrug(dto.getDrugId());
+		if (drug == null) {
+			return false;
+		}
+		
+		if (ph.getDrugsInStock().containsKey(drug)) {
+			ph.getDrugsInStock().replace(drug, ph.getDrugsInStock().get(drug) + dto.getQuantity());
+		} else {
+			ph.getDrugsInStock().put(drug, dto.getQuantity());
+		}
+		
+		pharmacyRepo.save(ph);
+		
+		return true;
 	}
 
 	
