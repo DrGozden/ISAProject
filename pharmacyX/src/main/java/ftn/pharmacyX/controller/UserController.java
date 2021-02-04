@@ -26,6 +26,7 @@ import ftn.pharmacyX.helpers.DTOConverter;
 import ftn.pharmacyX.model.Appointment;
 import ftn.pharmacyX.model.Vacation;
 import ftn.pharmacyX.model.users.Patient;
+import ftn.pharmacyX.model.users.PharmacyAdmin;
 import ftn.pharmacyX.model.users.User;
 import ftn.pharmacyX.service.DrugReservationService;
 import ftn.pharmacyX.service.PharmacyService;
@@ -154,7 +155,20 @@ public class UserController {
 	public ResponseEntity<List<UserDTO>> getAllPharmacists(@RequestParam Map<String, String> queryParams) {
 		List<User> users = userService.findAllPharmacists();
 		List<UserDTO> ret = new ArrayList<UserDTO>();
-		List<User> found = userService.searchDermatologistsAndPharmacists(queryParams, users);
+		
+		PharmacyAdmin admin = (PharmacyAdmin) userService.getLoggedUser();
+		List<User> found;
+		
+		if (admin == null) {
+			found = userService.searchDermatologistsAndPharmacists(queryParams, users);
+		} else {
+			List<User> pharmacyPharmacists = new ArrayList<User>();
+			for (User phPharmacist : admin.getPharmacy().getPharmacists()) {
+				pharmacyPharmacists.add(phPharmacist);
+			}
+			found = userService.searchDermatologistsAndPharmacists(queryParams, pharmacyPharmacists);
+		}
+		
 		for (User user : found) {
 			ret.add(new UserDTO(user));
 		}
@@ -164,10 +178,21 @@ public class UserController {
 	@GetMapping(value = "/dermatologists/search", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<UserDTO>> getAllDermatologistsForSpecificPharmacy(@RequestParam Map<String, String> queryParams) {
 		List<UserDTO> ret = new ArrayList<UserDTO>();
-		
 		List<User> dermatologists = userService.findAllDermatologists();
-		List<User> found = userService.searchDermatologistsAndPharmacists(queryParams, dermatologists);
+		PharmacyAdmin admin = (PharmacyAdmin) userService.getLoggedUser();
 		
+		List<User> found;
+		
+		if (admin == null) {
+			found = userService.searchDermatologistsAndPharmacists(queryParams, dermatologists);
+		} else {
+			List<User> pharmacyDermatologists = new ArrayList<User>();
+			for (User phUser : admin.getPharmacy().getDermatologists()) {
+				pharmacyDermatologists.add(phUser);
+			}
+			found = userService.searchDermatologistsAndPharmacists(queryParams, pharmacyDermatologists);
+		}
+
 		for (User user : found) {
 			ret.add(new UserDTO(user));
 		}
