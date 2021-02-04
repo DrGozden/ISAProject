@@ -27,6 +27,8 @@ import { AllPharmacistComponent } from './all-pharmacist/all-pharmacist.componen
 import { AllDermatologistComponent } from './all-dermatologist/all-dermatologist.component';
 import { FreeApointmentsComponent } from './free-apointments/free-apointments.component';
 import { VacationsComponent } from './vacations/vacations.component';
+import { OrderComponent } from './order/order.component';
+import { OrderPendingComponent } from './order-pending/order-pending.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,8 @@ import { VacationsComponent } from './vacations/vacations.component';
     AllDermatologistComponent,
     FreeApointmentsComponent,
     VacationsComponent,
+    OrderComponent,
+    OrderPendingComponent,
   ],
   imports: [
     BrowserModule,

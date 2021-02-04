@@ -1,0 +1,33 @@
+<h2 style="margin-left: 50px; margin-top: 20px;">Pending orders: </h2>
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 table-responsive">
+            <table class="table table-bordered table-sortable" id="tab_logic">
+                <thead>
+                    <tr>
+                        <th class="text-center">
+                            Order
+                        </th>
+                        <th class="text-center">
+                            Offers
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id='addr0' data-id="0" class="hidden" *ngFor="let d of orders">
+                        <td data-name="name">
+                            d.name
+                        </td>
+                        <td data-name="name">
+                            <div *ngFor="let o of getOffersForOrder(d.id)">
+                                <span>{{o.totalPrice}} {{o.deliveryDeadline}}</span>
+                                <button (click)="accept(o.id)">Accept</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

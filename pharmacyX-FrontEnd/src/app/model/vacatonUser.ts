@@ -2,14 +2,13 @@ import { Deserializable } from './deserializable';
 import { Drug } from './drug';
 import { Pharmacy } from './pharmacy';
 import { User } from './user';
+import { Vacation } from './vacation';
 
-export class Vacation implements Deserializable {
-    id: number;
-    startDate: Date;
-    endDate: Date;
-    userId: number;
-    accepted: boolean;
-    deleted: boolean;
+export class VacationUser implements Deserializable {
+    firstName: string;
+    lastName: string;
+    email: string;
+    vacation: Vacation;
 
     deserialize(input: any): this {
         Object.assign(this, input);

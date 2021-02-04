@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Pharmacy } from '../model/pharmacy';
 import { PredefinedExam } from '../model/predefinedExam';
+import { User } from '../model/user';
+import { LoginService } from '../services/login.service';
 import { PharmacyService } from '../services/pharmacy.service';
 import { ReservationService } from '../services/reservation.service';
 
@@ -16,10 +18,14 @@ export class PharmacyComponent implements OnInit {
   pharmacy: Pharmacy = new Pharmacy();
   view: string = "basic";
   predefinedExams: PredefinedExam[] = [];
+  public currentUser : User;
 
-  constructor(private pharmacyService:PharmacyService,private reservationService:ReservationService,private router: Router, private route: ActivatedRoute, private datePipe: DatePipe) { }
+  constructor(private loginService: LoginService, private pharmacyService:PharmacyService,private reservationService:ReservationService,private router: Router, private route: ActivatedRoute, private datePipe: DatePipe) { }
 
   ngOnInit() {
+    const currentUser = this.loginService.currentUserValue;
+    this.currentUser = new User();
+    this.currentUser = currentUser;
     this.reload();
   }
 

@@ -38,8 +38,7 @@
                                             <label style="font-weight:bold;">Address</label>
                                         </div>
                                         <div class="col-md-8 col-6">
-                                            Ulica broj mesto
-                                            <!-- {{pharmacy.address.street}} {{pharmacy.address.number}}, {{pharmacy.address.city}} ({{pharmacy.address.country}}) -->
+                                            {{pharmacy.address.street}} {{pharmacy.address.number}}, {{pharmacy.address.city}} ({{pharmacy.address.country}})
                                         </div>
                                     </div>
                                     <hr />
@@ -48,8 +47,11 @@
                                         <div class="col-sm-3 col-md-2 col-5">
                                             <label style="font-weight:bold;">Description</label>
                                         </div>
-                                        <div class="col-md-8 col-6">
+                                        <div class="col-md-8 col-6" *ngIf="this.currentUser && this.currentUser.userRole !== 'PHARMACY_ADMIN'">
                                             {{pharmacy.description}}
+                                        </div>
+                                        <div class="col-md-8 col-6" *ngIf="this.currentUser && this.currentUser.userRole === 'PHARMACY_ADMIN'">
+                                            <input type="text" name="firstName" id="firstName" class="form-control" [(ngModel)]="this.pharmacy.description" placeholder="Description" required>
                                         </div>
                                     </div>
                                     <hr />
@@ -57,8 +59,11 @@
                                         <div class="col-sm-3 col-md-2 col-5">
                                             <label style="font-weight:bold;">Name</label>
                                         </div>
-                                        <div class="col-md-8 col-6">
+                                        <div class="col-md-8 col-6" *ngIf="this.currentUser && this.currentUser.userRole !== 'PHARMACY_ADMIN'">
                                             {{pharmacy.name}}
+                                        </div>
+                                        <div class="col-md-8 col-6" *ngIf="this.currentUser && this.currentUser.userRole === 'PHARMACY_ADMIN'">
+                                            <input type="text" name="firstName" id="firstName" class="form-control" [(ngModel)]="this.pharmacy.name" placeholder="Name" required>
                                         </div>
                                     </div>
                                     <hr />
@@ -128,7 +133,7 @@
                         </div>
                     </div>
 
-                    
+                    <button>Update</button>
                 </div>
             </div>
         </div>
