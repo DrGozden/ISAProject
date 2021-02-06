@@ -26,6 +26,7 @@ import ftn.pharmacyX.helpers.DTOConverter;
 import ftn.pharmacyX.model.Appointment;
 import ftn.pharmacyX.model.Vacation;
 import ftn.pharmacyX.model.users.Patient;
+import ftn.pharmacyX.model.users.PharmacyAdmin;
 import ftn.pharmacyX.model.users.User;
 import ftn.pharmacyX.service.DrugReservationService;
 import ftn.pharmacyX.service.PharmacyService;
@@ -54,6 +55,12 @@ public class UserController {
 	public ResponseEntity<User> register(@RequestBody UserDTO userDTO) {
 		Patient p = converter.userDtoToPatient(userDTO);
 		User newUser = userService.saveUser(p);
+		return new ResponseEntity<>(newUser, HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "/me/password-change", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<User> changePassword(@RequestBody UserDTO userDTO) {
+		User newUser = userService.changePassword(userDTO);
 		return new ResponseEntity<>(newUser, HttpStatus.OK);
 	}
 	
@@ -121,40 +128,24 @@ public class UserController {
 		return new ResponseEntity<>(reservations, HttpStatus.OK);
 	}
 	
-	/*
-	@PutMapping(value = "/patient/edit")
-	public ResponseEntity<Patient> editPatient(@RequestBody EditPatientDTO editedPatient) {
-		return new ResponseEntity<>(userService.editPatient(editedPatient), HttpStatus.OK);
-	}
-	/*
-	@PutMapping(value = "/emloyee/edit")
-	public ResponseEntity<User> editEmployee(@RequestBody UserDTO editEmployee) {
-		return new ResponseEntity<>(userService.editEmployee(editEmployee), HttpStatus.OK);
-	}
-	
-	/*
-	PRAVI PROBLEM ZBOG MAIL-A, VEROVATNO TREBA DA SE STAVI @REQUESTPARAM UMESTO @PATHVARIABLE
-	@GetMapping(value = "/patient/{email}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Patient> getPatient(@PathVariable("email") String email) {
-		Patient patient = (Patient) userService.findByEmail(email);
-		if (patient == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<>(patient, HttpStatus.OK);
-	}
-	
-	@GetMapping(value = "/employee/{email}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<UserDTO> getEmployee(@PathVariable("email") String email) {
-		UserDTO employee = new UserDTO(userService.findByEmail(email));
-		return new ResponseEntity<>(employee, HttpStatus.OK);
-	}
-	*/
-	
 	@GetMapping(value = "/pharmacists/search", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<UserDTO>> getAllPharmacists(@RequestParam Map<String, String> queryParams) {
 		List<User> users = userService.findAllPharmacists();
 		List<UserDTO> ret = new ArrayList<UserDTO>();
-		List<User> found = userService.searchDermatologistsAndPharmacists(queryParams, users);
+		
+		PharmacyAdmin admin = (PharmacyAdmin) userService.getLoggedUser();
+		List<User> found;
+		
+		if (admin == null) {
+			found = userService.searchDermatologistsAndPharmacists(queryParams, users);
+		} else {
+			List<User> pharmacyPharmacists = new ArrayList<User>();
+			for (User phPharmacist : admin.getPharmacy().getPharmacists()) {
+				pharmacyPharmacists.add(phPharmacist);
+			}
+			found = userService.searchDermatologistsAndPharmacists(queryParams, pharmacyPharmacists);
+		}
+		
 		for (User user : found) {
 			ret.add(new UserDTO(user));
 		}
@@ -164,10 +155,21 @@ public class UserController {
 	@GetMapping(value = "/dermatologists/search", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<UserDTO>> getAllDermatologistsForSpecificPharmacy(@RequestParam Map<String, String> queryParams) {
 		List<UserDTO> ret = new ArrayList<UserDTO>();
-		
 		List<User> dermatologists = userService.findAllDermatologists();
-		List<User> found = userService.searchDermatologistsAndPharmacists(queryParams, dermatologists);
+		PharmacyAdmin admin = (PharmacyAdmin) userService.getLoggedUser();
 		
+		List<User> found;
+		
+		if (admin == null) {
+			found = userService.searchDermatologistsAndPharmacists(queryParams, dermatologists);
+		} else {
+			List<User> pharmacyDermatologists = new ArrayList<User>();
+			for (User phUser : admin.getPharmacy().getDermatologists()) {
+				pharmacyDermatologists.add(phUser);
+			}
+			found = userService.searchDermatologistsAndPharmacists(queryParams, pharmacyDermatologists);
+		}
+
 		for (User user : found) {
 			ret.add(new UserDTO(user));
 		}

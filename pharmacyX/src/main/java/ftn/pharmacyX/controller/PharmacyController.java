@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,13 +17,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import ftn.pharmacyX.dto.AddDrugDTO;
 import ftn.pharmacyX.dto.FilterDatePharmacistDTO;
 import ftn.pharmacyX.dto.EmployeeDTO;
+import ftn.pharmacyX.dto.FilterDatePharmacistDTO;
 import ftn.pharmacyX.dto.PharmacyDTO;
 import ftn.pharmacyX.helpers.DTOConverter;
 import ftn.pharmacyX.model.Pharmacy;
+import ftn.pharmacyX.model.users.Dermatologist;
 import ftn.pharmacyX.model.users.Pharmacist;
+import ftn.pharmacyX.model.users.PharmacyAdmin;
+import ftn.pharmacyX.service.DrugReservationService;
 import ftn.pharmacyX.service.PharmacyService;
+import ftn.pharmacyX.service.UserService;
 
 @RestController
 @RequestMapping("/pharmacies")
@@ -33,9 +40,14 @@ public class PharmacyController {
 	
 	@Autowired
 	private DTOConverter converter;
-
-	//private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private DrugReservationService drugResService;
+
+
 	
 	@GetMapping()
 	public ResponseEntity<?> getAllPharmacies() {
@@ -88,9 +100,69 @@ public class PharmacyController {
 		return new ResponseEntity<>(pharmacy,HttpStatus.OK);
 	}
 	
-	@PostMapping
+	
+	@DeleteMapping(value = "/drugs/{id}")
+	public ResponseEntity<?> deleteDrugFromPharmacy(@PathVariable("id") Long drugId) {
+		PharmacyAdmin admin = (PharmacyAdmin) userService.getLoggedUser();
+		if (admin == null) {
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		}
+		boolean isReserved = drugResService.checkIfDrugIsReserved(drugId, admin.getPharmacy());
+		
+		// ako postoji rezervacija, ne dozvoli brisanje
+		if (isReserved) {
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		}
+		
+		pharmacyService.deleteDrugFromPharmacy(drugId, admin.getPharmacy().getId());
+		
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	public ResponseEntity<?> addDrugToPharmacy(@RequestBody AddDrugDTO dto) {
+		PharmacyAdmin admin = (PharmacyAdmin) userService.getLoggedUser();
+		if (admin == null) {
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		}
+		
+		boolean isAdded = pharmacyService.addDrugToPharmacy(dto, admin.getPharmacy().getId());
+		
+		if (isAdded) {
+			return new ResponseEntity<>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@PostMapping(value = "/add-pharmacist")
 	public ResponseEntity<?> addPharmacist(@RequestBody EmployeeDTO dto){
 		pharmacyService.addPharmacist(dto);
+		return new ResponseEntity<>(HttpStatus.OK);
+		
+	}
+	
+	@PostMapping(value = "/add-dermatologist")
+	public ResponseEntity<?> addDermatologist(@RequestBody EmployeeDTO dto){
+		pharmacyService.addDermatologist(dto);
+		return new ResponseEntity<>(HttpStatus.OK);
+		
+	}
+	
+	@DeleteMapping(value = "/remove-pharmacist/{id}")
+	public ResponseEntity<?> removePharmacist(@PathVariable("id") Long id){
+		Pharmacist pharmacist = pharmacyService.removePharmacist(id);
+		if(pharmacist == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@DeleteMapping(value = "/remove-dermatologist/{id}")
+	public ResponseEntity<?> removeDermatologist(@PathVariable("id") Long id){
+		Dermatologist dermatologist = pharmacyService.removeDermatologist(id);
+		if(dermatologist == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<>(HttpStatus.OK);
 		
 	}
