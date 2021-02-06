@@ -100,33 +100,133 @@
 
 
                                  <div *ngIf="view==='drugs'" class="tab-pane fade show active" id="drugs" role="tabpanel" aria-labelledby="drugs-tab">
-                                    <div *ngFor="let item of pharmacy.drugsInStock">
-                                        <div class="row" >
-                                            <div class="col-sm-3 col-md-2 col-5">
-                                                <label style="font-weight:bold;">{{item.drug.name}}</label>
+                                    <div *ngIf="this.currentUser.userRole !== 'PHARMACY_ADMIN'">
+                                        <div *ngFor="let item of pharmacy.drugsInStock">
+                                            <div class="row" >
+                                                <div class="col-sm-3 col-md-2 col-5">
+                                                    <label style="font-weight:bold;">{{item.drug.name}}</label>
+                                                </div>
+                                                <div class="col-md-8 col-6">
+                                                    Quantity: {{item.quantity}}
+                                                </div> 
+                                                <div class="col-md-4 col-3">
+                                                    <button (click)="reserveMedicine(item)">Rezervisi lek</button>
+                                                </div>
                                             </div>
-                                            <div class="col-md-8 col-6">
-                                                Quantity: {{item.quantity}}
-                                            </div> 
-                                            <div class="col-md-4 col-3">
-                                                <button (click)="reserveMedicine(item)">Rezervisi lek</button>
-                                            </div>
+                                            <hr />
                                         </div>
-                                        <hr />
+                                    </div>
+                                    <div *ngIf="this.currentUser.userRole === 'PHARMACY_ADMIN'">
+                                        <div *ngFor="let onePriceList of pharmacy.priceList">
+                                            <div id="login-row" class="row justify-content-center align-items-center">
+                                                <div id="login-column" class="col-md-6">
+                                                    <div id="login-box" class="col-md-12">
+                                                        {{onePriceList.startDate}}-{{onePriceList.endDate}}
+                                                        <form id="login-form" class="form" action="" method="post">
+                                                            <table class="table table-bordered table-sortable" id="tab_logic">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="text-center">
+                                                                            Drug
+                                                                        </th>
+                                                                        <th class="text-center">
+                                                                            Price
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr id='addr0' data-id="0" class="hidden"
+                                                                        *ngFor="let d of selectedDrugs; let i = index">
+                                                                        <td data-name="name">
+                                                                            {{d.name}}
+                                                                        </td>
+                                                                        <td data-name="name">
+                                                                            <input type="number" name="price" id="price" class="form-control"
+                                                                                    [(ngModel)]="prices[i]" placeholder="Enter price..." required>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <div class="form-group">
+                                                                <label>Enter drug name:</label>
+                                                                <input type="text" name="dateS" id="dateS" class="form-control" [(ngModel)]="this.date"
+                                                                    placeholder="Enter drug name..." required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Enter price:</label>
+                                                                <input type="text" name="dateS" id="dateS" class="form-control" [(ngModel)]="this.date"
+                                                                    placeholder="Enter price..." required>
+                                                            </div>
+                                                            <div class="form-group" id="button">
+                                                                <button (click)="create()" class="btn btn-danger btn-block">Create</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr />
+                                        </div>
+                                        <h3>Add new pricelist</h3>
+                                            <form id="login-form" class="form" action="" method="post">
+                                                <div class="form-group">
+                                                    <label>Enter start date:</label>
+                                                    <input type="text" name="dateS1" id="dateS" class="form-control" [(ngModel)]="this.date"
+                                                        placeholder="Enter start date..." required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Enter end date:</label>
+                                                    <input type="text" name="date1" id="date" class="form-control" [(ngModel)]="this.date"
+                                                        placeholder="Enter end date..." required>
+                                                </div>
+                                                <div class="form-group" id="button1">
+                                                    <button (click)="create()" class="btn btn-danger btn-block">Create</button>
+                                                </div>
+                                            </form>
+
                                     </div>
                                 </div>
 
                                 <div *ngIf="view==='predefined'" class="tab-pane fade show active" id="predefined" role="tabpanel" aria-labelledby="predefined-tab">
-                                    <div *ngFor="let pe of predefinedExams">
-                                        <div class="row" >
-                                            <ul>
-                                                <li>Date {{parseDateTime(pe.dateTime) | date: 'short'}}</li>
-                                                <li>Doctor: {{pe.dermatologist.firstName }} {{pe.dermatologist.lastName}}</li>
-                                                <li>Price: {{pe.price}} rsd</li>
-                                                <li><button class="btn btn-primary" (click)="reserve(pe.id)">Reserve</button></li>
-                                            </ul>
+                                    <div>
+                                        <div *ngFor="let pe of predefinedExams">
+                                            <div class="row" >
+                                                <ul>
+                                                    <li>Date {{parseDateTime(pe.dateTime) | date: 'short'}}</li>
+                                                    <li>Doctor: {{pe.dermatologist.firstName }} {{pe.dermatologist.lastName}}</li>
+                                                    <li>Price: {{pe.price}} rsd</li>
+                                                    <li *ngIf="this.currentUser.userRole !== 'PHARMACY_ADMIN'"><button class="btn btn-primary" (click)="reserve(pe.id)">Reserve</button></li>
+                                                </ul>
+                                            </div>
+                                            <hr />
                                         </div>
-                                        <hr />
+                                    </div>
+                                    <div *ngIf="this.currentUser.userRole === 'PHARMACY_ADMIN'">
+                                        <h3>Add new predefined examination</h3>
+                                        <form id="login-form" class="form" action="" method="post">
+                                            <div class="form-group">
+                                                <label>Enter dermatologist email:</label>
+                                                <input type="text" name="dateS1" id="dateS" class="form-control" [(ngModel)]="this.date"
+                                                    placeholder="Enter start date..." required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Enter date:</label>
+                                                <input type="text" name="date4" id="date5" class="form-control" [(ngModel)]="this.date"
+                                                    placeholder="Enter date..." required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Enter time:</label>
+                                                <input type="text" name="date4" id="date5" class="form-control" [(ngModel)]="this.date"
+                                                    placeholder="Enter date..." required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Enter duration:</label>
+                                                <input type="text" name="dur" id="dur" class="form-control" [(ngModel)]="this.date"
+                                                    placeholder="Enter duration..." required>
+                                            </div>
+                                            <div class="form-group" id="button1">
+                                                <button (click)="addPredefinedExamination()" class="btn btn-danger btn-block">Add</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div> 
                             </div>

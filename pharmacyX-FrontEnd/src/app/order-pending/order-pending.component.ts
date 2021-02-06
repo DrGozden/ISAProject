@@ -24,6 +24,10 @@ export class OrderPendingComponent implements OnInit {
     });
   }
 
+  public parseDateTime(d: number[]){
+    return new Date(d[0],d[1]-1,d[2],d[3],d[4]);
+  }
+
   public accept(offerId: number) {
     this.userService.acceptOffer(offerId).subscribe((data)=>{
       this.reload();
@@ -31,8 +35,8 @@ export class OrderPendingComponent implements OnInit {
   }
 
   public getOffersForOrder(orderId: number){
-    this.userService.getOffersForOrder(orderId).subscribe((data)=>{
+    /*this.userService.getOffersForOrder(orderId).subscribe((data)=>{
       return data;
-    })
+    })*/
   }
 }

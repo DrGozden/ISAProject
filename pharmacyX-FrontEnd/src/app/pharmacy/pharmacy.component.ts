@@ -38,9 +38,6 @@ export class PharmacyComponent implements OnInit {
         console.log(this.pharmacy);
         this.pharmacyService.loadPredefinedExams(id).subscribe((data) => {
           this.predefinedExams = data;
-          console.log('aaaaaaaaaaaaaaaaaa');
-          
-          console.log(this.predefinedExams);
         });
       });
     });

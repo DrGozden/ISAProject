@@ -7,7 +7,10 @@
                 <thead>
                     <tr>
                         <th class="text-center">
-                            Order
+                            Order id
+                        </th>
+                        <th class="text-center">
+                            Order deadline
                         </th>
                         <th class="text-center">
                             Offers
@@ -17,7 +20,10 @@
                 <tbody>
                     <tr id='addr0' data-id="0" class="hidden" *ngFor="let d of orders">
                         <td data-name="name">
-                            d.name
+                            {{d.id}}
+                        </td>
+                        <td data-name="name">
+                            {{parseDateTime(d.deadline) | date: 'short'}}
                         </td>
                         <td data-name="name">
                             <div *ngFor="let o of getOffersForOrder(d.id)">

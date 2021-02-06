@@ -65,12 +65,12 @@ public decline(id: number,reason: VacationReason): Observable<any> {
   return this.http.put('http://localhost:9003/reject-vacation/'+id,{});
 }
 
-public loadAllOrders(): Observable<OrderDTO> {
-  return this.http.get<OrderDTO>('http://localhost:9003/supplies/orders');
+public loadAllOrders(): Observable<OrderDTO[]> {
+  return this.http.get<OrderDTO[]>('http://localhost:9003/supplies/orders');
 }
 
-public getOffersForOrder(orderId: number): Observable<SupplierOffer> {
-  return this.http.get<SupplierOffer>('http://localhost:9003/supplies/pending-offers/'+orderId);
+public getOffersForOrder(orderId: number): Observable<SupplierOffer[]> {
+  return this.http.get<SupplierOffer[]>('http://localhost:9003/supplies/pending-offers/'+orderId);
 }
 
 public acceptOffer(offerId: number) : Observable<any> {

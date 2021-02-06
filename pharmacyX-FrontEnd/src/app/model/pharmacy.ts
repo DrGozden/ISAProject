@@ -1,4 +1,5 @@
 import { Deserializable } from './deserializable';
+import { PriceList } from './pricelist';
 import { User } from './user';
 
 export class Pharmacy implements Deserializable {
@@ -9,6 +10,7 @@ export class Pharmacy implements Deserializable {
     dermatologists : User[];
     pharmacists: User[];
     ratings: number[];
+    priceList: PriceList[];
 
 
 
