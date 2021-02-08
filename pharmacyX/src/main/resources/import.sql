@@ -118,4 +118,12 @@ insert into vacation(id, accepted, deleted, end_date, reject_description, start_
 insert into supply_order(id, deadline, deleted, pharmacy_id) values (1101, '2021-10-10', false, 717);
 insert into supply_order(id, deadline, deleted, pharmacy_id) values (1102, '2021-10-11', false, 717);
 
+insert into pharmacyx.dermatologist_ratings(dermatologist_id, ratings) values (715, 4);
+insert into pharmacyx.dermatologist_ratings(dermatologist_id, ratings) values (715, 1);
+insert into pharmacyx.dermatologist_ratings(dermatologist_id, ratings) values (715, 3);
+
+insert into pharmacyx.pharmacist_ratings(pharmacist_id, ratings) values (711, 4);
+insert into pharmacyx.pharmacist_ratings(pharmacist_id, ratings) values (711, 1);
+insert into pharmacyx.pharmacist_ratings(pharmacist_id, ratings) values (711, 3);
+
 

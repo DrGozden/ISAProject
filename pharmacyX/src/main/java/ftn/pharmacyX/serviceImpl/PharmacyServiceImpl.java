@@ -121,8 +121,9 @@ public class PharmacyServiceImpl implements PharmacyService {
 
 	}
 
+	@Override
 	public double calculateRating(List<Integer> ratings) {
-		int ret = 0;
+		double ret = 0;
 		for (Integer rating : ratings) {
 			ret += rating;
 		}
