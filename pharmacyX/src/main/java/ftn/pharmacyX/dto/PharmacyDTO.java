@@ -18,13 +18,15 @@ public class PharmacyDTO {
 	private List<PriceList> priceList;
 	private List<DrugsInStockDTO> drugsInStock;
 	private double rating;
-	
+	private List<PriceListDTO> priceListsDTO;
+
 	public PharmacyDTO() {
-		
+
 	}
 
 	public PharmacyDTO(Long id, String name, String description, Address address, List<Pharmacist> pharmacists,
-			List<Dermatologist> dermatologists, List<PriceList> priceList, List<DrugsInStockDTO> drugsInStock) {
+			List<Dermatologist> dermatologists, List<PriceList> priceList, List<DrugsInStockDTO> drugsInStock,
+			double rating, List<PriceListDTO> priceListsDTO) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -34,6 +36,8 @@ public class PharmacyDTO {
 		this.dermatologists = dermatologists;
 		this.priceList = priceList;
 		this.drugsInStock = drugsInStock;
+		this.rating = rating;
+		this.priceListsDTO = priceListsDTO;
 	}
 
 	public Long getId() {
@@ -104,11 +108,20 @@ public class PharmacyDTO {
 		return rating;
 	}
 
-	public void setRating(List<Integer>ratings) {
+	public void setRating(List<Integer> ratings) {
 		for (int rate : ratings) {
 			rating = rating + rate;
 		}
 
-		rating = rating/ratings.size();
+		rating = rating / ratings.size();
 	}
+
+	public List<PriceListDTO> getPriceListsDTO() {
+		return priceListsDTO;
+	}
+
+	public void setPriceListsDTO(List<PriceListDTO> priceListsDTO) {
+		this.priceListsDTO = priceListsDTO;
+	}
+
 }
