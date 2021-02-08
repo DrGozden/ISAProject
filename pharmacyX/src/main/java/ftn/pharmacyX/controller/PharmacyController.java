@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ftn.pharmacyX.dto.AddDrugDTO;
-import ftn.pharmacyX.dto.FilterDatePharmacistDTO;
 import ftn.pharmacyX.dto.EmployeeDTO;
 import ftn.pharmacyX.dto.FilterDatePharmacistDTO;
 import ftn.pharmacyX.dto.PharmacyDTO;

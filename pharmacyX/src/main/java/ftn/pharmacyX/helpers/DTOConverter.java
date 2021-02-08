@@ -15,6 +15,7 @@ import ftn.pharmacyX.dto.CreateExamDTO;
 import ftn.pharmacyX.dto.DrugReservationDTO;
 import ftn.pharmacyX.dto.DrugsInStockDTO;
 import ftn.pharmacyX.dto.PharmacyDTO;
+import ftn.pharmacyX.dto.PriceListDTO;
 import ftn.pharmacyX.dto.SupplyOrderDTO;
 import ftn.pharmacyX.dto.UserDTO;
 import ftn.pharmacyX.dto.VacationWithUserDTO;
@@ -24,6 +25,7 @@ import ftn.pharmacyX.model.DermatologistExam;
 import ftn.pharmacyX.model.Drug;
 import ftn.pharmacyX.model.DrugReservation;
 import ftn.pharmacyX.model.Pharmacy;
+import ftn.pharmacyX.model.PriceList;
 import ftn.pharmacyX.model.SupplyOrder;
 import ftn.pharmacyX.model.Vacation;
 import ftn.pharmacyX.model.users.Dermatologist;
@@ -103,6 +105,11 @@ public class DTOConverter {
 		dto.setPriceList(pharmacy.getPriceList());
 		dto.setDrugsInStock(inStockToDTO(pharmacy.getDrugsInStock()));
 		dto.setRating(pharmacy.getRatings());
+		List<PriceListDTO> priceListDTO= new ArrayList<>();
+		for (PriceList priceList : pharmacy.getPriceList()) {
+			priceListDTO.add(new PriceListDTO(priceList));
+		}
+		dto.setPriceListsDTO(priceListDTO);
 		return dto;
 	}
 	
