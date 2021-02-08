@@ -1,9 +1,12 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Drug } from '../model/drug';
 import { Pharmacy } from '../model/pharmacy';
 import { PredefinedExam } from '../model/predefinedExam';
+import { PriceList } from '../model/pricelist';
 import { User } from '../model/user';
+import { DrugsService } from '../services/drugs.service';
 import { LoginService } from '../services/login.service';
 import { PharmacyService } from '../services/pharmacy.service';
 import { ReservationService } from '../services/reservation.service';
@@ -18,9 +21,11 @@ export class PharmacyComponent implements OnInit {
   pharmacy: Pharmacy = new Pharmacy();
   view: string = "basic";
   predefinedExams: PredefinedExam[] = [];
+  drugs: Drug[] = [];
   public currentUser : User;
+  pricelistStartDate: string = "";
 
-  constructor(private loginService: LoginService, private pharmacyService:PharmacyService,private reservationService:ReservationService,private router: Router, private route: ActivatedRoute, private datePipe: DatePipe) { }
+  constructor(private drugService: DrugsService, private loginService: LoginService, private pharmacyService:PharmacyService,private reservationService:ReservationService,private router: Router, private route: ActivatedRoute, private datePipe: DatePipe) { }
 
   ngOnInit() {
     const currentUser = this.loginService.currentUserValue;
@@ -38,6 +43,7 @@ export class PharmacyComponent implements OnInit {
         console.log(this.pharmacy);
         this.pharmacyService.loadPredefinedExams(id).subscribe((data) => {
           this.predefinedExams = data;
+          this.drugService.loadDrugs().subscribe((data) => this.drugs = data)
         });
       });
     });
@@ -63,6 +69,36 @@ export class PharmacyComponent implements OnInit {
   public reserveMedicine(drug) {
     localStorage.setItem("pharmacyId",this.pharmacy.id.toString());
     this.router.navigate(['drug-reservation',drug.drug.id]);
+  }
+
+  public addDrug(drugId: number, priceListId: number) {
+    for(let i = 0; i < this.pharmacy.priceList.length; i++) {
+      if(this.pharmacy.priceList[i].id === priceListId) {
+        for(let j = 0 ; j < this.drugs.length; j++) {
+          if(this.drugs[i].id === drugId) {
+            //salji dodavanje drug ida, pricea u cenovnik sa idem na back
+          }
+        }
+      }
+    }
+  }
+
+  public updateDrug(drugId: number, priceListId: number) {
+    for(let i = 0; i < this.pharmacy.priceList.length; i++) {
+      if(this.pharmacy.priceList[i].id === priceListId) {
+        for(let j = 0 ; j < this.drugs.length; j++) {
+          if(this.drugs[i].id === drugId) {
+            //salji update drug ida, pricea u cenovnik sa idem na back
+          }
+        }
+      }
+    }
+  }
+
+  public createPricelist() {
+    let pricelistNew = new PriceList();
+    pricelistNew.startDate = this.pricelistStartDate;
+    this.pharmacyService.createPricelist(pricelistNew).subscribe(data => undefined);
   }
 
   

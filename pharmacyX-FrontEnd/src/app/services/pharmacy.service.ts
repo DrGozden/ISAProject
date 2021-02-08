@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { DermatologistExam } from '../model/dermatologistExam';
 import { Pharmacy } from '../model/pharmacy';
 import { PredefinedExam } from '../model/predefinedExam';
+import { PriceList } from '../model/pricelist';
 import { FreeApointmentDTO } from '../modelDTO/freeAppointmentDTO';
 
 @Injectable({
@@ -37,5 +38,9 @@ export class PharmacyService {
 
   public createExam(exam: FreeApointmentDTO)  {
     return this.http.post('http://localhost:9003/appointments/create-exam',exam);
+  }
+
+  public createPricelist(newPricelist: PriceList)  {
+    return this.http.post('http://localhost:9003/priceLists',newPricelist);
   }
 }

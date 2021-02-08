@@ -36,12 +36,68 @@
                                 <div class="card-body text-center">
                                     <h5>{{fp.email}}</h5>
                                 </div>
+                                <div class="card-body text-center">
+                                    <button (click)="remove(fd.id)" class="btn btn-danger btn-block">Remove</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div *ngIf="!filteredPharmacists">
                         <h2>No results found!</h2>
                     </div>
+                </div>
+                <div *ngIf="this.currentUser.userRole==='PHARMACY_ADMIN'">
+                    <h3>Add new pharmacist</h3>
+                    <form id="login-form" class="form" action="" method="post">
+                        <div class="form-group">
+                            <label>Enter firstName:</label>
+                            <input type="text" name="name1" id="name1" class="form-control" [(ngModel)]="this.newEmployee.firstName"
+                                placeholder="Enter firstName..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Enter lastName:</label>
+                            <input type="text" name="name2" id="name2" class="form-control" [(ngModel)]="this.newEmployee.lastName"
+                                placeholder="Enter lastName..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Enter email:</label>
+                            <input type="text" name="name3" id="name3" class="form-control" [(ngModel)]="this.newEmployee.email"
+                                placeholder="Enter email..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Enter password:</label>
+                            <input type="password" name="name4" id="name4" class="form-control" [(ngModel)]="this.newEmployee.password"
+                                placeholder="Enter password..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Enter phone:</label>
+                            <input type="text" name="name5" id="name5" class="form-control" [(ngModel)]="this.newEmployee.phone"
+                                placeholder="Enter phone..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Enter country:</label>
+                            <input type="text" name="name6" id="name6" class="form-control" [(ngModel)]="this.newEmployee.address.country"
+                                placeholder="Enter country..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Enter city:</label>
+                            <input type="text" name="name7" id="name7" class="form-control" [(ngModel)]="this.newEmployee.address.city"
+                                placeholder="Enter city..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Enter street:</label>
+                            <input type="text" name="street" id="street" class="form-control" [(ngModel)]="this.newEmployee.address.street"
+                                placeholder="Enter street..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Enter postalCode:</label>
+                            <input type="number" name="postalCode" id="postalCode" class="form-control" [(ngModel)]="this.newEmployee.address.postalCode"
+                                placeholder="Enter postalCode..." required>
+                        </div>
+                        <div class="form-group" id="button1">
+                            <button (click)="addEmployee()" class="btn btn-danger btn-block">Add new pharmacist</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

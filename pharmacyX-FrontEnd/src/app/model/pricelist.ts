@@ -4,7 +4,7 @@ import { User } from './user';
 
 export class PriceList implements Deserializable {
     
-    startDate: Date;
+    startDate: string;
     endtDate: Date;
     id: number;
     deleted: boolean;

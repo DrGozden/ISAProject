@@ -19,6 +19,7 @@ import { FreeApointmentsComponent } from './free-apointments/free-apointments.co
 import { VacationsComponent } from './vacations/vacations.component';
 import { OrderComponent } from './order/order.component';
 import { OrderPendingComponent } from './order-pending/order-pending.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 const routes: Routes = [
   { path: 'homepage', component: HomepageComponent },
@@ -42,6 +43,7 @@ const routes: Routes = [
   { path: 'vacations', component: VacationsComponent},
   { path: 'order', component: OrderComponent},
   { path: 'pending-orders', component: OrderPendingComponent},
+  { path: 'change-password', component: ChangePasswordComponent},
 
   
 ];

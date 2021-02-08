@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { Employee } from '../model/employee';
 import { SupplierOffer } from '../model/supplierOffer';
 import { User } from '../model/user';
 import { Vacation } from '../model/vacation';
@@ -75,6 +76,22 @@ public getOffersForOrder(orderId: number): Observable<SupplierOffer[]> {
 
 public acceptOffer(offerId: number) : Observable<any> {
   return this.http.put('http://localhost:9003/supplies/offers/'+offerId+'/accept', {});
+}
+
+public addDermatologist(employee: Employee) : Observable<any> {
+  return this.http.post('http://localhost:9003/pharmacies/add-dermatologist', employee);
+}
+
+public addPharmacist(employee: Employee) : Observable<any> {
+  return this.http.post('http://localhost:9003/pharmacies/add-pharmacist', employee);
+}
+
+public removePharmacist(id: number) : Observable<any> {
+  return this.http.delete('http://localhost:9003/pharmacies/remove-pharmacist/'+id);
+}
+
+public removeDermatologist(id: number) : Observable<any> {
+  return this.http.delete('http://localhost:9003/pharmacies/remove-dermatologist/'+id);
 }
 
 // getUser(email) {

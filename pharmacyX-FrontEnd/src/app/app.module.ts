@@ -29,6 +29,7 @@ import { FreeApointmentsComponent } from './free-apointments/free-apointments.co
 import { VacationsComponent } from './vacations/vacations.component';
 import { OrderComponent } from './order/order.component';
 import { OrderPendingComponent } from './order-pending/order-pending.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { OrderPendingComponent } from './order-pending/order-pending.component';
     VacationsComponent,
     OrderComponent,
     OrderPendingComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserModule,
