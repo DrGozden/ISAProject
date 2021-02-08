@@ -52,7 +52,7 @@ public class SupplyController {
 		return new ResponseEntity<>(orders, HttpStatus.OK);
 	}
 	
-	@GetMapping("/pending-offers")
+	@GetMapping("/pending-offers/{id}")
 	@Produces(MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getAllPendingOffersForOrder(@PathVariable("id") Long orderId) {
 		List<SupplierOffer> offers = supplyService.getAllPendingOffersForOrder(orderId);

@@ -1,5 +1,6 @@
 package ftn.pharmacyX.helpers;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -40,31 +41,31 @@ import ftn.pharmacyX.service.UserService;
 
 @Service
 public class DTOConverter {
-	
+
 	@Autowired
 	private DrugRepository drugRepo;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private DrugService drugService;
-	
+
 	@Autowired
 	private SupplyService supplyService;
-	
+
 	@Autowired
 	private PharmacyService pharmacyService;
-	
+
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-	
+
 	private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-	
+
 	private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-	
+
 	@Autowired
 	private PharmacyRepository pharmacyRepo;
 
@@ -75,7 +76,7 @@ public class DTOConverter {
 		reservation.setDeadline(LocalDateTime.parse(dto.getDeadlineDateTime(), formatter));
 		return reservation;
 	}
-	
+
 	public Patient userDtoToPatient(UserDTO dto) {
 		Patient p = new Patient();
 		p.setEmail(dto.getEmail());
@@ -93,7 +94,7 @@ public class DTOConverter {
 		p.setUserRole(UserRole.PATIENT);
 		return p;
 	}
-	
+
 	public PharmacyDTO pharmacyToDTO(Pharmacy pharmacy) {
 		PharmacyDTO dto = new PharmacyDTO();
 		dto.setId(pharmacy.getId());
@@ -105,14 +106,14 @@ public class DTOConverter {
 		dto.setPriceList(pharmacy.getPriceList());
 		dto.setDrugsInStock(inStockToDTO(pharmacy.getDrugsInStock()));
 		dto.setRating(pharmacy.getRatings());
-		List<PriceListDTO> priceListDTO= new ArrayList<>();
+		List<PriceListDTO> priceListDTO = new ArrayList<>();
 		for (PriceList priceList : pharmacy.getPriceList()) {
 			priceListDTO.add(new PriceListDTO(priceList));
 		}
 		dto.setPriceListsDTO(priceListDTO);
 		return dto;
 	}
-	
+
 	public List<DrugsInStockDTO> inStockToDTO(Map<Drug, Integer> inStock) {
 		List<DrugsInStockDTO> retList = new ArrayList<DrugsInStockDTO>();
 		for (Drug d : inStock.keySet()) {
@@ -120,16 +121,16 @@ public class DTOConverter {
 		}
 		return retList;
 	}
-	
+
 	public List<PharmacyDTO> pharmaciesToDTO(List<Pharmacy> pharmacies) {
 		List<PharmacyDTO> dtos = new ArrayList<PharmacyDTO>();
 		for (Pharmacy pharmacy : pharmacies) {
 			dtos.add(pharmacyToDTO(pharmacy));
 		}
-		
+
 		return dtos;
 	}
-	
+
 	public DermatologistExam dtoToExam(CreateExamDTO dto) {
 		DermatologistExam exam = new DermatologistExam();
 		exam.setPatient(null);
@@ -141,7 +142,7 @@ public class DTOConverter {
 		exam.setPharmacy(ph);
 		return exam;
 	}
-	
+
 	public SupplyOrder dtoToOrder(SupplyOrderDTO dto) {
 		SupplyOrder order = new SupplyOrder();
 		order.setDeadline(LocalDateTime.parse(dto.getDeadline(), formatter));
@@ -158,11 +159,11 @@ public class DTOConverter {
 			}
 			supplies.put(drug, supplies.get(drugId));
 		}
-		
+
 		order.setSupplies(supplies);
 		return order;
 	}
-	
+
 	public VacationWithUserDTO vacationToDto(Vacation v) {
 		VacationWithUserDTO dto = new VacationWithUserDTO();
 		dto.setVacation(v);
@@ -170,12 +171,25 @@ public class DTOConverter {
 		if (u == null) {
 			return null;
 		}
-		
+
 		dto.setEmail(u.getEmail());
 		dto.setFirstName(u.getFirstName());
 		dto.setLastName(u.getLastName());
-		
+
 		return dto;
 	}
-	
+
+	public PriceList priceListDtoToPriceList(PriceListDTO dto) {
+		PriceList priceList = new PriceList();
+		priceList.setStartDate(LocalDate.parse(dto.getStartDateString(), dateFormatter));
+		
+		for (int i = 0; i < dto.getDrugs().size(); i++) {
+			Drug drug = drugService.getDrug(dto.getDrugs().get(i).getId());
+			double price = dto.getPricesList().get(i);
+			priceList.getPrices().put(drug, price);
+
+		}
+		return priceList;
+
+	}
 }
