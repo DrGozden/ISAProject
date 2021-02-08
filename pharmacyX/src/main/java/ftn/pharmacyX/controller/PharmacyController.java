@@ -89,7 +89,6 @@ public class PharmacyController {
 	@PostMapping(value = "/availablePharmacist")
 	public ResponseEntity<?> getAvailablePharmacist(@RequestBody FilterDatePharmacistDTO dto) {
 		List<Pharmacist> availablePharmacist = pharmacyService.getAvailablePharmacist(dto);
-		System.out.println(dto.toString());
 		return new ResponseEntity<>(availablePharmacist,HttpStatus.OK);
 	}
 	

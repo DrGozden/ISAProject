@@ -1,6 +1,7 @@
 package ftn.pharmacyX.model;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.persistence.Column;
@@ -12,8 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.MapKeyJoinColumn;
-
-import ftn.pharmacyX.dto.PriceListDTO;
 
 @Entity
 public class PriceList {
@@ -30,12 +29,11 @@ public class PriceList {
 			@JoinColumn(name = "price_list_id", referencedColumnName = "id") })
 	@MapKeyJoinColumn(name = "drug_id")
 	@Column(name = "price")
-	private Map<Drug, Double> prices;
+	private Map<Drug, Double> prices = new HashMap<Drug, Double>();
 	@Column
 	private boolean deleted = false;
 
 	public PriceList() {
-
 	}
 
 	public PriceList(Long id, LocalDate startDate, LocalDate endDate, Map<Drug, Double> prices, boolean deleted) {
@@ -47,12 +45,6 @@ public class PriceList {
 		this.deleted = deleted;
 	}
 
-	public PriceList(PriceListDTO priceListDTO) {
-		this.startDate = priceListDTO.getStartDate();
-		this.prices = priceListDTO.getPrices();
-		this.deleted = false;
-
-	}
 
 	public Long getId() {
 		return id;
