@@ -1,4 +1,6 @@
+import { PricelistDTO } from '../modelDTO/pricelistDTO';
 import { Deserializable } from './deserializable';
+import { DrugStock } from './drugStock';
 import { PriceList } from './pricelist';
 import { User } from './user';
 
@@ -10,7 +12,8 @@ export class Pharmacy implements Deserializable {
     dermatologists : User[];
     pharmacists: User[];
     ratings: number[];
-    priceList: PriceList[];
+    drugsInStock: DrugStock[] = [];
+    priceList: PricelistDTO[];
 
 
 

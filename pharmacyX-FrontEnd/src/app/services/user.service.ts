@@ -71,6 +71,8 @@ public loadAllOrders(): Observable<OrderDTO[]> {
 }
 
 public getOffersForOrder(orderId: number): Observable<SupplierOffer[]> {
+  console.log('http://localhost:9003/supplies/pending-offers/'+orderId);
+  
   return this.http.get<SupplierOffer[]>('http://localhost:9003/supplies/pending-offers/'+orderId);
 }
 

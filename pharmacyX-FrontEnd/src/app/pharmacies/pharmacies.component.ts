@@ -36,3 +36,4 @@ export class PharmaciesComponent implements OnInit {
   }
 
 }
+

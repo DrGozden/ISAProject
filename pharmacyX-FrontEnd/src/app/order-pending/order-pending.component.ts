@@ -35,8 +35,7 @@ export class OrderPendingComponent implements OnInit {
   }
 
   public getOffersForOrder(orderId: number){
-    /*this.userService.getOffersForOrder(orderId).subscribe((data)=>{
-      return data;
-    })*/
+    console.log(orderId);
+    //this.userService.getOffersForOrder(orderId).subscribe((data) => {return data});
   }
 }
