@@ -6,6 +6,7 @@ import { Pharmacy } from '../model/pharmacy';
 import { PredefinedExam } from '../model/predefinedExam';
 import { PriceList } from '../model/pricelist';
 import { FreeApointmentDTO } from '../modelDTO/freeAppointmentDTO';
+import { PricelistDTO } from '../modelDTO/pricelistDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +41,9 @@ export class PharmacyService {
     return this.http.post('http://localhost:9003/appointments/create-exam',exam);
   }
 
-  public createPricelist(newPricelist: PriceList)  {
+  public createPricelist(newPricelist: PricelistDTO)  {
+    console.log(newPricelist);
+    
     return this.http.post('http://localhost:9003/priceLists',newPricelist);
   }
 }

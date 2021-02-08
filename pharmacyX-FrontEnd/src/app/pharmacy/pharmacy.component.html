@@ -117,7 +117,7 @@
                                         </div>
                                     </div>
                                     <div *ngIf="this.currentUser.userRole === 'PHARMACY_ADMIN'">
-                                        <div *ngFor="let onePriceList of pharmacy.priceList">
+                                        <div *ngFor="let onePriceList of pharmacy.priceListsDTO">
                                             <div id="login-row" class="row justify-content-center align-items-center">
                                                 <div id="login-column" class="col-md-6">
                                                     <div id="login-box" class="col-md-12">
@@ -136,33 +136,16 @@
                                                                 </thead>
                                                                 <tbody>
                                                                     <tr id='addr0' data-id="0" class="hidden"
-                                                                        *ngFor="let d of selectedDrugs; let i = index">
+                                                                        *ngFor="let d of onePriceList.drugs let i = index">
                                                                         <td data-name="name">
                                                                             {{d.name}}
                                                                         </td>
                                                                         <td data-name="name">
-                                                                            <input type="number" name="price" id="price" class="form-control"
-                                                                                    [(ngModel)]="prices[i]" placeholder="Enter price..." required>
+                                                                            {{onePriceList.pricesList[i]}}
                                                                         </td>
-                                                                        <div class="form-group" id="button">
-                                                                            <button (click)="updateDrug(d.id,onePriceList.id)" class="btn btn-danger btn-block">Update drug</button>
-                                                                        </div>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
-                                                            <div class="form-group">
-                                                                <label>Enter drug name:</label>
-                                                                <input type="text" name="dateS" id="dateS" class="form-control" [(ngModel)]="this.date"
-                                                                    placeholder="Enter drug name..." required>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label>Enter price:</label>
-                                                                <input type="text" name="dateS" id="dateS" class="form-control" [(ngModel)]="this.date"
-                                                                    placeholder="Enter price..." required>
-                                                            </div>
-                                                            <div class="form-group" id="button">
-                                                                <button (click)="addDrug(d.id,onePriceList.id)" class="btn btn-danger btn-block">Add drug</button>
-                                                            </div>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -175,6 +158,29 @@
                                                     <label>Enter start date:</label>
                                                     <input type="text" name="dateS1" id="dateS" class="form-control" [(ngModel)]="this.pricelistStartDate"
                                                         placeholder="Enter start date..." required>
+                                                </div>
+                                                <label>Selected drugs: </label>
+                                                <ul>
+                                                    <li *ngFor="let drug of this.newDrugs let i = index">{{drug.name}} {{newPrices[i]}} 
+                                                        <button (click)="removeFromList(i)" class="btn btn-danger btn-block">Remove</button>
+                                                    </li>
+                                                </ul>
+                                                <hr/>
+                                                <div class="form-group">
+                                                    <div class="form-group">
+                                                        <label>Choose drug</label>
+                                                        <select  class="custom-select" name="type" [(ngModel)]="selectedDrug">
+                                                            <option  *ngFor="let st of pharmacy.drugsInStock">{{st.drug.name}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Enter price:</label>
+                                                    <input type="text" name="dateS" id="dateS" class="form-control" [(ngModel)]="this.newPrice"
+                                                        placeholder="Enter price..." required>
+                                                </div>
+                                                <div class="form-group" id="button">
+                                                    <button (click)="addDrugToPricelist()" class="btn btn-danger btn-block">Add drug</button>
                                                 </div>
                                                 <div class="form-group" id="button1">
                                                     <button (click)="createPricelist()" class="btn btn-danger btn-block">Create</button>
