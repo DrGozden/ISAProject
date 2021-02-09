@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,6 +59,7 @@ public class PharmacyController {
 		return new ResponseEntity<>(dtos, HttpStatus.OK);
 	}
 
+	@PreAuthorize("hasAuthority('SYSTEM_ADMIN')")
 	@PostMapping(value = "/create-pharmacy")
 	public ResponseEntity<?> createPharmacy(@RequestBody PharmacyDTO dto) {
 		Pharmacy pharmacy = pharmacyService.createPharmacy(dto);
@@ -97,7 +99,7 @@ public class PharmacyController {
 		List<Pharmacist> availablePharmacist = pharmacyService.getAvailablePharmacist(dto);
 		return new ResponseEntity<>(availablePharmacist,HttpStatus.OK);
 	}
-	
+	@PreAuthorize("hasAuthority('PHARMACY_ADMIN')")
 	@PutMapping(value = "/update")
 	public ResponseEntity<?> updatePharmacy(@RequestBody PharmacyDTO dto) {
 		Pharmacy pharmacy = pharmacyService.updatePharmacy(dto);
@@ -122,7 +124,8 @@ public class PharmacyController {
 		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
+
+	@PreAuthorize("hasAuthority('PHARMACY_ADMIN')")
 	public ResponseEntity<?> addDrugToPharmacy(@RequestBody AddDrugDTO dto) {
 		PharmacyAdmin admin = (PharmacyAdmin) userService.getLoggedUser();
 		if (admin == null) {
@@ -137,21 +140,23 @@ public class PharmacyController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+	@PreAuthorize("hasAuthority('PHARMACY_ADMIN')")
 	@PostMapping(value = "/add-pharmacist")
 	public ResponseEntity<?> addPharmacist(@RequestBody EmployeeDTO dto){
 		pharmacyService.addPharmacist(dto);
 		return new ResponseEntity<>(HttpStatus.OK);
 		
 	}
-	
+
+	@PreAuthorize("hasAuthority('PHARMACY_ADMIN')")
 	@PostMapping(value = "/add-dermatologist")
 	public ResponseEntity<?> addDermatologist(@RequestBody EmployeeDTO dto){
 		pharmacyService.addDermatologist(dto);
 		return new ResponseEntity<>(HttpStatus.OK);
 		
 	}
-	
+
+	@PreAuthorize("hasAuthority('PHARMACY_ADMIN')")
 	@DeleteMapping(value = "/remove-pharmacist/{id}")
 	public ResponseEntity<?> removePharmacist(@PathVariable("id") Long id){
 		Pharmacist pharmacist = pharmacyService.removePharmacist(id);
@@ -160,7 +165,7 @@ public class PharmacyController {
 		}
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
+	@PreAuthorize("hasAuthority('PHARMACY_ADMIN')")
 	@DeleteMapping(value = "/remove-dermatologist/{id}")
 	public ResponseEntity<?> removeDermatologist(@PathVariable("id") Long id){
 		Dermatologist dermatologist = pharmacyService.removeDermatologist(id);
