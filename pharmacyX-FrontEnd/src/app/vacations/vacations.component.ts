@@ -15,6 +15,7 @@ export class VacationsComponent implements OnInit {
 
   public vacations: VacationUser[] = [];
   public reason: string = "";
+  public declineId = 0;
 
   constructor(private userService: UserService) {}
 
@@ -23,6 +24,8 @@ export class VacationsComponent implements OnInit {
   }
 
   public reload(){
+    this.reason = "";
+    this.declineId = 0;
     this.userService.loadVacations().subscribe((data)=> {
       this.vacations = data;
       console.log(this.vacations);
@@ -37,19 +40,22 @@ export class VacationsComponent implements OnInit {
     })
   }
 
-  public decline(id) {
-    console.log(id);
-    let reasonDTO = new VacationReason();
-    reasonDTO.vacationId = id;
-    reasonDTO.rejectDescription = this.reason;
+  public declineOpenForm(id: number) {
+    this.declineId = id;
+    this.reason = "";
+  }
 
-    this.userService.decline(id, reasonDTO).subscribe((data)=>{
+  public decline() {
+    let reasonDTO = new VacationReason();
+    reasonDTO.vacationId = this.declineId;
+    reasonDTO.rejectDescription = this.reason;
+    this.userService.decline(reasonDTO).subscribe((data)=>{
       this.reload();
     })
   }
 
   public parseDateTime(d: number[]){
-    return new Date(d[0],d[1]-1,d[2],d[3],d[4]);
+    return new Date(d[0],d[1]-1,d[2]);
   }
 
   public getState(deleted: boolean, accepted: boolean) {

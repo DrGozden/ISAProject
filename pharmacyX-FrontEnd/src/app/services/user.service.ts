@@ -63,8 +63,10 @@ public createOrder(order: OrderDTO) : Observable<any> {
   return this.http.post('http://localhost:9003/supplies/create-order', order);
 }
 
-public decline(id: number,reason: VacationReason): Observable<any> {
-  return this.http.put('http://localhost:9003/reject-vacation/'+id,{});
+public decline(vacationReason: VacationReason): Observable<any> {
+  console.log(vacationReason);
+  
+  return this.http.put('http://localhost:9003/reject-vacation',vacationReason);
 }
 
 public loadAllOrders(): Observable<OrderDTO[]> {
@@ -78,7 +80,7 @@ public getOffersForOrder(orderId: number): Observable<SupplierOffer[]> {
 }
 
 public acceptOffer(offerId: number) : Observable<any> {
-  return this.http.put('http://localhost:9003/supplies/offers/'+offerId+'/accept', {});
+  return this.http.post('http://localhost:9003/supplies/offers/'+offerId+'/accept', {});
 }
 
 public addDermatologist(employee: Employee) : Observable<any> {

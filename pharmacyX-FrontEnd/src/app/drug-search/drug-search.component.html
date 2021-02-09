@@ -31,13 +31,19 @@
                     <img class="img-fluid" src="assets/resources/medicine.jpeg" alt="Alternate Text" />
                 </div>
                 <div class="card-image-overlay m-auto">
-                    <span class="card-detail-badge">{{fm.code}}</span>
+                    <span >{{fm.specification.drugType}}</span>
                 </div>
 
                 <div class="card-body text-center">
-                    <h5>{{fm.name}}</h5>
-                    <span class="card-detail-badge"><a class="moreLink"
-                            [routerLink]="['/drug-reservation', fm.id]">Reserve</a></span>
+                    <h4>{{fm.name}}</h4>
+                    <button *ngIf="this.currentUser.userRole==='PATIENT'" class="btn btn-danger"><a class="moreLink" style="color:white"
+                            [routerLink]="['/drug-reservation', fm.id]">Reserve</a></button>
+                </div>
+                <div class="card-body text-center">
+                    <h5>Producer: {{fm.specification.producer}}</h5>
+                </div>
+                <div class="card-body text-center">
+                    <h6>{{fm.specification.description}}</h6>
                 </div>
                 <div class="card-body text-center" *ngIf="this.currentUser.userRole==='PHARMACY_ADMIN'">
                     <button (click)="remove(fd.id)" class="btn btn-danger btn-block">Remove</button>

@@ -7,7 +7,13 @@
                     <form id="login-form" class="form" action="" method="post">
                         <div class="form-group">
                             <label>Enter appointment date:</label>
-                            <input type="text" name="date" id="date" class="form-control" [(ngModel)]="this.date" placeholder="Enter date..." required>
+                            <input type="date" name="begin" placeholder="dd-mm-yyyy" value="" min="1997-01-01"
+                                max="2030-12-31" [(ngModel)]="this.date">
+                        </div>
+                        <div class="form-group">
+                            <label>Enter hours:</label>
+                            <input type="number" name="aaabegin" placeholder="Hours" value="" min="0"
+                                max="23" [(ngModel)]="this.hours">
                         </div>
                         <div class="form-group">
                             <label>Price:</label>
@@ -16,16 +22,19 @@
                         <div class="form-group">
                             <div class="form-group">
                                 <label>Add pharmacy</label>
-                                <select (change)="addPharmacy(selectedPharmacy)" class="custom-select" name="type" [(ngModel)]="selectedPharmacy">
-                                    <option  *ngFor="let st of pharmacies">{{st.name}}</option>
+                                <select (change)="addPharmacy(selectedPharmacy)" class="custom-select" name="type"
+                                    [(ngModel)]="selectedPharmacy">
+                                    <option *ngFor="let st of pharmacies">{{st.name}}</option>
                                 </select>
                             </div>
+                            
                         </div>
                         <div class="form-group">
                             <div class="form-group">
                                 <label>Add dermatologist</label>
-                                <select (change)="addDermatologist(selectedDermatologist)" class="custom-select" name="type" [(ngModel)]="selectedDermatologist">
-                                    <option  *ngFor="let der of dermatologists">{{der.firstName }} {{der.lastName}}</option>
+                                <select (change)="addDermatologist(selectedDermatologist)" class="custom-select" name="type"
+                                    [(ngModel)]="selectedDermatologist">
+                                    <option *ngFor="let der of dermatologists">{{der.firstName }} {{der.lastName}}</option>
                                 </select>
                             </div>
                         </div>

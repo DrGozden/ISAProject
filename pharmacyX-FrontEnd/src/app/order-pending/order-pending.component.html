@@ -26,14 +26,22 @@
                             {{parseDateTime(d.deadline) | date: 'short'}}
                         </td>
                         <td data-name="name">
-                            <button *ngIf="indexClicked === undefined || indexClicked !== d.id" (click)="getOffersForOrder(d.id)">Show offers</button>
+                            <button class="btn btn-danger" *ngIf="indexClicked === undefined || indexClicked !== d.id" (click)="getOffersForOrder(d.id)">Show offers</button>
                             <div *ngIf="indexClicked === d.id">
-                                <div *ngFor="let o of offers">
-                                    <span>{{o.totalPrice}} {{o.deliveryDeadline}}</span>
-                                    <button (click)="accept(o.id)">Accept</button>
+                                <div *ngIf="offers.length > 0">
+                                    <div *ngFor="let o of offers">
+                                        <span>Total price: {{o.totalPrice}} RSD</span>
+                                        <br />
+                                        <span>Delivery deadline: {{parseDateTime(o.deliveryDeadline) | date: 'short'}}</span>
+                                        <br />
+                                        <button class="btn btn-danger" (click)="accept(o.id)">Accept</button>
+                                        <hr/>
+                                    </div>
+                                </div>
+                                <div *ngIf="offers.length === 0">
+                                        <span>No offers for this order yet</span>
                                 </div>
                             </div>
-                            
                         </td>
                     </tr>
                 </tbody>

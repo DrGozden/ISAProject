@@ -24,16 +24,16 @@
         <div class="col-md-4" *ngFor="let fp of filteredPharmacies">
             <div class="card rounded">
                 <div class="card-image">
-                    <img class="img-fluid" src="assets/resources/pharmacy.jpg" alt="Alternate Text" />
+                    <img class="img-fluid" src="assets/resources/pharmacy.png" alt="Alternate Text" />
                 </div>
                 <div class="card-image-overlay m-auto">
-                    <span class="card-detail-badge">{{fp.description}}</span>
+                    <span>{{fp.description}}</span>
                 </div>
 
                 <div class="card-body text-center">
                     <h5>{{fp.name}}</h5>
-                    <span class="card-detail-badge"><a class="moreLink" [routerLink]="['/pharmacy', fp.id]">Click
-                            for more</a></span>
+                    <button class="btn btn-danger"><a class="moreLink" style="color:white" [routerLink]="['/pharmacy', fp.id]">Click
+                            for more</a></button>
                 </div>
             </div>
         </div>
