@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SupplierOffer } from '../model/supplierOffer';
 import { OrderDTO } from '../modelDTO/orderDTO';
 import { UserService } from '../services/user.service';
 
@@ -10,6 +11,8 @@ import { UserService } from '../services/user.service';
 export class OrderPendingComponent implements OnInit {
 
   public orders: OrderDTO[] = []; // bice drugi obj
+  public offers: SupplierOffer[] = [];
+  public indexClicked: number | undefined = undefined;
   
   constructor(private userService: UserService) {}
 
@@ -18,9 +21,12 @@ export class OrderPendingComponent implements OnInit {
   }
 
   public reload(){
+    this.offers = [];
+    this.indexClicked = undefined;
     this.userService.loadAllOrders().subscribe((data)=> {
       this.orders = data;
       console.log(this.orders);
+      
     });
   }
 
@@ -36,6 +42,9 @@ export class OrderPendingComponent implements OnInit {
 
   public getOffersForOrder(orderId: number){
     console.log(orderId);
-    //this.userService.getOffersForOrder(orderId).subscribe((data) => {return data});
+    
+    this.indexClicked = orderId;
+
+    this.userService.getOffersForOrder(orderId).subscribe((data) => {this.offers = data;});
   }
 }

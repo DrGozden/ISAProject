@@ -36,7 +36,7 @@
                                 <div class="card-body text-center">
                                     <h5>{{fp.email}}</h5>
                                 </div>
-                                <div class="card-body text-center">
+                                <div class="card-body text-center" *ngIf="this.currentUser.userRole==='PHARMACY_ADMIN'">
                                     <button (click)="remove(fd.id)" class="btn btn-danger btn-block">Remove</button>
                                 </div>
                             </div>
