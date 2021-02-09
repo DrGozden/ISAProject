@@ -7,11 +7,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import ftn.pharmacyX.dto.CreateDrugDTO;
 import ftn.pharmacyX.dto.CreateExamDTO;
 import ftn.pharmacyX.dto.DrugReservationDTO;
 import ftn.pharmacyX.dto.DrugsInStockDTO;
@@ -25,6 +27,7 @@ import ftn.pharmacyX.model.Address;
 import ftn.pharmacyX.model.DermatologistExam;
 import ftn.pharmacyX.model.Drug;
 import ftn.pharmacyX.model.DrugReservation;
+import ftn.pharmacyX.model.DrugSpecification;
 import ftn.pharmacyX.model.Pharmacy;
 import ftn.pharmacyX.model.PriceList;
 import ftn.pharmacyX.model.SupplyOrder;
@@ -190,6 +193,35 @@ public class DTOConverter {
 
 		}
 		return priceList;
-
+	}
+	
+	public Drug dtoToDrug(CreateDrugDTO dto) {
+		Drug newDrug = new Drug();
+		newDrug.setName(dto.getName());
+		newDrug.setCode(UUID.randomUUID().toString());
+		
+		DrugSpecification spec = new DrugSpecification();
+		spec.setContraindications(dto.getContraindications());
+		spec.setDailyRecommendation(dto.getDailyRecommendation());
+		spec.setDescription(dto.getDescription());
+		spec.setDrugForm(dto.getDrugForm());
+		spec.setDrugType(dto.getDrugType());
+		spec.setPrescription(dto.isPerscription());
+		spec.setProducer(dto.getProducer());
+		spec.setStructure(dto.getStructure());
+		
+		List<Drug> substitutes = new ArrayList<Drug>();
+		for (Long drugId : dto.getSubtitues()) {
+			Drug foundDrug = drugService.getDrug(drugId);
+			if (foundDrug == null) {
+				return null;
+			}
+			substitutes.add(foundDrug);
+		}
+		
+		spec.setSubstitutes(substitutes);
+		newDrug.setSpecification(spec);
+		
+		return newDrug;
 	}
 }

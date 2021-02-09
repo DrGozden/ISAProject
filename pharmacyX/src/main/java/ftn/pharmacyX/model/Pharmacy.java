@@ -1,6 +1,9 @@
 package ftn.pharmacyX.model;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +22,7 @@ import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import ftn.pharmacyX.dto.PharmacyDTO;
 import ftn.pharmacyX.model.users.Dermatologist;
 import ftn.pharmacyX.model.users.Pharmacist;
 
@@ -82,7 +86,21 @@ public class Pharmacy implements Serializable {
 		this.address = address;
 	}
 
-	public Long getId() {
+    public Pharmacy(PharmacyDTO dto) {
+		this.name = dto.getName();
+		this.description = dto.getDescription();
+		this.dermatologists = new ArrayList<>();
+		this.pharmacists =  new ArrayList<>();
+		this.ratings = new ArrayList<>();
+		this.priceList = new ArrayList<>();
+		this.drugsInStock = new HashMap<Drug, Integer>();
+		this.address = dto.getAddress();
+		this.deleted = false;
+
+
+    }
+
+    public Long getId() {
 		return id;
 	}
 

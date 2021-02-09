@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import ftn.pharmacyX.dto.*;
+import ftn.pharmacyX.model.Pharmacy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,10 +19,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import ftn.pharmacyX.dto.DrugReservationDTO;
-import ftn.pharmacyX.dto.UserDTO;
-import ftn.pharmacyX.dto.VacationRejectDTO;
-import ftn.pharmacyX.dto.VacationWithUserDTO;
 import ftn.pharmacyX.enums.UserRole;
 import ftn.pharmacyX.enums.UserStatus;
 import ftn.pharmacyX.helpers.DTOConverter;
@@ -59,7 +58,7 @@ public class UserController {
 		User newUser = userService.saveUser(p);
 		return new ResponseEntity<>(newUser, HttpStatus.OK);
 	}
-	
+	@PreAuthorize("hasAuthority('PHARMACY_ADMIN')")
 	@PostMapping(value = "/me/password-change", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<User> changePassword(@RequestBody UserDTO userDTO) {
 		User newUser = userService.changePassword(userDTO);
@@ -129,8 +128,7 @@ public class UserController {
 		
 		return new ResponseEntity<>(reservations, HttpStatus.OK);
 	}
-	
-	//@PreAuthorize("hasAuthority('PHARMACY_ADMIN')")
+
 	@GetMapping(value = "/pharmacists/search", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<UserDTO>> getAllPharmacists(@RequestParam Map<String, String> queryParams) {
 		List<User> users = userService.findAllPharmacists();
@@ -163,7 +161,7 @@ public class UserController {
 		}
 		return new ResponseEntity<List<UserDTO>>(ret, HttpStatus.OK);
 	}
-	//@PreAuthorize("hasAuthority('PHARMACY_ADMIN')")
+
 	@GetMapping(value = "/dermatologists/search", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<UserDTO>> getAllDermatologistsForSpecificPharmacy(@RequestParam Map<String, String> queryParams) {
 		List<UserDTO> ret = new ArrayList<UserDTO>();
@@ -230,6 +228,12 @@ public class UserController {
 		} else {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
+	}
+
+	@PostMapping(value = "/create-pharmacy-admin")
+	public ResponseEntity<?> createPharmacy(@RequestBody UserDTO dto) {
+		PharmacyAdmin admin = userService.createPharmacyAdmin(dto);
+		return new ResponseEntity<>(admin,HttpStatus.OK);
 	}
 }
 
