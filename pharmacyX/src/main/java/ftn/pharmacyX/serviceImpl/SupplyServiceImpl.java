@@ -78,7 +78,7 @@ public class SupplyServiceImpl implements SupplyService {
 		List<SupplierOffer> allOffers = supplyOfferRepository.findAll();
 		List<SupplierOffer> pendingOffers = new ArrayList<SupplierOffer>();
 		for (SupplierOffer offer : allOffers) {
-			if (offer.getId().equals(orderId) && offer.getStatus().equals(OfferStatus.PENDING)) {
+			if (offer.getOrder().getId().equals(orderId) && offer.getStatus().equals(OfferStatus.PENDING)) {
 				pendingOffers.add(offer);
 			}
 		}
