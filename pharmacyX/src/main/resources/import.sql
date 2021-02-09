@@ -9,6 +9,7 @@ insert into address (id, city, country, deleted, postal_code, street) values (70
 insert into address (id, city, country, deleted, postal_code, street) values (709, 'Novi Sad', 'Serbia', false, '21000', 'Pupinova 29');
 insert into address (id, city, country, deleted, postal_code, street) values (710, 'Novi Sad', 'Serbia', false, '21000', 'Bulevar Oslobodjenja 12');
 insert into address (id, city, country, deleted, postal_code, street) values (888, 'Novi Sad', 'Serbia', false, '21000', 'Bulevar Oslobodjenja 13');
+insert into address (id, city, country, deleted, postal_code, street) values (889, 'Novi Sad', 'Serbia', false, '21000', 'Bulevar Oslobodjenja 14');
 
 insert into user (id, first_name, last_name, email, password, phone, user_type, address_id, user_role, deleted, user_status) values (711, 'Nikola', 'Nikolic', 'nikola@gmail.com', '$2a$10$Bhbe5Azsb1wOUnTXJMfnrO8Ou2kCrBDI4AQDwTOEm5MxG/0YtmtzG', '111-222', 'pharmacist_user', 701, 2, false, 0);
 insert into user (id, first_name, last_name, email, password, phone, user_type, address_id, user_role, deleted, user_status) values (712, 'Nemanja', 'Nemanjic', 'nemanja@gmail.com', '$2a$10$Bhbe5Azsb1wOUnTXJMfnrO8Ou2kCrBDI4AQDwTOEm5MxG/0YtmtzG', '333-444', 'pharmacist_user', 702, 2, false, 0);
@@ -17,6 +18,7 @@ insert into user (id, first_name, last_name, email, password, phone, user_type, 
 insert into user (id, first_name, last_name, email, password, phone, user_type, address_id, user_role, deleted, user_status) values (715, 'Pera', 'Peric', 'pera@gmail.com', '$2a$10$Bhbe5Azsb1wOUnTXJMfnrO8Ou2kCrBDI4AQDwTOEm5MxG/0YtmtzG', '111-333', 'dermatologist_user', 705, 1, false, 0);
 insert into user (id, first_name, last_name, email, password, phone, user_type, address_id, user_role, deleted, user_status) values (716, 'Djura', 'Djuric', 'djura@gmail.com', '$2a$10$Bhbe5Azsb1wOUnTXJMfnrO8Ou2kCrBDI4AQDwTOEm5MxG/0YtmtzG', '111-444', 'dermatologist_user', 706, 1, false, 0);
 insert into user (id, first_name, last_name, email, password, phone, user_type, address_id, user_role, deleted, user_status, pharmacy_id) values (878, 'Stefan', 'Stevic', 'stefan@gmail.com', '$2a$10$Bhbe5Azsb1wOUnTXJMfnrO8Ou2kCrBDI4AQDwTOEm5MxG/0YtmtzG', '111-444', 'pharmacy_admin_user', 888, 3, false, 3, 717);
+insert into user (id, first_name, last_name, email, password, phone, user_type, address_id, user_role, deleted, user_status, pharmacy_id) values (879, 'Mira', 'Miric', 'mira@gmail.com', '$2a$10$Bhbe5Azsb1wOUnTXJMfnrO8Ou2kCrBDI4AQDwTOEm5MxG/0YtmtzG', '111-444', 'supplier_user', 889, 4, false, 3, 0);
 				
 
 insert into pharmacy (id, name, description, address_id, deleted) values (717, 'Apoteka PharmacyX 1', 'Bulevar', 710, false);
@@ -118,4 +120,5 @@ insert into vacation(id, accepted, deleted, end_date, reject_description, start_
 insert into supply_order(id, deadline, deleted, pharmacy_id) values (1101, '2021-10-10', false, 717);
 insert into supply_order(id, deadline, deleted, pharmacy_id) values (1102, '2021-10-11', false, 717);
 
+insert into supplier_offer(id, delivery_deadline, deleted, status, total_price, order_id, supplier_id) values (1201, '2021-10-11', false, 2, 15000, 1101, 879);
 
