@@ -7,11 +7,14 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ftn.pharmacyX.dto.CreateDrugDTO;
 import ftn.pharmacyX.enums.UserRole;
+import ftn.pharmacyX.helpers.DTOConverter;
 import ftn.pharmacyX.model.Drug;
 import ftn.pharmacyX.model.users.PharmacyAdmin;
 import ftn.pharmacyX.model.users.User;
 import ftn.pharmacyX.repository.DrugRepository;
+import ftn.pharmacyX.repository.DrugSpecificationRepository;
 import ftn.pharmacyX.service.DrugService;
 import ftn.pharmacyX.service.UserService;
 
@@ -19,10 +22,16 @@ import ftn.pharmacyX.service.UserService;
 public class DrugServiceImpl implements DrugService {
 	
 	@Autowired
-	DrugRepository drugRepo;
+	private DrugRepository drugRepo;
 	
 	@Autowired
-	UserService userService;
+	private UserService userService;
+	
+	@Autowired
+	private DTOConverter converter;
+	
+	@Autowired
+	private DrugSpecificationRepository drugSpecRepo;
 	
 	@Override
 	public List<Drug> getAllDrugs() {
@@ -91,6 +100,18 @@ public class DrugServiceImpl implements DrugService {
 		} else {
 			return searched;
 		}
+	}
+
+	@Override
+	public Drug addNewDrug(CreateDrugDTO dto) {
+		Drug newDrug = converter.dtoToDrug(dto);
+		if (newDrug == null) {
+			return null;
+		}
+		
+		drugSpecRepo.save(newDrug.getSpecification());
+		
+		return drugRepo.save(newDrug);
 	}
 
 
