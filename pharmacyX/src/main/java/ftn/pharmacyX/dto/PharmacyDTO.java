@@ -112,8 +112,11 @@ public class PharmacyDTO {
 		for (int rate : ratings) {
 			rating = rating + rate;
 		}
-
-		rating = rating / ratings.size();
+		if (ratings.size() == 0) {
+			rating = 0;
+		} else {
+			rating = rating / ratings.size();
+		}
 	}
 
 	public List<PriceListDTO> getPriceListsDTO() {

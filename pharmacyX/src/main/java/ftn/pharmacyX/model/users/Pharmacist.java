@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
@@ -23,6 +24,9 @@ public class Pharmacist extends User {
 
 	@OneToMany
 	private List<WorkingHours> workingHours = new ArrayList<WorkingHours>();
+	
+	@ElementCollection
+	private List<Integer> ratings = new ArrayList<Integer>();
 	
 	public Pharmacist() {
 		
@@ -45,6 +49,16 @@ public class Pharmacist extends User {
 		this.setUserRole(UserRole.PHARMACIST);
 		this.setDeleted(false);
 	}
+
+	public List<Integer> getRatings() {
+		return ratings;
+	}
+
+	public void setRatings(List<Integer> ratings) {
+		this.ratings = ratings;
+	}
+	
+	
 	
 	
 }

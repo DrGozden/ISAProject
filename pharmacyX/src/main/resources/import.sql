@@ -121,4 +121,12 @@ insert into supply_order(id, deadline, deleted, pharmacy_id) values (1101, '2021
 insert into supply_order(id, deadline, deleted, pharmacy_id) values (1102, '2021-10-11', false, 717);
 
 insert into supplier_offer(id, delivery_deadline, deleted, status, total_price, order_id, supplier_id) values (1201, '2021-10-11', false, 2, 15000, 1101, 879);
+insert into pharmacyx.dermatologist_ratings(dermatologist_id, ratings) values (715, 4);
+insert into pharmacyx.dermatologist_ratings(dermatologist_id, ratings) values (715, 1);
+insert into pharmacyx.dermatologist_ratings(dermatologist_id, ratings) values (715, 3);
+
+insert into pharmacyx.pharmacist_ratings(pharmacist_id, ratings) values (711, 4);
+insert into pharmacyx.pharmacist_ratings(pharmacist_id, ratings) values (711, 1);
+insert into pharmacyx.pharmacist_ratings(pharmacist_id, ratings) values (711, 3);
+
 

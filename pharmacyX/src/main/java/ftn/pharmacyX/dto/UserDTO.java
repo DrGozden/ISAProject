@@ -24,6 +24,7 @@ public class UserDTO {
 	private String JWTToken;
 	private UserStatus userStatus;
 	private List<Drug> allergies = new ArrayList<Drug>();
+	private double rating;
 	
 	public UserDTO(User user) {
 		this.id = user.getId();
@@ -35,7 +36,6 @@ public class UserDTO {
 		this.deleted = user.isDeleted();
 		this.userRole = user.getUserRole();
 		this.userStatus = user.getUserStatus();
-		
 	}
 	
 	
@@ -53,6 +53,18 @@ public class UserDTO {
 		this.deleted = deleted;
 		this.userRole = userRole;
 		JWTToken = jWTToken;
+	}
+
+	
+
+	public double getRating() {
+		return rating;
+	}
+
+
+
+	public void setRating(double rating) {
+		this.rating = rating;
 	}
 
 

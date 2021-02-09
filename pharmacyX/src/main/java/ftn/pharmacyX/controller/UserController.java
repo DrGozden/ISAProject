@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +25,9 @@ import ftn.pharmacyX.enums.UserStatus;
 import ftn.pharmacyX.helpers.DTOConverter;
 import ftn.pharmacyX.model.Appointment;
 import ftn.pharmacyX.model.Vacation;
+import ftn.pharmacyX.model.users.Dermatologist;
 import ftn.pharmacyX.model.users.Patient;
+import ftn.pharmacyX.model.users.Pharmacist;
 import ftn.pharmacyX.model.users.PharmacyAdmin;
 import ftn.pharmacyX.model.users.User;
 import ftn.pharmacyX.service.DrugReservationService;
@@ -129,13 +130,18 @@ public class UserController {
 		return new ResponseEntity<>(reservations, HttpStatus.OK);
 	}
 	
-	@PreAuthorize("hasAuthority('PHARMACY_ADMIN')")
+	//@PreAuthorize("hasAuthority('PHARMACY_ADMIN')")
 	@GetMapping(value = "/pharmacists/search", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<UserDTO>> getAllPharmacists(@RequestParam Map<String, String> queryParams) {
 		List<User> users = userService.findAllPharmacists();
 		List<UserDTO> ret = new ArrayList<UserDTO>();
+		PharmacyAdmin admin = null;
+		if (userService.getLoggedUser() != null) {
+			if (userService.getLoggedUser().getUserRole() == UserRole.PHARMACY_ADMIN) {
+				admin = (PharmacyAdmin) userService.getLoggedUser();
+			}
+		}
 		
-		PharmacyAdmin admin = (PharmacyAdmin) userService.getLoggedUser();
 		List<User> found;
 		
 		if (admin == null) {
@@ -149,16 +155,25 @@ public class UserController {
 		}
 		
 		for (User user : found) {
-			ret.add(new UserDTO(user));
+			Pharmacist ph = (Pharmacist) user;
+			double rating = pharmacyService.calculateRating(ph.getRatings());
+			UserDTO dto = new UserDTO(user);
+			dto.setRating(rating);
+			ret.add(dto);
 		}
 		return new ResponseEntity<List<UserDTO>>(ret, HttpStatus.OK);
 	}
-	@PreAuthorize("hasAuthority('PHARMACY_ADMIN')")
+	//@PreAuthorize("hasAuthority('PHARMACY_ADMIN')")
 	@GetMapping(value = "/dermatologists/search", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<UserDTO>> getAllDermatologistsForSpecificPharmacy(@RequestParam Map<String, String> queryParams) {
 		List<UserDTO> ret = new ArrayList<UserDTO>();
 		List<User> dermatologists = userService.findAllDermatologists();
-		PharmacyAdmin admin = (PharmacyAdmin) userService.getLoggedUser();
+		PharmacyAdmin admin = null;
+		if (userService.getLoggedUser() != null) {
+			if (userService.getLoggedUser().getUserRole() == UserRole.PHARMACY_ADMIN) {
+				admin = (PharmacyAdmin) userService.getLoggedUser();
+			} 
+		}
 		
 		List<User> found;
 		
@@ -173,7 +188,11 @@ public class UserController {
 		}
 
 		for (User user : found) {
-			ret.add(new UserDTO(user));
+			Dermatologist de = (Dermatologist) user;
+			double rating = pharmacyService.calculateRating(de.getRatings());
+			UserDTO dto = new UserDTO(user);
+			dto.setRating(rating);
+			ret.add(dto);
 		}
 		
 		return new ResponseEntity<List<UserDTO>>(ret, HttpStatus.OK);

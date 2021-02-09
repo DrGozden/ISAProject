@@ -34,4 +34,5 @@ public interface PharmacyService {
 
 	public Dermatologist removeDermatologist(Long id);
 
+	public double calculateRating(List<Integer> ratings);
 }
