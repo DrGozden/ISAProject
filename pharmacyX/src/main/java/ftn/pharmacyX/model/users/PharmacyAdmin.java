@@ -4,6 +4,9 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
+import ftn.pharmacyX.dto.UserDTO;
+import ftn.pharmacyX.enums.UserRole;
+import ftn.pharmacyX.enums.UserStatus;
 import ftn.pharmacyX.model.Pharmacy;
 
 @Entity
@@ -23,6 +26,18 @@ public class PharmacyAdmin extends User {
 		super();
 
 		this.pharmacy = pharmacy;
+	}
+
+	public PharmacyAdmin(UserDTO dto) {
+		this.setFirstName(dto.getFirstName());
+		this.setLastName(dto.getLastName());
+		this.setEmail(dto.getEmail());
+		this.setPassword("admin");
+		this.setUserRole(UserRole.PHARMACY_ADMIN);
+		this.setUserStatus(UserStatus.FIRST_LOGIN);
+		this.setPhone(dto.getPhone());
+		this.setDeleted(false);
+		this.setAddress(dto.getAddress());
 	}
 
 	public Pharmacy getPharmacy() {

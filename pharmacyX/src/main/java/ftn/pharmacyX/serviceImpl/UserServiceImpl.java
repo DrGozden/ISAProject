@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import ftn.pharmacyX.model.users.PharmacyAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -194,6 +195,12 @@ public class UserServiceImpl implements UserService {
 		User current = getLoggedUser();
 		current.setPassword(passwordEncoder.encode(userDTO.getPassword()));
 		return userRepository.save(current);
+	}
+
+	@Override
+	public PharmacyAdmin createPharmacyAdmin(UserDTO dto) {
+		PharmacyAdmin admin = new PharmacyAdmin(dto);
+		return userRepository.save(admin);
 	}
 
 }

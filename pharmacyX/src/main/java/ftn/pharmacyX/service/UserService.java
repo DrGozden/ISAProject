@@ -6,6 +6,7 @@ import java.util.Map;
 import ftn.pharmacyX.dto.UserDTO;
 import ftn.pharmacyX.model.DrugReservation;
 import ftn.pharmacyX.model.Pharmacy;
+import ftn.pharmacyX.model.users.PharmacyAdmin;
 import ftn.pharmacyX.model.users.User;
 
 public interface UserService {
@@ -34,4 +35,5 @@ public interface UserService {
 
 	public User changePassword(UserDTO userDTO);
 
+    public PharmacyAdmin createPharmacyAdmin(UserDTO dto);
 }

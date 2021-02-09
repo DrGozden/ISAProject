@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import ftn.pharmacyX.helpers.DTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,7 @@ import ftn.pharmacyX.service.DrugService;
 import ftn.pharmacyX.service.PharmacyService;
 import ftn.pharmacyX.service.UserService;
 
+
 @Service
 public class PharmacyServiceImpl implements PharmacyService {
 
@@ -46,6 +48,9 @@ public class PharmacyServiceImpl implements PharmacyService {
 	
 	@Autowired
 	private UserRepository userRepo;
+
+	@Autowired
+	private DTOConverter dtoConverter;
 	
 	
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
@@ -132,6 +137,16 @@ public class PharmacyServiceImpl implements PharmacyService {
 		}
 		return ret / ratings.size();
 		
+	}
+
+	@Override
+	public Pharmacy createPharmacy(PharmacyDTO dto) {
+		Pharmacy pharmacy = new Pharmacy(dto);
+		Pharmacy created = pharmacyRepo.save(pharmacy);
+		PharmacyAdmin admin = (PharmacyAdmin) userService.findById(dto.getAdminId());
+		admin.setPharmacy(created);
+		userRepo.save(admin);
+		return  created;
 	}
 
 	@Override

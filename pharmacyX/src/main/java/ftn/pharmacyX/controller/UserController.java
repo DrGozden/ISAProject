@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import ftn.pharmacyX.dto.*;
+import ftn.pharmacyX.model.Pharmacy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,10 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import ftn.pharmacyX.dto.DrugReservationDTO;
-import ftn.pharmacyX.dto.UserDTO;
-import ftn.pharmacyX.dto.VacationRejectDTO;
-import ftn.pharmacyX.dto.VacationWithUserDTO;
 import ftn.pharmacyX.enums.UserRole;
 import ftn.pharmacyX.enums.UserStatus;
 import ftn.pharmacyX.helpers.DTOConverter;
@@ -230,6 +228,12 @@ public class UserController {
 		} else {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
+	}
+
+	@PostMapping(value = "/create-pharmacy-admin")
+	public ResponseEntity<?> createPharmacy(@RequestBody UserDTO dto) {
+		PharmacyAdmin admin = userService.createPharmacyAdmin(dto);
+		return new ResponseEntity<>(admin,HttpStatus.OK);
 	}
 }
 

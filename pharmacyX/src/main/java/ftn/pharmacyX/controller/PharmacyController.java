@@ -57,6 +57,12 @@ public class PharmacyController {
 		}
 		return new ResponseEntity<>(dtos, HttpStatus.OK);
 	}
+
+	@PostMapping(value = "/create-pharmacy")
+	public ResponseEntity<?> createPharmacy(@RequestBody PharmacyDTO dto) {
+		Pharmacy pharmacy = pharmacyService.createPharmacy(dto);
+		return new ResponseEntity<>(pharmacy,HttpStatus.OK);
+	}
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<PharmacyDTO> getPharmacy(@PathVariable("id") Long id) {
