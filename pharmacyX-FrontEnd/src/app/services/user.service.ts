@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { Drug } from '../model/drug';
 import { Employee } from '../model/employee';
 import { SupplierOffer } from '../model/supplierOffer';
 import { User } from '../model/user';
@@ -94,6 +95,14 @@ public removePharmacist(id: number) : Observable<any> {
 
 public removeDermatologist(id: number) : Observable<any> {
   return this.http.delete('http://localhost:9003/pharmacies/remove-dermatologist/'+id);
+}
+
+public addDrug(drug: Drug) : Observable<any> {
+  return this.http.post('http://localhost:9003/pharmacies/add-pharmacist', drug);
+}
+
+public removeDrug(id: number) : Observable<any> {
+  return this.http.delete('http://localhost:9003/pharmacies/remove-pharmacist/'+id);
 }
 
 // getUser(email) {

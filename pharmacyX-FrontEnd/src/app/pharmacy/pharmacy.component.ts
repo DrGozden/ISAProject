@@ -115,7 +115,7 @@ export class PharmacyComponent implements OnInit {
 
     
     this.newDrugs.push(dr);
-    this.newPrices.push(this.newPrice);
+    this.newPrices.push(+this.newPrice);
     this.selectedDrug = "";
     this.newPrice = 0;
   }
@@ -127,7 +127,7 @@ export class PharmacyComponent implements OnInit {
     this.newDrugs = [];
     for(let i = 0 ; i < temp.length; i++) {
       if(i !== index) {
-        this.newPrices.push(temp[i]);
+        this.newPrices.push(+temp[i]);
         this.newDrugs.push(temp2[i]);
       }
     }
@@ -135,7 +135,8 @@ export class PharmacyComponent implements OnInit {
 
   public createPricelist() {
     let pricelistNew = new PricelistDTO();
-    pricelistNew.startDate = this.pricelistStartDate;
+    pricelistNew.startDateString = this.pricelistStartDate;
+    pricelistNew.startDate = null;
     pricelistNew.drugs = this.newDrugs;
     pricelistNew.pricesList = this.newPrices;
     this.newDrugs = [];

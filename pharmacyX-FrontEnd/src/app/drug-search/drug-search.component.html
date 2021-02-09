@@ -39,6 +39,9 @@
                     <span class="card-detail-badge"><a class="moreLink"
                             [routerLink]="['/drug-reservation', fm.id]">Reserve</a></span>
                 </div>
+                <div class="card-body text-center" *ngIf="this.currentUser.userRole==='PHARMACY_ADMIN'">
+                    <button (click)="remove(fd.id)" class="btn btn-danger btn-block">Remove</button>
+                </div>
             </div>
         </div>
 
@@ -46,5 +49,33 @@
     </div>
     <div *ngIf="!filteredMedicines">
         <h2>No results found!</h2>
+    </div>
+    <div *ngIf="this.currentUser.userRole==='PHARMACY_ADMIN'">
+        <h3>Add new drug</h3>
+        <form id="login-form" class="form" action="" method="post">
+            <div class="form-group">
+                <label>Enter name:</label>
+                <input type="text" name="name1" id="name1" class="form-control" [(ngModel)]="this.newDrug.name"
+                    placeholder="Enter name..." required>
+            </div>
+            <div class="form-group">
+                <label>Enter code:</label>
+                <input type="text" name="name2" id="name2" class="form-control" [(ngModel)]="this.newDrug.code"
+                    placeholder="Enter code..." required>
+            </div>
+            <div class="form-group">
+                <label>Enter drug type:</label>
+                <input type="text" name="name3" id="name3" class="form-control" [(ngModel)]="this.newDrug.specification.drugType"
+                    placeholder="Enter drug type..." required>
+            </div>
+            <div class="form-group">
+                <label>Enter drug type:</label>
+                <input type="text" name="name4" id="name4" class="form-control" [(ngModel)]="this.newDrug.specification.contraindications"
+                    placeholder="Enter contraindications..." required>
+            </div>
+            <div class="form-group" id="button1">
+                <button (click)="addDrug()" class="btn btn-danger btn-block">Add new drug</button>
+            </div>
+        </form>
     </div>
 </div>
