@@ -8,7 +8,6 @@ import { OrderDTO } from '../modelDTO/orderDTO';
 import { DrugsService } from '../services/drugs.service';
 import { PharmacyService } from '../services/pharmacy.service';
 import { UserService } from '../services/user.service';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-order',

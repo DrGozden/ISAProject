@@ -73,6 +73,8 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 
+
+
 	@Override
 	public User findById(Long id) {
 		return userRepository.findById(id).orElse(null);
@@ -203,4 +205,11 @@ public class UserServiceImpl implements UserService {
 		return userRepository.save(admin);
 	}
 
+	@Override
+	public User activateUser(User user) {
+		user.setUserStatus(UserStatus.ACTIVATED);
+		User saved = userRepository.save(user);
+		return saved;
+
+	}
 }
