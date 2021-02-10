@@ -20,6 +20,7 @@ public class PharmacyDTO {
 	private double rating;
 	private List<PriceListDTO> priceListsDTO;
 	private Long adminId;
+	private Double ratings;
 
 	public PharmacyDTO() {
 
@@ -135,4 +136,5 @@ public class PharmacyDTO {
 	public void setAdminId(Long adminId) {
 		this.adminId = adminId;
 	}
+
 }

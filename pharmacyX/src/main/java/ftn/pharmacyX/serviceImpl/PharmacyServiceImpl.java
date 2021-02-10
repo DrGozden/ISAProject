@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import ftn.pharmacyX.helpers.DTOConverter;
+import ftn.pharmacyX.repository.WorkingHoursRepository;
+import org.hibernate.jdbc.Work;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +53,9 @@ public class PharmacyServiceImpl implements PharmacyService {
 
 	@Autowired
 	private DTOConverter dtoConverter;
+
+	@Autowired
+	private WorkingHoursRepository whRepo;
 	
 	
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
@@ -249,21 +254,29 @@ public class PharmacyServiceImpl implements PharmacyService {
 	@Override
 	public Pharmacist addPharmacist(EmployeeDTO dto) {
 		Pharmacist pharmacist;
-		WorkingHours workingHours = dto.getWorkingHours();
+		List<WorkingHours> working = dto.getWorkingHours();
 		PharmacyAdmin pharmacyAdmin = (PharmacyAdmin) userService.getLoggedUser();
 		Pharmacy pharmacy = pharmacyAdmin.getPharmacy();
-		workingHours.setPharmacyId(pharmacy.getId());
+		for (WorkingHours wh: working) {
+			wh.setPharmacyId(pharmacy.getId());
+		}
 		if(userService.findByEmail(dto.getEmail()) != null) {
 			pharmacist = (Pharmacist) userService.findByEmail(dto.getEmail());
-			workingHours.setEmployeeId(pharmacist.getId());
-			pharmacist.getWorkingHours().add(workingHours);
+			for (WorkingHours wh: working) {
+				wh.setEmployeeId(pharmacist.getId());
+				pharmacist.getWorkingHours().add(wh);
+				whRepo.save(wh);
+			}
 			userRepo.save(pharmacist);
 			
 		}
 		else {
 			pharmacist = new Pharmacist(dto);
-			workingHours.setEmployeeId(userRepo.save(pharmacist).getId());
-			pharmacist.getWorkingHours().add(workingHours);
+			for (WorkingHours wh: working) {
+				wh.setEmployeeId(pharmacist.getId());
+				pharmacist.getWorkingHours().add(wh);
+				whRepo.save(wh);
+			}
 			userRepo.save(pharmacist);
 			
 		}
@@ -276,21 +289,29 @@ public class PharmacyServiceImpl implements PharmacyService {
 	@Override
 	public Dermatologist addDermatologist(EmployeeDTO dto) {
 		Dermatologist dermatologist;
-		WorkingHours workingHours = dto.getWorkingHours();
+		List<WorkingHours> working = dto.getWorkingHours();
 		PharmacyAdmin pharmacyAdmin = (PharmacyAdmin) userService.getLoggedUser();
 		Pharmacy pharmacy = pharmacyAdmin.getPharmacy();
-		workingHours.setPharmacyId(pharmacy.getId());
+		for (WorkingHours wh: working) {
+			wh.setPharmacyId(pharmacy.getId());
+		}
 		if(userService.findByEmail(dto.getEmail()) != null) {
 			dermatologist = (Dermatologist) userService.findByEmail(dto.getEmail());
-			workingHours.setEmployeeId(dermatologist.getId());
-			dermatologist.getWorkingHours().add(workingHours);
+			for (WorkingHours wh: working) {
+				wh.setEmployeeId(dermatologist.getId());
+				dermatologist.getWorkingHours().add(wh);
+				whRepo.save(wh);
+			}
 			userRepo.save(dermatologist);
 			
 		}
 		else {
 			dermatologist = new Dermatologist(dto);
-			workingHours.setEmployeeId(userRepo.save(dermatologist).getId());
-			dermatologist.getWorkingHours().add(workingHours);
+			for (WorkingHours wh: working) {
+				wh.setEmployeeId(dermatologist.getId());
+				dermatologist.getWorkingHours().add(wh);
+				whRepo.save(wh);
+			}
 			userRepo.save(dermatologist);
 			
 		}
