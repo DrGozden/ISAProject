@@ -56,13 +56,32 @@ export class PharmacyComponent implements OnInit {
     });
   }
 
+  public updatePharmacy(){
+    let newPhar: Pharmacy = JSON.parse(JSON.stringify(this.pharmacy));
+    newPhar.priceList = null;
+    newPhar.pharmacists = null;
+    newPhar.dermatologists = null;
+    newPhar.drugsInStock = null;
+    newPhar.ratings = null;
+    newPhar.address = null;
+    this.pharmacyService.updatePharmacy(newPhar).subscribe(data=>alert("Updated!"));
+  }
+
   public changeView(value: string) {
     console.log(value);
     this.view = value;
   }
 
   public parseDateTime(d: number[]){
+    return new Date(d[0],d[1]-1,d[2]);
+  }
+
+  public parseDateTimeSend(d: number[]){
     return new Date(d[0],d[1]-1,d[2],d[3],d[4]);
+  }
+
+  public parseDateTimeEnd(d: number[]){
+    return new Date(d[0],d[1],d[2]);
   }
 
   public reserve(id: number) {
@@ -97,6 +116,12 @@ export class PharmacyComponent implements OnInit {
         //this.selectedDrug = this.pharmacy.drugsInStock[i].drug;
       }
     }
+  }
+
+  parsePickerToDate(oldDate: string) {
+    let parts = oldDate.split("-");
+    let newDate = parts[2]+"-"+parts[1]+"-"+parts[0];
+    return newDate;
   }
 
   public addDrugToPricelist() {
@@ -135,7 +160,7 @@ export class PharmacyComponent implements OnInit {
 
   public createPricelist() {
     let pricelistNew = new PricelistDTO();
-    pricelistNew.startDateString = this.pricelistStartDate;
+    pricelistNew.startDateString = this.parsePickerToDate(this.pricelistStartDate);
     pricelistNew.startDate = null;
     pricelistNew.drugs = this.newDrugs;
     pricelistNew.pricesList = this.newPrices;

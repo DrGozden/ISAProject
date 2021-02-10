@@ -88,6 +88,8 @@ public addDermatologist(employee: Employee) : Observable<any> {
 }
 
 public addPharmacist(employee: Employee) : Observable<any> {
+  console.log(employee);
+  
   return this.http.post('http://localhost:9003/pharmacies/add-pharmacist', employee);
 }
 

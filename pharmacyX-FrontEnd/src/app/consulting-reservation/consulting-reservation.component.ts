@@ -21,11 +21,12 @@ import { UserService } from '../services/user.service';
 })
 export class ConsultingReservationComponent implements OnInit {
 
-  public user: User;
+  public user: User = new User();
   public date: string = "";
   public selectedPharmacy: Pharmacy = new Pharmacy();
   public filteredPharmacies: Pharmacy[] = [];
   public filteredUsers : User[] = [];
+  public hours: number = 10;
 
   constructor(private userService: UserService, private loginService: LoginService, private location: Location, private toastr: ToastrService,
     private route: ActivatedRoute, private http: HttpClient, private pharmacyService: PharmacyService, private reservationService: ReservationService) {
@@ -44,7 +45,11 @@ export class ConsultingReservationComponent implements OnInit {
   }
 
 
-
+  parsePickerToDate(oldDate: string, hours: number) {
+    let parts = oldDate.split("-");
+    let newDate = parts[2]+"-"+parts[1]+"-"+parts[0]+" "+hours+":"+"00";
+    return newDate;
+  }
   
 
   return() {
@@ -58,11 +63,12 @@ export class ConsultingReservationComponent implements OnInit {
         this.selectedPharmacy = this.filteredPharmacies[i];
       }
     }
+    this.user = new User();
     let filter = new FilterDatePharmacy();
     filter.dateTime = this.date;
     filter.pharmacyId = this.selectedPharmacy.id;
     console.log(filter);
-    this.reservationService.getPharmacistsForDateAndPharmacy(filter).subscribe(data => this.filteredUsers = data);
+    //this.reservationService.getPharmacistsForDateAndPharmacy(filter).subscribe(data => this.filteredUsers = data);
     
   }
 
@@ -71,16 +77,20 @@ export class ConsultingReservationComponent implements OnInit {
   }
 
   reserve() {
-    if (this.date === "") {
+    if (this.date === "" ) {
       Swal.fire('Oops...', 'You must fill all fields!', 'error');
+    } else if(this.hours < 0 || this.hours > 23) {
+      Swal.fire('Oops...', 'Hours must be between 0 and 23!', 'error');
     }
     else {
 
     let reser = new ReserveConsultationDTO();
-    reser.dateTime = this.date;
+    reser.dateTime = this.parsePickerToDate(this.date,this.hours);
     reser.pharmacistId = this.user.id;
     reser.pharmacyId = this.selectedPharmacy.id;
-    this.reservationService.reserveConsultation(reser).subscribe(data => undefined);
+    console.log(reser);
+    
+    this.reservationService.reserveConsultation(reser).subscribe(data => alert("Success!"));
     
           
     }

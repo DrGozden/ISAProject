@@ -26,6 +26,7 @@ export class DrugReservationComponent implements OnInit {
   public selectedPharmacy: Pharmacy = new Pharmacy();
   public pharmacies: Pharmacy[] = [];
   public pharmacyId: string = "";
+  public hours: number = 10;
 
   constructor(private userService: UserService, private loginService: LoginService, private location: Location, private toastr: ToastrService,
     private route: ActivatedRoute, private http: HttpClient, private drugService: DrugsService) {
@@ -39,7 +40,7 @@ export class DrugReservationComponent implements OnInit {
           let i;
           for(i = 0; i < this.pharmacies.length; i++) {
             if(this.pharmacies[i].id === +localStorage.getItem("pharmacyId")) {
-              this.selectedPharmacy = this.pharmacies[i];
+             this.selectedPharmacy = this.pharmacies[i];
             }
           }
         }
@@ -53,19 +54,28 @@ export class DrugReservationComponent implements OnInit {
     });
   }
 
+  parsePickerToDate(oldDate: string, hours: number) {
+    let parts = oldDate.split("-");
+    let newDate = parts[2]+"-"+parts[1]+"-"+parts[0]+" "+hours+":"+"00";
+    return newDate;
+  }
 
 
   reserve() {
-    if (this.date === "") {
+    if (this.date === "" ) {
       Swal.fire('Oops...', 'You must fill all fields!', 'error');
+    } else if(this.hours < 0 || this.hours > 23) {
+      Swal.fire('Oops...', 'Hours must be between 0 and 23!', 'error');
+    } else if(this.selectedPharmacy.id === 0) {
+      Swal.fire('Oops...', 'Please select pharmacy!', 'error');
     }
     else {
       let reservation = new DrugReservationDTO();
       reservation.drugId = this.drugId;
       reservation.pharmacyId = this.selectedPharmacy.id;
-      reservation.deadlineDateTime = this.date;
+      reservation.deadlineDateTime = this.parsePickerToDate(this.date,this.hours);
       console.log(reservation);
-      this.drugService.reserveDrug(reservation).subscribe(data => undefined);
+      this.drugService.reserveDrug(reservation).subscribe(data => alert("Success!"));
       
       //this.return();      
     }

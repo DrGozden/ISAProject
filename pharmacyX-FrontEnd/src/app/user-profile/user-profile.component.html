@@ -43,7 +43,8 @@
                                 <div class="form-group">
                                     <label>Choose alergie to add</label>
                                     <select (change)="addAlergie(selectedDrug)" class="custom-select" name="type" [(ngModel)]="selectedDrug">
-                                        <option  *ngFor="let st of drugs">{{st.name}}</option>
+                                        <option ></option>
+                                        <option *ngFor="let st of drugs">{{st.name}}</option>
                                     </select>
                                 </div>
                             </div>

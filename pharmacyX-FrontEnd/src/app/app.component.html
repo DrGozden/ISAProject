@@ -45,7 +45,7 @@
                             <span class="user-name">
                                 <strong> {{this.currentUser.email}}</strong>
                             </span>
-                            <span class="user-role">Patient</span>
+                            <span class="user-role">{{currentUser.userRole}}</span>
                             <span class="user-status">
                                 <i class="fa fa-circle"></i>
                                 <span>Online</span>
@@ -102,13 +102,13 @@
                                 <span>Make appointment pharmacist</span>
                             </a>
                         </li>
-                        <li id="dermatologistsId" >
+                        <li id="dermatologistsId" *ngIf="this.currentUser && this.currentUser.userRole === 'PHARMACY_ADMIN'">
                             <a routerLink="/dermatologists">
                                 <i class="fa fa-plus-square"></i>
                                 <span>Dermatologists</span>
                             </a>
                         </li>
-                        <li id="pharmacistsId">
+                        <li id="pharmacistsId" *ngIf="this.currentUser && this.currentUser.userRole === 'PHARMACY_ADMIN'">
                             <a routerLink="/pharmacists">
                                 <i class="fa fa-plus-square"></i>
                                 <span>Pharmacists</span>

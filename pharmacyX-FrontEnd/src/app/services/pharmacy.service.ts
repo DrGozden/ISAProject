@@ -41,6 +41,12 @@ export class PharmacyService {
     return this.http.post('http://localhost:9003/appointments/create-exam',exam);
   }
 
+  public updatePharmacy(pharmacy: Pharmacy)  {
+    console.log(pharmacy);
+    
+    return this.http.put('http://localhost:9003/pharmacies/update',pharmacy);
+  }
+
   public createPricelist(newPricelist: PricelistDTO)  {
     console.log(newPricelist);
     

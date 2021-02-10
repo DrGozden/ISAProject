@@ -7,10 +7,12 @@
                     <div class="card-title mb-4">
                         <div class="d-flex justify-content-start">
                             <div class="image-container">
-                                <img src="assets/resources/pharmacy.jpg" id="imgProfile" style="width: 150px; height: 150px" class="img-thumbnail" />
+                                <img src="assets/resources/pharmacy.png" id="imgProfile"
+                                    style="width: 150px; height: 150px" class="img-thumbnail" />
                             </div>
                             <div class="userData ml-3">
-                                <h2 class="d-block" style="font-size: 1.5rem; font-weight: bold">{{ pharmacy.name }}</h2>
+                                <h2 class="d-block" style="font-size: 1.5rem; font-weight: bold">{{ pharmacy.name }}
+                                </h2>
                             </div>
                         </div>
                     </div>
@@ -19,26 +21,42 @@
                         <div class="col-12">
                             <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
                                 <li class="nav-item">
-                                    <a (click)="changeView('basic')" class="nav-link active" [class.active]="view==='basic'" id="basicInfo-tab" data-toggle="tab" role="tab" aria-controls="basicInfo" [class.aria-selected]="view==='basic'" >Basic Info</a>
+                                    <a (click)="changeView('basic')" class="nav-link active"
+                                        [class.active]="view==='basic'" id="basicInfo-tab" data-toggle="tab" role="tab"
+                                        aria-controls="basicInfo" [class.aria-selected]="view==='basic'">Basic Info</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a (click)="changeView('staff')" class="nav-link" [class.active]="view==='staff'" id="staff-tab" data-toggle="tab"  role="tab" aria-controls="staff" [class.aria-selected]="view==='staff'"  >Staff</a>
+                                    <a (click)="changeView('staff')" class="nav-link" [class.active]="view==='staff'"
+                                        id="staff-tab" data-toggle="tab" role="tab" aria-controls="staff"
+                                        [class.aria-selected]="view==='staff'">Staff</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a (click)="changeView('drugs')" class="nav-link" [class.active]="view==='drugs'" id="drugs-tab" data-toggle="tab"  role="tab" aria-controls="drugs" [class.aria-selected]="view==='drugs'"  >Drugs</a>
+                                    <a *ngIf="!(this.currentUser && this.currentUser.userRole==='PHARMACY_ADMIN')"
+                                        (click)="changeView('drugs')" class="nav-link" [class.active]="view==='drugs'"
+                                        id="drugs-tab" data-toggle="tab" role="tab" aria-controls="drugs"
+                                        [class.aria-selected]="view==='drugs'">Drugs</a>
+                                    <a *ngIf="this.currentUser && this.currentUser.userRole==='PHARMACY_ADMIN'"
+                                        (click)="changeView('drugs')" class="nav-link" [class.active]="view==='drugs'"
+                                        id="drugs-tab" data-toggle="tab" role="tab" aria-controls="drugs"
+                                        [class.aria-selected]="view==='drugs'">Pricelists</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a (click)="changeView('predefined')" class="nav-link" [class.active]="view==='predefined'" id="predefined-tab" data-toggle="tab"  role="tab" aria-controls="predefined" [class.aria-selected]="view==='predefined'"  >Predefined examinations</a>
+                                    <a (click)="changeView('predefined')" class="nav-link"
+                                        [class.active]="view==='predefined'" id="predefined-tab" data-toggle="tab"
+                                        role="tab" aria-controls="predefined"
+                                        [class.aria-selected]="view==='predefined'">Predefined examinations</a>
                                 </li>
                             </ul>
-                            <div class="tab-content ml-1" id="myTabContent" >
-                                <div *ngIf="view==='basic'" class="tab-pane fade show active" id="basicInfo" role="tabpanel" aria-labelledby="basicInfo-tab">
+                            <div class="tab-content ml-1" id="myTabContent">
+                                <div *ngIf="view==='basic'" class="tab-pane fade show active" id="basicInfo"
+                                    role="tabpanel" aria-labelledby="basicInfo-tab">
                                     <div class="row">
                                         <div class="col-sm-3 col-md-2 col-5">
                                             <label style="font-weight:bold;">Address</label>
                                         </div>
                                         <div class="col-md-8 col-6">
-                                            {{pharmacy.address.street}} {{pharmacy.address.number}}, {{pharmacy.address.city}} ({{pharmacy.address.country}})
+                                            {{pharmacy.address.street}} {{pharmacy.address.number}},
+                                            {{pharmacy.address.city}} ({{pharmacy.address.country}})
                                         </div>
                                     </div>
                                     <hr />
@@ -47,11 +65,15 @@
                                         <div class="col-sm-3 col-md-2 col-5">
                                             <label style="font-weight:bold;">Description</label>
                                         </div>
-                                        <div class="col-md-8 col-6" *ngIf="this.currentUser && this.currentUser.userRole !== 'PHARMACY_ADMIN'">
+                                        <div class="col-md-8 col-6"
+                                            *ngIf="this.currentUser && this.currentUser.userRole !== 'PHARMACY_ADMIN'">
                                             {{pharmacy.description}}
                                         </div>
-                                        <div class="col-md-8 col-6" *ngIf="this.currentUser && this.currentUser.userRole === 'PHARMACY_ADMIN'">
-                                            <input type="text" name="firstName" id="firstName" class="form-control" [(ngModel)]="this.pharmacy.description" placeholder="Description" required>
+                                        <div class="col-md-8 col-6"
+                                            *ngIf="this.currentUser && this.currentUser.userRole === 'PHARMACY_ADMIN'">
+                                            <input type="text" name="firstName" id="firstName" class="form-control"
+                                                [(ngModel)]="this.pharmacy.description" placeholder="Description"
+                                                required>
                                         </div>
                                     </div>
                                     <hr />
@@ -59,20 +81,28 @@
                                         <div class="col-sm-3 col-md-2 col-5">
                                             <label style="font-weight:bold;">Name</label>
                                         </div>
-                                        <div class="col-md-8 col-6" *ngIf="this.currentUser && this.currentUser.userRole !== 'PHARMACY_ADMIN'">
+                                        <div class="col-md-8 col-6"
+                                            *ngIf="this.currentUser && this.currentUser.userRole !== 'PHARMACY_ADMIN'">
                                             {{pharmacy.name}}
                                         </div>
-                                        <div class="col-md-8 col-6" *ngIf="this.currentUser && this.currentUser.userRole === 'PHARMACY_ADMIN'">
-                                            <input type="text" name="firstName" id="firstName" class="form-control" [(ngModel)]="this.pharmacy.name" placeholder="Name" required>
+                                        <div class="col-md-8 col-6"
+                                            *ngIf="this.currentUser && this.currentUser.userRole === 'PHARMACY_ADMIN'">
+                                            <input type="text" name="firstName" id="firstName" class="form-control"
+                                                [(ngModel)]="this.pharmacy.name" placeholder="Name" required>
                                         </div>
                                     </div>
-                                    <hr />
-                                </div>
-                                
 
-                                <div *ngIf="view==='staff'" class="tab-pane fade show active" id="staff" role="tabpanel" aria-labelledby="staff-tab">
+                                    <hr />
+                                    <button class="btn btn-danger"
+                                        *ngIf="this.currentUser && this.currentUser.userRole === 'PHARMACY_ADMIN'"
+                                        (click)="updatePharmacy()">Update</button>
+                                </div>
+
+
+                                <div *ngIf="view==='staff'" class="tab-pane fade show active" id="staff" role="tabpanel"
+                                    aria-labelledby="staff-tab">
                                     <div *ngFor="let der of pharmacy.dermatologists">
-                                        <div class="row" >
+                                        <div class="row">
                                             <div class="col-sm-3 col-md-2 col-5">
                                                 <label style="font-weight:bold;">Dermatologist: </label>
                                             </div>
@@ -83,34 +113,41 @@
                                         <hr />
                                     </div>
                                     <div *ngFor="let phar of pharmacy.pharmacists">
-                                        <div class="row" >
+                                        <div class="row">
                                             <div class="col-sm-3 col-md-2 col-5">
                                                 <label style="font-weight:bold;">Pharmacist: </label>
                                             </div>
                                             <div class="col-md-4 col-3">
                                                 {{phar.firstName}} {{phar.lastName}}
-                                            </div> 
-                                            <div class="col-md-4 col-3">
-                                                <button>Rezervisi savetovanje</button>
-                                            </div> 
+                                            </div>
                                         </div>
                                         <hr />
                                     </div>
+
+                                    <div class="col-md-4 col-3">
+                                        <a routerLink="/consulting-reservation">
+                                            <button class="btn btn-danger"
+                                                *ngIf="this.currentUser && this.currentUser.userRole==='PATIENT'">Reserve
+                                                consultation</button>
+                                        </a>
+                                    </div>
                                 </div>
 
-
-                                 <div *ngIf="view==='drugs'" class="tab-pane fade show active" id="drugs" role="tabpanel" aria-labelledby="drugs-tab">
+                                <div *ngIf="view==='drugs'" class="tab-pane fade show active" id="drugs" role="tabpanel"
+                                    aria-labelledby="drugs-tab">
                                     <div *ngIf="this.currentUser.userRole !== 'PHARMACY_ADMIN'">
                                         <div *ngFor="let item of pharmacy.drugsInStock">
-                                            <div class="row" >
+                                            <div class="row">
                                                 <div class="col-sm-3 col-md-2 col-5">
                                                     <label style="font-weight:bold;">{{item.drug.name}}</label>
                                                 </div>
                                                 <div class="col-md-8 col-6">
                                                     Quantity: {{item.quantity}}
-                                                </div> 
+                                                </div>
+
                                                 <div class="col-md-4 col-3">
-                                                    <button (click)="reserveMedicine(item)">Rezervisi lek</button>
+                                                    <button class="btn btn-danger"
+                                                        (click)="reserveMedicine(item)">Reserve drug</button>
                                                 </div>
                                             </div>
                                             <hr />
@@ -121,9 +158,13 @@
                                             <div id="login-row" class="row justify-content-center align-items-center">
                                                 <div id="login-column" class="col-md-6">
                                                     <div id="login-box" class="col-md-12">
-                                                        {{onePriceList.startDate}}-{{onePriceList.endDate}}
+
+                                                        {{parseDateTime(onePriceList.startDate) | date:
+                                                        'fullDate'}}-{{parseDateTimeEnd(onePriceList.startDate) | date:
+                                                        'fullDate'}}
                                                         <form id="login-form" class="form" action="" method="post">
-                                                            <table class="table table-bordered table-sortable" id="tab_logic">
+                                                            <table class="table table-bordered table-sortable"
+                                                                id="tab_logic">
                                                                 <thead>
                                                                     <tr>
                                                                         <th class="text-center">
@@ -141,7 +182,7 @@
                                                                             {{d.name}}
                                                                         </td>
                                                                         <td data-name="name">
-                                                                            {{onePriceList.pricesList[i]}}
+                                                                            {{onePriceList.pricesList[i]}} rsd
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>
@@ -153,91 +194,75 @@
                                             <hr />
                                         </div>
                                         <h3>Add new pricelist</h3>
-                                            <form id="login-form" class="form" action="" method="post">
+                                        <form id="login-form" class="form" action="" method="post">
+                                            <div class="form-group">
+                                                <label>Enter start date:</label>
+                                                <input type="date" name="begin" placeholder="dd-mm-yyyy" value=""
+                                                    min="1997-01-01" max="2030-12-31"
+                                                    [(ngModel)]="this.pricelistStartDate" required>
+                                            </div>
+                                            <label>Selected drugs: </label>
+                                            <ul>
+                                                <li *ngFor="let drug of this.newDrugs let i = index">{{drug.name}}
+                                                    {{newPrices[i]}}
+                                                    <button (click)="removeFromList(i)"
+                                                        class="btn btn-danger btn-block">Remove</button>
+                                                </li>
+                                            </ul>
+                                            <hr />
+                                            <div class="form-group">
                                                 <div class="form-group">
-                                                    <label>Enter start date:</label>
-                                                    <input type="text" name="dateS1" id="dateS" class="form-control" [(ngModel)]="this.pricelistStartDate"
-                                                        placeholder="Enter start date..." required>
+                                                    <label>Choose drug</label>
+                                                    <select class="custom-select" name="type"
+                                                        [(ngModel)]="selectedDrug">
+                                                        <option *ngFor="let st of pharmacy.drugsInStock">
+                                                            {{st.drug.name}}</option>
+                                                    </select>
                                                 </div>
-                                                <label>Selected drugs: </label>
-                                                <ul>
-                                                    <li *ngFor="let drug of this.newDrugs let i = index">{{drug.name}} {{newPrices[i]}} 
-                                                        <button (click)="removeFromList(i)" class="btn btn-danger btn-block">Remove</button>
-                                                    </li>
-                                                </ul>
-                                                <hr/>
-                                                <div class="form-group">
-                                                    <div class="form-group">
-                                                        <label>Choose drug</label>
-                                                        <select  class="custom-select" name="type" [(ngModel)]="selectedDrug">
-                                                            <option  *ngFor="let st of pharmacy.drugsInStock">{{st.drug.name}}</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Enter price:</label>
-                                                    <input type="text" name="dateS" id="dateS" class="form-control" [(ngModel)]="this.newPrice"
-                                                        placeholder="Enter price..." required>
-                                                </div>
-                                                <div class="form-group" id="button">
-                                                    <button (click)="addDrugToPricelist()" class="btn btn-danger btn-block">Add drug</button>
-                                                </div>
-                                                <div class="form-group" id="button1">
-                                                    <button (click)="createPricelist()" class="btn btn-danger btn-block">Create</button>
-                                                </div>
-                                            </form>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Enter price:</label>
+                                                <input type="text" name="dateS" id="dateS" class="form-control"
+                                                    [(ngModel)]="this.newPrice" placeholder="Enter price..." required>
+                                            </div>
+                                            <div class="form-group" id="button">
+                                                <button (click)="addDrugToPricelist()"
+                                                    class="btn btn-danger btn-block">Add drug</button>
+                                            </div>
+                                            <div class="form-group" id="button1">
+                                                <button (click)="createPricelist()"
+                                                    class="btn btn-danger btn-block">Create</button>
+                                            </div>
+                                        </form>
 
                                     </div>
                                 </div>
 
-                                <div *ngIf="view==='predefined'" class="tab-pane fade show active" id="predefined" role="tabpanel" aria-labelledby="predefined-tab">
+                                <div *ngIf="view==='predefined'" class="tab-pane fade show active" id="predefined"
+                                    role="tabpanel" aria-labelledby="predefined-tab">
                                     <div>
                                         <div *ngFor="let pe of predefinedExams">
-                                            <div class="row" >
+                                            <div class="row">
                                                 <ul>
                                                     <li>Date {{parseDateTime(pe.dateTime) | date: 'short'}}</li>
-                                                    <li>Doctor: {{pe.dermatologist.firstName }} {{pe.dermatologist.lastName}}</li>
+                                                    <li>Doctor: {{pe.dermatologist.firstName }}
+                                                        {{pe.dermatologist.lastName}}</li>
                                                     <li>Price: {{pe.price}} rsd</li>
-                                                    <li *ngIf="this.currentUser.userRole !== 'PHARMACY_ADMIN'"><button class="btn btn-primary" (click)="reserve(pe.id)">Reserve</button></li>
+                                                    <li *ngIf="this.currentUser.userRole !== 'PHARMACY_ADMIN'"><button
+                                                            class="btn btn-danger"
+                                                            (click)="reserve(pe.id)">Reserve</button></li>
                                                 </ul>
                                             </div>
                                             <hr />
                                         </div>
                                     </div>
-                                    <div *ngIf="this.currentUser.userRole === 'PHARMACY_ADMIN'">
-                                        <h3>Add new predefined examination</h3>
-                                        <form id="login-form" class="form" action="" method="post">
-                                            <div class="form-group">
-                                                <label>Enter dermatologist email:</label>
-                                                <input type="text" name="dateS1" id="dateS" class="form-control" [(ngModel)]="this.date"
-                                                    placeholder="Enter start date..." required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Enter date:</label>
-                                                <input type="text" name="date4" id="date5" class="form-control" [(ngModel)]="this.date"
-                                                    placeholder="Enter date..." required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Enter time:</label>
-                                                <input type="text" name="date4" id="date5" class="form-control" [(ngModel)]="this.date"
-                                                    placeholder="Enter date..." required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Enter duration:</label>
-                                                <input type="text" name="dur" id="dur" class="form-control" [(ngModel)]="this.date"
-                                                    placeholder="Enter duration..." required>
-                                            </div>
-                                            <div class="form-group" id="button1">
-                                                <button (click)="addPredefinedExamination()" class="btn btn-danger btn-block">Add</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div> 
+
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <button>Update</button>
+
                 </div>
             </div>
         </div>

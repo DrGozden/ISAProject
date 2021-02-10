@@ -39,7 +39,7 @@
 							{{parseDateTime(reservation.dateTimeDeadline) | date: 'short'}}
 						</td>
 						<td>
-							<button *ngIf="isNotPassed(parseDateTime(reservation.dateTimeDeadline))" class="btn btn-primary" (click)="cancel(reservation.drugId)">Cancel reservation</button>
+							<button *ngIf="isNotPassed(parseDateTime(reservation.dateTimeDeadline))" class="btn btn-danger" (click)="cancel(reservation.drugId)">Cancel reservation</button>
 						</td>
 					</tr>
 				</tbody>

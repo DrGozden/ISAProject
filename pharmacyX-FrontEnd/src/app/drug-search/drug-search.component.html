@@ -13,7 +13,7 @@
             </select>
         </div>
         <div class="form-group" id="button">
-            <button (click)="filter()" class="btn btn-danger btn-block">Filter</button>
+            <button (click)="filter()" class="btn btn-danger btn-block">Search</button>
         </div>
         <div class="form-group" id="button">
             <button (click)="reload()" class="btn btn-danger btn-block">Reset</button>
@@ -36,7 +36,7 @@
 
                 <div class="card-body text-center">
                     <h4>{{fm.name}}</h4>
-                    <button *ngIf="this.currentUser.userRole==='PATIENT'" class="btn btn-danger"><a class="moreLink" style="color:white"
+                    <button *ngIf="this.currentUser && this.currentUser.userRole==='PATIENT'" class="btn btn-danger"><a class="moreLink" style="color:white"
                             [routerLink]="['/drug-reservation', fm.id]">Reserve</a></button>
                 </div>
                 <div class="card-body text-center">
@@ -45,7 +45,7 @@
                 <div class="card-body text-center">
                     <h6>{{fm.specification.description}}</h6>
                 </div>
-                <div class="card-body text-center" *ngIf="this.currentUser.userRole==='PHARMACY_ADMIN'">
+                <div class="card-body text-center" *ngIf="this.currentUser && this.currentUser.userRole==='SYSTEM_ADMIN'">
                     <button (click)="remove(fd.id)" class="btn btn-danger btn-block">Remove</button>
                 </div>
             </div>
@@ -56,7 +56,7 @@
     <div *ngIf="!filteredMedicines">
         <h2>No results found!</h2>
     </div>
-    <div *ngIf="this.currentUser.userRole==='PHARMACY_ADMIN'">
+    <div *ngIf="this.currentUser &&  this.currentUser.userRole==='SYSTEM_ADMIN'">
         <h3>Add new drug</h3>
         <form id="login-form" class="form" action="" method="post">
             <div class="form-group">

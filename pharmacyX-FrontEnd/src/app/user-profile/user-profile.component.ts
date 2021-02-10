@@ -25,16 +25,25 @@ export class UserProfileComponent implements OnInit {
   constructor(private userService: UserService, private loginService: LoginService, private location: Location, private toastr: ToastrService,
     private route: ActivatedRoute, private http: HttpClient, private drugService: DrugsService) {
     this.user = new User();
-    this.drugService.loadDrugs().subscribe((data) => {
-      this.drugs = data;
-      console.log(this.drugs);
-    })
+    this.userService.getUser().subscribe((data) => {
+      this.user = data;
+      this.drugService.loadDrugs().subscribe((data) => {
+        for(let i = 0 ; i < data.length; i++) {
+          let found = false;
+          for(let j = 0 ; j < this.user.allergies.length; j++) {
+            if(this.user.allergies[j].id === data[i].id) found = true;
+          }  
+          if(!found) this.drugs.push(data[i]);
+        }
+        
+        console.log(this.drugs);
+      })
+    });
+    
   }
 
   ngOnInit() {
-    this.userService.getUser().subscribe((data) => {
-      this.user = data;
-    });
+    
   }
 
 
@@ -56,12 +65,15 @@ export class UserProfileComponent implements OnInit {
 
   addAlergie(alergie) {
     let i;
+    let newDrugs = [];
     for(i = 0 ; i < this.drugs.length; i++) {
       if(this.drugs[i].name === alergie) {
         this.user.allergies.push(this.drugs[i]);
+      } else {
+        newDrugs.push(this.drugs[i]);
       }
     }
-    
+    this.drugs = newDrugs;
     
   }
 
