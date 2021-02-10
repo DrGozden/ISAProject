@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import ftn.pharmacyX.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,10 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import ftn.pharmacyX.dto.AddDrugDTO;
-import ftn.pharmacyX.dto.EmployeeDTO;
-import ftn.pharmacyX.dto.FilterDatePharmacistDTO;
-import ftn.pharmacyX.dto.PharmacyDTO;
 import ftn.pharmacyX.helpers.DTOConverter;
 import ftn.pharmacyX.model.Pharmacy;
 import ftn.pharmacyX.model.users.Dermatologist;
@@ -100,9 +97,10 @@ public class PharmacyController {
 		List<Pharmacist> availablePharmacist = pharmacyService.getAvailablePharmacist(dto);
 		return new ResponseEntity<>(availablePharmacist,HttpStatus.OK);
 	}
+
 	@PreAuthorize("hasAuthority('PHARMACY_ADMIN')")
 	@PutMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> updatePharmacy(@RequestBody PharmacyDTO dto) {
+	public ResponseEntity<?> updatePharmacy(@RequestBody UpdatePharmacyDTO dto) {
 		Pharmacy pharmacy = pharmacyService.updatePharmacy(dto);
 		return new ResponseEntity<>(pharmacy,HttpStatus.OK);
 	}

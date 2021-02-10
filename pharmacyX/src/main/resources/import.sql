@@ -19,6 +19,7 @@ insert into user (id, first_name, last_name, email, password, phone, user_type, 
 insert into user (id, first_name, last_name, email, password, phone, user_type, address_id, user_role, deleted, user_status) values (716, 'Djura', 'Djuric', 'djura@gmail.com', '$2a$10$Bhbe5Azsb1wOUnTXJMfnrO8Ou2kCrBDI4AQDwTOEm5MxG/0YtmtzG', '111-444', 'dermatologist_user', 706, 1, false, 0);
 insert into user (id, first_name, last_name, email, password, phone, user_type, address_id, user_role, deleted, user_status, pharmacy_id) values (878, 'Stefan', 'Stevic', 'stefan@gmail.com', '$2a$10$Bhbe5Azsb1wOUnTXJMfnrO8Ou2kCrBDI4AQDwTOEm5MxG/0YtmtzG', '111-444', 'pharmacy_admin_user', 888, 3, false, 3, 717);
 insert into user (id, first_name, last_name, email, password, phone, user_type, address_id, user_role, deleted, user_status, pharmacy_id) values (879, 'Mira', 'Miric', 'mira@gmail.com', '$2a$10$Bhbe5Azsb1wOUnTXJMfnrO8Ou2kCrBDI4AQDwTOEm5MxG/0YtmtzG', '111-444', 'supplier_user', 889, 4, false, 3, 0);
+insert into user (id, first_name, last_name, email, password, phone, user_type, address_id, user_role, deleted, user_status) values (900, 'Admin', 'Admin', 'admin@gmail.com', '$2a$10$Bhbe5Azsb1wOUnTXJMfnrO8Ou2kCrBDI4AQDwTOEm5MxG/0YtmtzG', '111-444', 'system_admin_user', 889, 5, false, 0);
 				
 
 insert into pharmacy (id, name, description, address_id, deleted) values (717, 'Apoteka PharmacyX 1', 'Bulevar', 710, false);

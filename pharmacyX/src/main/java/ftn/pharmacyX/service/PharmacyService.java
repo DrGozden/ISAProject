@@ -3,10 +3,7 @@ package ftn.pharmacyX.service;
 import java.util.List;
 import java.util.Map;
 
-import ftn.pharmacyX.dto.AddDrugDTO;
-import ftn.pharmacyX.dto.EmployeeDTO;
-import ftn.pharmacyX.dto.FilterDatePharmacistDTO;
-import ftn.pharmacyX.dto.PharmacyDTO;
+import ftn.pharmacyX.dto.*;
 import ftn.pharmacyX.model.Pharmacy;
 import ftn.pharmacyX.model.users.Dermatologist;
 import ftn.pharmacyX.model.users.Pharmacist;
@@ -21,7 +18,7 @@ public interface PharmacyService {
 	public List<Pharmacy> getPharmaciesContainingDrug(Long drugId);
 	List<Pharmacist> getAvailablePharmacist(FilterDatePharmacistDTO filterDto);
 
-	public Pharmacy updatePharmacy(PharmacyDTO dto);
+	public Pharmacy updatePharmacy(UpdatePharmacyDTO dto);
 	
 	public boolean deleteDrugFromPharmacy(Long drugId, Long pharmacyId);
 

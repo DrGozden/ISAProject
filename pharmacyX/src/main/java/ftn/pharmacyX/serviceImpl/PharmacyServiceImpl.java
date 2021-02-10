@@ -7,18 +7,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import ftn.pharmacyX.dto.*;
 import ftn.pharmacyX.helpers.DTOConverter;
 import ftn.pharmacyX.repository.WorkingHoursRepository;
 import org.hibernate.jdbc.Work;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ftn.pharmacyX.dto.AddDrugDTO;
-import ftn.pharmacyX.dto.DermatologistExamDTO;
-import ftn.pharmacyX.dto.EmployeeDTO;
-import ftn.pharmacyX.dto.FilterDatePharmacistDTO;
-import ftn.pharmacyX.dto.PharmacistConsultationDTO;
-import ftn.pharmacyX.dto.PharmacyDTO;
 import ftn.pharmacyX.model.Drug;
 import ftn.pharmacyX.model.Pharmacy;
 import ftn.pharmacyX.model.WorkingHours;
@@ -209,11 +204,10 @@ public class PharmacyServiceImpl implements PharmacyService {
 	}
 
 	@Override
-	public Pharmacy updatePharmacy(PharmacyDTO dto) {
+	public Pharmacy updatePharmacy(UpdatePharmacyDTO dto) {
 		Pharmacy pharmacy = pharmacyRepo.findByIdAndDeletedIsFalse(dto.getId());
 		pharmacy.setDescription(dto.getDescription());
 		pharmacy.setName(dto.getName());
-		pharmacy.setAddress(dto.getAddress());
 		
 		return pharmacyRepo.save(pharmacy);
 		
