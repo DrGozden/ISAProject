@@ -71,7 +71,7 @@ public class UserController {
 		if (user != null) {
 			if (user.getUserStatus() == UserStatus.PENDING) {
 				user.setUserStatus(UserStatus.ACTIVATED);
-				userService.saveUser(user);
+				userService.activateUser(user);
 				String msg = String.format("Succesfully activated! %s %s welcome to PharmacyX!", user.getFirstName(), user.getLastName());
 				return new ResponseEntity<String>(msg, HttpStatus.OK);
 			} else {

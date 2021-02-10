@@ -36,4 +36,6 @@ public interface UserService {
 	public User changePassword(UserDTO userDTO);
 
     public PharmacyAdmin createPharmacyAdmin(UserDTO dto);
+
+    public User activateUser(User user);
 }
