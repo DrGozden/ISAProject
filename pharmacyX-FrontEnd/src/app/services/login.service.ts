@@ -52,6 +52,7 @@ export class LoginService {
       })).subscribe(
         (data) => { 
           Swal.fire({text: 'Hello!',icon: 'success'})
+          
         },
         error => {  Swal.fire('Oops...', 'Bad email/password!', 'error') }
       );

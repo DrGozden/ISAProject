@@ -22,6 +22,9 @@ export class AppComponent {
   ngOnInit() {
     this.getCurrentUser();
     console.log(this.currentUser);
+    if(this.currentUser && this.currentUser.userRole === "SYSTEM_ADMIN" && this.currentUser.userStatus === "FIRST_LOGIN") {
+      this.router.navigate(['/change-password']);
+    }
     
 
   }

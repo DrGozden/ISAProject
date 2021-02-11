@@ -14,6 +14,7 @@ export class User implements Deserializable {
     id : number;
     deleted : boolean;
     userRole: string;
+    userStatus: string;
     allergies: Drug[] = []; 
 
     deserialize(input: any): this {
