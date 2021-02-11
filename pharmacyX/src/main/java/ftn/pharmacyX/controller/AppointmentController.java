@@ -80,7 +80,10 @@ public class AppointmentController {
 	@PostMapping(value = "/consultations/new", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> scheduleConsultation(@RequestBody  NewConsultationDTO consultationDTO) {
 		User loggedUser = userService.getLoggedUser();
-		apptService.scheduleConsultation(loggedUser, consultationDTO);
+		PharmacistConsultation phc = apptService.scheduleConsultation(loggedUser, consultationDTO);
+		if(phc == null){
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 

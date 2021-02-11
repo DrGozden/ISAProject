@@ -254,7 +254,7 @@ public class PharmacyServiceImpl implements PharmacyService {
 		for (WorkingHours wh: working) {
 			wh.setPharmacyId(pharmacy.getId());
 		}
-		if(userService.findByEmail(dto.getEmail()) != null) {
+		if(userService.findUserByEmail(dto.getEmail()) != null) {
 			pharmacist = (Pharmacist) userService.findByEmail(dto.getEmail());
 			for (WorkingHours wh: working) {
 				wh.setEmployeeId(pharmacist.getId());
@@ -289,7 +289,7 @@ public class PharmacyServiceImpl implements PharmacyService {
 		for (WorkingHours wh: working) {
 			wh.setPharmacyId(pharmacy.getId());
 		}
-		if(userService.findByEmail(dto.getEmail()) != null) {
+		if(userService.findUserByEmail(dto.getEmail()) != null) {
 			dermatologist = (Dermatologist) userService.findByEmail(dto.getEmail());
 			for (WorkingHours wh: working) {
 				wh.setEmployeeId(dermatologist.getId());
@@ -330,6 +330,7 @@ public class PharmacyServiceImpl implements PharmacyService {
 		
 		if(!flag) {
 			pharmacy.getPharmacists().remove(pharmacist);
+			pharmacyRepo.save(pharmacy);
 		}
 		else {
 			return null;
@@ -355,6 +356,7 @@ public class PharmacyServiceImpl implements PharmacyService {
 		
 		if(!flag) {
 			pharmacy.getDermatologists().remove(dermatologist);
+			pharmacyRepo.save(pharmacy);
 		}
 		else {
 			return null;

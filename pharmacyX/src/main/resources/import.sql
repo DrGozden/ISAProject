@@ -51,8 +51,8 @@ insert into drug_specification_substitutes (drug_specification_id, substitute_dr
 insert into appointment (id, appointment_type, date_time, price, therapy_description, diagnosis, pharmacist_opinion, patient_id, pharmacy_id, dermatologist_id, pharmacist_id, deleted) values (761, 'dermatologist_appointment', '2021-02-02 16:00:00', 1500.00, 'Therapy description...', 'Dermatologist diagnosis...', null, 713, 717, 715, null, false);
 insert into appointment (id, appointment_type, date_time, price, therapy_description, diagnosis, pharmacist_opinion, patient_id, pharmacy_id, dermatologist_id, pharmacist_id, deleted) values (762, 'dermatologist_appointment', '2019-09-09 18:00:00', 1500.00, 'Therapy description2...', 'Dermatologist diagnosis2...', null, 713, 717, 715, null, false);
 
-insert into appointment (id, appointment_type, date_time, price, therapy_description, diagnosis, pharmacist_opinion, patient_id, pharmacy_id, dermatologist_id, pharmacist_id, deleted) values (777, 'dermatologist_appointment', '2021-05-02 18:00:00', 1500.00, 'Therapy description2...', 'Dermatologist diagnosis2...', null, null, 717, 715, null, false);
-insert into appointment (id, appointment_type, date_time, price, therapy_description, diagnosis, pharmacist_opinion, patient_id, pharmacy_id, dermatologist_id, pharmacist_id, deleted) values (787, 'dermatologist_appointment', '2021-04-02 18:00:00', 1500.00, 'Therapy description2...', 'Dermatologist diagnosis2...', null, null, 717, 715, null, false);
+insert into appointment (id, appointment_type, date_time, price, therapy_description, diagnosis, pharmacist_opinion, patient_id, pharmacy_id, dermatologist_id, pharmacist_id, deleted) values (777, 'dermatologist_appointment', '2021-05-03 18:00:00', 1500.00, 'Therapy description2...', 'Dermatologist diagnosis2...', null, null, 717, 715, null, false);
+insert into appointment (id, appointment_type, date_time, price, therapy_description, diagnosis, pharmacist_opinion, patient_id, pharmacy_id, dermatologist_id, pharmacist_id, deleted) values (787, 'dermatologist_appointment', '2021-04-03 18:00:00', 1500.00, 'Therapy description2...', 'Dermatologist diagnosis2...', null, null, 717, 715, null, false);
 
 insert into appointment (id, appointment_type, date_time, price, therapy_description, diagnosis, pharmacist_opinion, patient_id, pharmacy_id, dermatologist_id, pharmacist_id, deleted) values (765, 'pharmacist_appointment', '2021-03-03 18:00:00', 1500.00, 'Therapy description2...', 'Pharmacist diagnosis4...', null, 713, 717, null, 711, false);
 insert into appointment (id, appointment_type, date_time, price, therapy_description, diagnosis, pharmacist_opinion, patient_id, pharmacy_id, dermatologist_id, pharmacist_id, deleted) values (766, 'pharmacist_appointment', '2021-01-02 18:00:00', 1500.00, 'Therapy description2...', 'Pharmacist diagnosis4...', null, 713, 717, null, 711, false);
@@ -101,9 +101,14 @@ insert into working_hours(id, day, employee_id, end_time, pharmacy_id, start_tim
 insert into working_hours(id, day, employee_id, end_time, pharmacy_id, start_time) values (802, 1, 715, '21:00', 717, '08:00');
 insert into working_hours(id, day, employee_id, end_time, pharmacy_id, start_time) values (803, 2, 715, '21:00', 717, '08:00');
 insert into working_hours(id, day, employee_id, end_time, pharmacy_id, start_time) values (804, 3, 715, '21:00', 717, '08:00');
-insert into working_hours(id, day, employee_id, end_time, pharmacy_id, start_time) values (805, 4, 715, '21:00', 717, '08:00');
-insert into working_hours(id, day, employee_id, end_time, pharmacy_id, start_time) values (806, 5, 715, '21:00', 717, '08:00');
-insert into working_hours(id, day, employee_id, end_time, pharmacy_id, start_time) values (807, 6, 715, '21:00', 717, '08:00');
+
+insert into working_hours(id, day, employee_id, end_time, pharmacy_id, start_time) values (805, 4, 711, '21:00', 717, '08:00');
+insert into working_hours(id, day, employee_id, end_time, pharmacy_id, start_time) values (806, 5, 711, '21:00', 717, '08:00');
+insert into working_hours(id, day, employee_id, end_time, pharmacy_id, start_time) values (807, 6, 711, '21:00', 717, '08:00');
+insert into working_hours(id, day, employee_id, end_time, pharmacy_id, start_time) values (808, 0, 711, '21:00', 717, '08:00');
+insert into working_hours(id, day, employee_id, end_time, pharmacy_id, start_time) values (809, 1, 711, '21:00', 717, '08:00');
+insert into working_hours(id, day, employee_id, end_time, pharmacy_id, start_time) values (810, 2, 711, '21:00', 717, '08:00');
+insert into working_hours(id, day, employee_id, end_time, pharmacy_id, start_time) values (811, 3, 711, '21:00', 717, '08:00');
 
 insert into user_working_hours(pharmacist_id, working_hours_id, dermatologist_id) values (-1, 801, 715);
 insert into user_working_hours(pharmacist_id, working_hours_id, dermatologist_id) values (-1, 802, 715);
@@ -113,6 +118,10 @@ insert into user_working_hours(pharmacist_id, working_hours_id, dermatologist_id
 insert into user_working_hours(pharmacist_id, working_hours_id, dermatologist_id) values (711, 805, -1);
 insert into user_working_hours(pharmacist_id, working_hours_id, dermatologist_id) values (711, 806, -1);
 insert into user_working_hours(pharmacist_id, working_hours_id, dermatologist_id) values (711, 807, -1);
+insert into user_working_hours(pharmacist_id, working_hours_id, dermatologist_id) values (711, 808, -1);
+insert into user_working_hours(pharmacist_id, working_hours_id, dermatologist_id) values (711, 809, -1);
+insert into user_working_hours(pharmacist_id, working_hours_id, dermatologist_id) values (711, 810, -1);
+insert into user_working_hours(pharmacist_id, working_hours_id, dermatologist_id) values (711, 811, -1);
 
 insert into vacation(id, accepted, deleted, end_date, reject_description, start_date, user_id) values (901, false, false, '2021-08-08', null, '2021-07-07', 715);
 insert into vacation(id, accepted, deleted, end_date, reject_description, start_date, user_id) values (902, false, false, '2021-09-09', null, '2021-08-08', 711);
@@ -122,12 +131,12 @@ insert into supply_order(id, deadline, deleted, pharmacy_id) values (1101, '2021
 insert into supply_order(id, deadline, deleted, pharmacy_id) values (1102, '2021-10-11', false, 717);
 
 insert into supplier_offer(id, delivery_deadline, deleted, status, total_price, order_id, supplier_id) values (1201, '2021-10-11', false, 2, 15000, 1101, 879);
-insert into pharmacyx.dermatologist_ratings(dermatologist_id, ratings) values (715, 4);
-insert into pharmacyx.dermatologist_ratings(dermatologist_id, ratings) values (715, 1);
-insert into pharmacyx.dermatologist_ratings(dermatologist_id, ratings) values (715, 3);
+insert into dermatologist_ratings(dermatologist_id, ratings) values (715, 4);
+insert into dermatologist_ratings(dermatologist_id, ratings) values (715, 1);
+insert into dermatologist_ratings(dermatologist_id, ratings) values (715, 3);
 
-insert into pharmacyx.pharmacist_ratings(pharmacist_id, ratings) values (711, 4);
-insert into pharmacyx.pharmacist_ratings(pharmacist_id, ratings) values (711, 1);
-insert into pharmacyx.pharmacist_ratings(pharmacist_id, ratings) values (711, 3);
+insert into pharmacist_ratings(pharmacist_id, ratings) values (711, 4);
+insert into pharmacist_ratings(pharmacist_id, ratings) values (711, 1);
+insert into pharmacist_ratings(pharmacist_id, ratings) values (711, 3);
 
 
