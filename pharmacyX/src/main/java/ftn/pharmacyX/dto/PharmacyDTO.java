@@ -20,6 +20,7 @@ public class PharmacyDTO {
 	private double rating;
 	private List<PriceListDTO> priceListsDTO;
 	private Long adminId;
+	//private Double ratings;
 
 	public PharmacyDTO() {
 
@@ -27,7 +28,7 @@ public class PharmacyDTO {
 
 	public PharmacyDTO(Long id, String name, String description, Address address, List<Pharmacist> pharmacists,
 			List<Dermatologist> dermatologists, List<PriceList> priceList, List<DrugsInStockDTO> drugsInStock,
-			double rating, List<PriceListDTO> priceListsDTO) {
+			double rating, List<PriceListDTO> priceListsDTO, Long adminId) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -39,7 +40,9 @@ public class PharmacyDTO {
 		this.drugsInStock = drugsInStock;
 		this.rating = rating;
 		this.priceListsDTO = priceListsDTO;
+		this.adminId = adminId;
 	}
+
 
 	public Long getId() {
 		return id;
@@ -135,4 +138,5 @@ public class PharmacyDTO {
 	public void setAdminId(Long adminId) {
 		this.adminId = adminId;
 	}
+
 }

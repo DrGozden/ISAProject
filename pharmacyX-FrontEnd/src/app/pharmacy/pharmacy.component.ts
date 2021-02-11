@@ -62,7 +62,7 @@ export class PharmacyComponent implements OnInit {
     newPhar.pharmacists = null;
     newPhar.dermatologists = null;
     newPhar.drugsInStock = null;
-    newPhar.ratings = null;
+    //newPhar.ratings = null;
     newPhar.address = null;
     this.pharmacyService.updatePharmacy(newPhar).subscribe(data=>alert("Updated!"));
   }

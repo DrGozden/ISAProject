@@ -18,28 +18,12 @@ public class EmployeeDTO {
 	private boolean deleted = false;
 	private UserRole userRole;
 	
-	private WorkingHours workingHours;
+	private List<WorkingHours> workingHours;
 
 	public EmployeeDTO() {
 
 	}
 
-	
-
-	public EmployeeDTO(Long id, String firstName, String lastName, String email, String password, String phone,
-			Address address, boolean deleted, UserRole userRole, WorkingHours workingHours) {
-		super();
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.password = password;
-		this.phone = phone;
-		this.address = address;
-		this.deleted = deleted;
-		this.userRole = userRole;
-		this.workingHours = workingHours;
-	}
 
 
 
@@ -116,17 +100,12 @@ public class EmployeeDTO {
 	}
 
 
-
-	public WorkingHours getWorkingHours() {
+	public List<WorkingHours> getWorkingHours() {
 		return workingHours;
 	}
 
-
-
-	public void setWorkingHours(WorkingHours workingHours) {
+	public void setWorkingHours(List<WorkingHours> workingHours) {
 		this.workingHours = workingHours;
 	}
-
-	
-	
 }
+
