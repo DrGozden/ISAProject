@@ -22,6 +22,9 @@ export class DrugSearchComponent implements OnInit {
   drugTypes: string[] = ["","ANTIBIOTIC", "ANESTHETIC", "ANTIHISTAMINE", "ANTISEPTICS", "STIMULANTS"];
   public currentUser : User;
   public newDrug: Drug = new Drug();
+  drugTypeNewDrug: string = "";
+  drugForm: string = "";
+  drugForms: string[] = ["POWDER", "CAPSULE", "GEL", "PILL", "GREASE"]
   
   constructor(private drugService: DrugsService, private userService: UserService, private loginService: LoginService) { }
 
@@ -57,7 +60,19 @@ export class DrugSearchComponent implements OnInit {
     this.drugType = drygT;
   }
 
+  addDrugTypeToNewDrug(drygT) {
+    this.drugTypeNewDrug = drygT;
+  }
+
+  addDrugFormToNewDrug(drygT) {
+    this.drugForm = drygT;
+  }
+
   public addDrug() {
+    this.newDrug.drugForm = this.drugForm;
+    this.newDrug.drugType = this.drugTypeNewDrug;
+    console.log(this.newDrug);
+    
     this.userService.addDrug(this.newDrug).subscribe(data => this.reload());
   }
 

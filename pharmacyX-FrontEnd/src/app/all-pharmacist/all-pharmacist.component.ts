@@ -79,23 +79,11 @@ export class AllPharmacistComponent implements OnInit {
 
   public addEmployee() {
     
-    for(let i = 0 ; i < 7; i++) {
-      let wh = new WorkingHours();  
-      wh.day = this.days[i];
-      if(this.starts[i] < 10) { wh.startTime = "0"+this.starts[i]+":00"} else { wh.startTime =this.starts[i]+":00"}
-      if(this.ends[i] < 10) { wh.endTime = "0"+this.ends[i]+":00"} else { wh.endTime =this.ends[i]+":00"}
-      wh.pharmacyId =this.selectedPharmacy.id;   
-      this.newEmployee.workingHours.push(wh)
-    }
-    
-    console.log(this.newEmployee);
-    
-    
     this.userService.addPharmacist(this.newEmployee).subscribe(data => this.reload());
   }
 
   public removeEmployee(id: number) {
-    this.userService.removePharmacist(id).subscribe(data => this.reload());
+    this.userService.removePharmacist(id).subscribe(data => this.reload(), error => alert("You can not delete employee who has appointments!"));
   }
 
 }

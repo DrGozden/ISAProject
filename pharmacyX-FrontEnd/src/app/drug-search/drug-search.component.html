@@ -45,9 +45,6 @@
                 <div class="card-body text-center">
                     <h6>{{fm.specification.description}}</h6>
                 </div>
-                <div class="card-body text-center" *ngIf="this.currentUser && this.currentUser.userRole==='SYSTEM_ADMIN'">
-                    <button (click)="remove(fd.id)" class="btn btn-danger btn-block">Remove</button>
-                </div>
             </div>
         </div>
 
@@ -65,19 +62,42 @@
                     placeholder="Enter name..." required>
             </div>
             <div class="form-group">
-                <label>Enter code:</label>
-                <input type="text" name="name2" id="name2" class="form-control" [(ngModel)]="this.newDrug.code"
-                    placeholder="Enter code..." required>
-            </div>
-            <div class="form-group">
-                <label>Enter drug type:</label>
-                <input type="text" name="name3" id="name3" class="form-control" [(ngModel)]="this.newDrug.specification.drugType"
-                    placeholder="Enter drug type..." required>
-            </div>
-            <div class="form-group">
-                <label>Enter drug type:</label>
-                <input type="text" name="name4" id="name4" class="form-control" [(ngModel)]="this.newDrug.specification.contraindications"
+                <label>Enter contraindications:</label>
+                <input type="text" name="name2" id="name2" class="form-control" [(ngModel)]="this.newDrug.contraindications"
                     placeholder="Enter contraindications..." required>
+            </div>
+            <div class="form-group">
+                <label>Enter drug type:</label>
+                
+                <select (change)="addDrugTypeToNewDrug(drugTypeNewDrug)" class="custom-select" name="type" [(ngModel)]="drugTypeNewDrug">
+                    <option  *ngFor="let st of drugTypes">{{st}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Enter structure:</label>
+                <input type="text" name="name4" id="name4" class="form-control" [(ngModel)]="this.newDrug.structure"
+                    placeholder="Enter structure..." required>
+            </div>
+            <div class="form-group">
+                <label>Enter drug form:</label>
+                <select (change)="addDrugFormToNewDrug(drugForm)" class="custom-select" name="type" [(ngModel)]="drugForm">
+                    <option  *ngFor="let st of drugForms">{{st}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Enter daily recommendation:</label>
+                <input type="text" name="name5" id="name5" class="form-control" [(ngModel)]="this.newDrug.dailyRecommendation"
+                    placeholder="Enter daily recommendation..." required>
+            </div>
+            <div class="form-group">
+                <label>Enter producer:</label>
+                <input type="text" name="name7" id="name7" class="form-control" [(ngModel)]="this.newDrug.producer"
+                    placeholder="Enter producer..." required>
+            </div>
+            <div class="form-group">
+                <label>Enter description:</label>
+                <input type="text" name="name8" id="name8" class="form-control" [(ngModel)]="this.newDrug.description"
+                    placeholder="Enter description..." required>
             </div>
             <div class="form-group" id="button1">
                 <button (click)="addDrug()" class="btn btn-danger btn-block">Add new drug</button>
