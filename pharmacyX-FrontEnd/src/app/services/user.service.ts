@@ -137,4 +137,18 @@ editUser(user: User) {
         }
       });
 }
+
+changePassword(user: User) {
+  this.http.post<User>("http://localhost:9003/me/password-change", user)
+    .subscribe(
+      editedUser => {
+        for (var i = 0; i < this.users.length; i++) {
+          if (editedUser.email === this.users[i].email) {
+            this.users[i] = editedUser;
+            this.userSource.next(this.users);
+            return;
+          }
+        }
+      });
+}
 }
