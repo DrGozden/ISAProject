@@ -102,27 +102,12 @@ public removeDermatologist(id: number) : Observable<any> {
 }
 
 public addDrug(drug: Drug) : Observable<any> {
-  return this.http.post('http://localhost:9003/pharmacies/add-pharmacist', drug);
+  return this.http.post('http://localhost:9003/drugs', drug);
 }
 
 public removeDrug(id: number) : Observable<any> {
   return this.http.delete('http://localhost:9003/pharmacies/remove-pharmacist/'+id);
 }
-
-// getUser(email) {
-//   return this.http.get<User>("http://localhost:9003/user" + "/" + email)
-//     .pipe(tap(
-//       user => {
-//         for (var i = 0; i < this.users.length; i++) {
-//           if (user.email === this.users[i].email) {
-//             this.users[i] = stop;
-//             this.userSource.next(this.users);
-//             return stop;
-//           }
-//         }
-//       })
-//     )
-// }
 
 editUser(user: User) {
   this.http.put<User>("http://localhost:9003/me", user)

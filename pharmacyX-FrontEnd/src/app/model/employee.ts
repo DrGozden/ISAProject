@@ -16,7 +16,6 @@ export class Employee implements Deserializable {
     address : Address = new Address();
     deleted: boolean = false;
     userRole: string;
-    workingHours: WorkingHours[] = [];
 
     deserialize(input: any): this {
         Object.assign(this, input);
