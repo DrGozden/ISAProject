@@ -266,11 +266,11 @@ public class PharmacyServiceImpl implements PharmacyService {
 		}
 		else {
 			pharmacist = new Pharmacist(dto);
-			for (WorkingHours wh: working) {
-				wh.setEmployeeId(pharmacist.getId());
-				pharmacist.getWorkingHours().add(wh);
-				whRepo.save(wh);
-			}
+			//for (WorkingHours wh: working) {
+			//	wh.setEmployeeId(pharmacist.getId());
+			//	pharmacist.getWorkingHours().add(wh);
+			//	whRepo.save(wh);
+			//}
 			userRepo.save(pharmacist);
 			
 		}
