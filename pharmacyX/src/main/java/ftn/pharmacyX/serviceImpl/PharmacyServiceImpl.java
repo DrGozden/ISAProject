@@ -248,19 +248,19 @@ public class PharmacyServiceImpl implements PharmacyService {
 	@Override
 	public Pharmacist addPharmacist(EmployeeDTO dto) {
 		Pharmacist pharmacist;
-		List<WorkingHours> working = dto.getWorkingHours();
+		//List<WorkingHours> working = dto.getWorkingHours();
 		PharmacyAdmin pharmacyAdmin = (PharmacyAdmin) userService.getLoggedUser();
 		Pharmacy pharmacy = pharmacyAdmin.getPharmacy();
-		for (WorkingHours wh: working) {
-			wh.setPharmacyId(pharmacy.getId());
-		}
+		//for (WorkingHours wh: working) {
+		//	wh.setPharmacyId(pharmacy.getId());
+		//}
 		if(userService.findUserByEmail(dto.getEmail()) != null) {
 			pharmacist = (Pharmacist) userService.findByEmail(dto.getEmail());
-			for (WorkingHours wh: working) {
-				wh.setEmployeeId(pharmacist.getId());
-				pharmacist.getWorkingHours().add(wh);
-				whRepo.save(wh);
-			}
+			//for (WorkingHours wh: working) {
+			//	wh.setEmployeeId(pharmacist.getId());
+			//	pharmacist.getWorkingHours().add(wh);
+			//	whRepo.save(wh);
+			//}
 			userRepo.save(pharmacist);
 			
 		}
@@ -283,29 +283,29 @@ public class PharmacyServiceImpl implements PharmacyService {
 	@Override
 	public Dermatologist addDermatologist(EmployeeDTO dto) {
 		Dermatologist dermatologist;
-		List<WorkingHours> working = dto.getWorkingHours();
+		//List<WorkingHours> working = dto.getWorkingHours();
 		PharmacyAdmin pharmacyAdmin = (PharmacyAdmin) userService.getLoggedUser();
 		Pharmacy pharmacy = pharmacyAdmin.getPharmacy();
-		for (WorkingHours wh: working) {
-			wh.setPharmacyId(pharmacy.getId());
-		}
+		//for (WorkingHours wh: working) {
+		//		wh.setPharmacyId(pharmacy.getId());
+		//}
 		if(userService.findUserByEmail(dto.getEmail()) != null) {
 			dermatologist = (Dermatologist) userService.findByEmail(dto.getEmail());
-			for (WorkingHours wh: working) {
-				wh.setEmployeeId(dermatologist.getId());
-				dermatologist.getWorkingHours().add(wh);
-				whRepo.save(wh);
-			}
+			//for (WorkingHours wh: working) {
+			//	wh.setEmployeeId(dermatologist.getId());
+			//	dermatologist.getWorkingHours().add(wh);
+			//	whRepo.save(wh);
+			//}
 			userRepo.save(dermatologist);
 			
 		}
 		else {
 			dermatologist = new Dermatologist(dto);
-			for (WorkingHours wh: working) {
-				wh.setEmployeeId(dermatologist.getId());
-				dermatologist.getWorkingHours().add(wh);
-				whRepo.save(wh);
-			}
+			//for (WorkingHours wh: working) {
+			//	wh.setEmployeeId(dermatologist.getId());
+			//	dermatologist.getWorkingHours().add(wh);
+			//	whRepo.save(wh);
+			//}
 			userRepo.save(dermatologist);
 			
 		}
