@@ -18,6 +18,7 @@
                                 <div class="form-group">
                                     <label>Add pharmacy</label>
                                     <select (change)="addPharmacy(selectedPharmacy)" class="custom-select" name="type" [(ngModel)]="selectedPharmacy">
+                                        <option  ></option>
                                         <option  *ngFor="let st of pharmacies">{{st.name}}</option>
                                     </select>
                                 </div>
