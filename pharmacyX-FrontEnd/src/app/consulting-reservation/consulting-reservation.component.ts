@@ -90,7 +90,8 @@ export class ConsultingReservationComponent implements OnInit {
     reser.pharmacyId = this.selectedPharmacy.id;
     console.log(reser);
     
-    this.reservationService.reserveConsultation(reser).subscribe(data => alert("Success!"));
+    this.reservationService.reserveConsultation(reser).subscribe(data => Swal.fire("Success!"), error=> Swal.fire("Pharmacist not available!"));
+    ;
     
           
     }

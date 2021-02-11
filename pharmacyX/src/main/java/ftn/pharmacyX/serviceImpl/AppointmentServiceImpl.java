@@ -49,6 +49,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+	private DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
 	@Override
 	public DermatologistExam scheduleExam(User patient, Long examId) {
@@ -79,11 +80,46 @@ public class AppointmentServiceImpl implements AppointmentService {
 	@Override
 	public PharmacistConsultation scheduleConsultation(User patient, NewConsultationDTO consultationDTO) {
 		PharmacistConsultation consultation = new PharmacistConsultation();
-		consultation.setDateTime(LocalDateTime.parse(consultationDTO.getDateTime(), formatter));
+		consultation.setDateTime(LocalDateTime.parse(consultationDTO.getDateTime(), formatter1));
 		consultation.setPharmacist((Pharmacist) userService.findById(consultationDTO.getPharmacistId()));
 		consultation.setPharmacy(pharmacyService.getPharmacy(consultationDTO.getPharmacyId()));
 		consultation.setPatient((Patient) patient);
-		return appointmentRepo.save(consultation);
+		List<WorkingHours> workingHours = consultation.getPharmacist().getWorkingHours();
+		// ako je na godisnjem odmoru
+		if (vacationService.isEmployeeOnVacation(consultation.getPharmacist().getId(), consultation.getDateTime())) {
+			return null;
+		}
+		boolean flag = false;
+		// ako pokusava da napravi exam koji nije u intervalu radnog vremena dermatologa
+		for (WorkingHours wh : workingHours) {
+			// working hours u datoj apoteci
+			if (wh.getPharmacyId().equals(consultationDTO.getPharmacyId())) {
+				// uslov da je u intervalu radnog vremena u toj apoteci
+				if (wh.getDay().name().equalsIgnoreCase(consultation.getDateTime().getDayOfWeek().name())){
+					if (consultation.getDateTime().toLocalTime().isBefore(wh.getEndTime()) &&
+							consultation.getDateTime().toLocalTime().isAfter(wh.getStartTime())) {
+						flag = true;
+						break;
+					}
+				}
+			}
+		}
+
+		if (flag) {
+			List<PharmacistConsultationDTO> consultations = getPharmacistConsutationsForPharmacy(consultation.getPharmacy().getId());
+			for (PharmacistConsultationDTO phd: consultations) {
+				if(phd.getPharmacistId() == consultation.getPharmacist().getId()){
+					if(phd.getDateTime().equals(consultation.getDateTime())){
+						return null;
+					}
+				}
+			}
+			return appointmentRepo.save(consultation);
+		}
+		return null;
+
+
+
 	}
 
 

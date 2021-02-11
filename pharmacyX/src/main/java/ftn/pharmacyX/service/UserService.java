@@ -37,5 +37,6 @@ public interface UserService {
 
     public PharmacyAdmin createPharmacyAdmin(UserDTO dto);
 
+    public User findUserByEmail(String email);
     public User activateUser(User user);
 }
