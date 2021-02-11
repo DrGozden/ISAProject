@@ -75,7 +75,7 @@ export class DrugReservationComponent implements OnInit {
       reservation.pharmacyId = this.selectedPharmacy.id;
       reservation.deadlineDateTime = this.parsePickerToDate(this.date,this.hours);
       console.log(reservation);
-      this.drugService.reserveDrug(reservation).subscribe(data => alert("Success!"));
+      this.drugService.reserveDrug(reservation).subscribe(data => Swal.fire("Succesful reservation!"));
       
       //this.return();      
     }

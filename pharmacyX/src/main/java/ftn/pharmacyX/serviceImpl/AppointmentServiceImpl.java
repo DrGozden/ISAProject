@@ -49,7 +49,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-	private DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+	//private DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
 	@Override
 	public DermatologistExam scheduleExam(User patient, Long examId) {
@@ -80,7 +80,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 	@Override
 	public PharmacistConsultation scheduleConsultation(User patient, NewConsultationDTO consultationDTO) {
 		PharmacistConsultation consultation = new PharmacistConsultation();
-		consultation.setDateTime(LocalDateTime.parse(consultationDTO.getDateTime(), formatter1));
+		consultation.setDateTime(LocalDateTime.parse(consultationDTO.getDateTime(), formatter));
 		consultation.setPharmacist((Pharmacist) userService.findById(consultationDTO.getPharmacistId()));
 		consultation.setPharmacy(pharmacyService.getPharmacy(consultationDTO.getPharmacyId()));
 		consultation.setPatient((Patient) patient);
