@@ -37,7 +37,7 @@
                                     <h5>{{fp.email}}</h5>
                                 </div>
                                 <div class="card-body text-center" *ngIf="this.currentUser.userRole==='PHARMACY_ADMIN'">
-                                    <button (click)="remove(fd.id)" class="btn btn-danger btn-block">Remove</button>
+                                    <button (click)="removeEmployee(fp.id)" class="btn btn-danger btn-block">Remove</button>
                                 </div>
                             </div>
                         </div>
@@ -93,6 +93,28 @@
                             <label>Enter postalCode:</label>
                             <input type="number" name="postalCode" id="postalCode" class="form-control" [(ngModel)]="this.newEmployee.address.postalCode"
                                 placeholder="Enter postalCode..." required>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label>Add pharmacy</label>
+                                <select (change)="addPharmacy(selectedPharmacy)" class="custom-select" name="type"
+                                    [(ngModel)]="selectedPharmacy">
+                                    <option *ngFor="let st of pharmacies">{{st.name}}</option>
+                                </select>
+                            </div>
+                            
+                        </div>
+                        <div *ngFor="let day of days; let i = index">
+                            <div class="form-group">
+                                <label>{{day | lowercase}} start time:</label>
+                                <input type="number" [name]="i+10" [id]="i+10" min="0" class="form-control" [(ngModel)]="this.starts[i]"
+                                    placeholder="Enter start time" required>
+                            </div>
+                            <div class="form-group">
+                                <label>{{day | lowercase}} end time:</label>
+                                <input type="number" [name]="i+20" [id]="i+20" max="23" class="form-control" [(ngModel)]="this.ends[i]"
+                                    placeholder="Enter end time..." required>
+                            </div>
                         </div>
                         <div class="form-group" id="button1">
                             <button (click)="addEmployee()" class="btn btn-danger btn-block">Add new pharmacist</button>

@@ -64,7 +64,6 @@ export class RegistrationComponent implements OnInit {
       alert("You must enter phone number.")
     }
     else {
-      debugger;
       this.userService.addUser(this.user);
       this.router.navigate(['/homepage'])
     }
