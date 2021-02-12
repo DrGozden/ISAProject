@@ -15,7 +15,7 @@ Backend:
   - desni klik na projekat -> Run as -> Spring Boot App
   
  Frontend:
-  - pozicinorati se u okviru foldera *pharmacyX-FrontEnd*
+  - pozicionirati se u okviru foldera *pharmacyX-FrontEnd*
   - otvoriti cmd i instalirati dependency-je sa npm install
   - pokrenuti projekat komandom ng serve, na portu 4200
   
