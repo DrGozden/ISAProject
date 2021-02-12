@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
 import { Drug } from '../model/drug';
 import { DrugSpecification } from '../model/drugSpecification';
 import { Employee } from '../model/employee';
@@ -73,7 +74,8 @@ export class DrugSearchComponent implements OnInit {
     this.newDrug.drugType = this.drugTypeNewDrug;
     console.log(this.newDrug);
     
-    this.userService.addDrug(this.newDrug).subscribe(data => this.reload());
+    this.userService.addDrug(this.newDrug).subscribe(data => Swal.fire("Succesfuly added new drug!"));
+    this.reload()
   }
 
   public removeDrug(id: number) {

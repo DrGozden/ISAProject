@@ -12,6 +12,7 @@ import ftn.pharmacyX.helpers.DTOConverter;
 import ftn.pharmacyX.repository.WorkingHoursRepository;
 import org.hibernate.jdbc.Work;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import ftn.pharmacyX.model.Drug;
@@ -51,6 +52,9 @@ public class PharmacyServiceImpl implements PharmacyService {
 
 	@Autowired
 	private WorkingHoursRepository whRepo;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
@@ -271,9 +275,11 @@ public class PharmacyServiceImpl implements PharmacyService {
 			//	pharmacist.getWorkingHours().add(wh);
 			//	whRepo.save(wh);
 			//}
+			pharmacist.setPassword(passwordEncoder.encode(pharmacist.getPassword()));
 			userRepo.save(pharmacist);
 			
 		}
+
 		pharmacy.getPharmacists().add(pharmacist);
 		pharmacyRepo.save(pharmacy);
 		return pharmacist;
@@ -306,6 +312,7 @@ public class PharmacyServiceImpl implements PharmacyService {
 			//	dermatologist.getWorkingHours().add(wh);
 			//	whRepo.save(wh);
 			//}
+			dermatologist.setPassword(passwordEncoder.encode(dermatologist.getPassword()));
 			userRepo.save(dermatologist);
 			
 		}

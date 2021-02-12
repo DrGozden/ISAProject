@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
 import { Address } from '../model/address';
 import { Employee } from '../model/employee';
 import { Pharmacy } from '../model/pharmacy';
@@ -79,7 +80,8 @@ export class AllPharmacistComponent implements OnInit {
 
   public addEmployee() {
     
-    this.userService.addPharmacist(this.newEmployee).subscribe(data => this.reload());
+    this.userService.addPharmacist(this.newEmployee).subscribe(data => Swal.fire("Succesfuly added new dermatologist!"));
+    this.reload()
   }
 
   public removeEmployee(id: number) {

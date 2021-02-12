@@ -10,6 +10,7 @@ import javax.persistence.OneToMany;
 
 import ftn.pharmacyX.dto.EmployeeDTO;
 import ftn.pharmacyX.enums.UserRole;
+import ftn.pharmacyX.enums.UserStatus;
 import ftn.pharmacyX.model.WorkingHours;
 
 @Entity
@@ -48,6 +49,7 @@ public class Pharmacist extends User {
 		this.setPhone(dto.getPhone());
 		this.setUserRole(UserRole.PHARMACIST);
 		this.setDeleted(false);
+		this.setUserStatus(UserStatus.ACTIVATED);
 	}
 
 	public List<Integer> getRatings() {

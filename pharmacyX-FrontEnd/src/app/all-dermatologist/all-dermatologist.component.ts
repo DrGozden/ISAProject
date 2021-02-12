@@ -8,6 +8,8 @@ import { LoginService } from '../services/login.service';
 import { PharmacyService } from '../services/pharmacy.service';
 import { UserService } from '../services/user.service';
 
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-all-dermatologist',
   templateUrl: './all-dermatologist.component.html',
@@ -76,7 +78,8 @@ export class AllDermatologistComponent implements OnInit {
   }
 
   public addEmployee() {
-    this.userService.addDermatologist(this.newEmployee).subscribe(data => this.reload());
+    this.userService.addDermatologist(this.newEmployee).subscribe(data => Swal.fire("Succesfuly added new dermatologist!"));
+    this.reload()
   }
 
   public removeEmployee(id: number) {

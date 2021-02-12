@@ -65,8 +65,8 @@ insert into user_allergies (patient_id, drug_id) values (713, 741);
 insert into user_allergies (patient_id, drug_id) values (713, 742);
 insert into user_allergies (patient_id, drug_id) values (714, 743);
 
-insert into price_list (id, start_date, end_date, deleted) values (771, '2021-01-01', '2021-08-01', false);
-insert into price_list (id, start_date, end_date, deleted) values (772, '2021-08-02', '2022-01-01', false);
+insert into price_list (id, start_date, end_date, deleted) values (771, '2021-01-01', '2021-02-01', false);
+insert into price_list (id, start_date, end_date, deleted) values (772, '2021-02-02', '2022-04-01', false);
 
 insert into pharmacy_price_list (pharmacy_id, price_list_id) values (717, 771);
 insert into pharmacy_price_list (pharmacy_id, price_list_id) values (717, 772);
